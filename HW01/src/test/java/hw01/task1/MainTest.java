@@ -14,5 +14,4 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @ExtendWith(WatchmanExtension.class)
 public class MainTest {
 
-
 }
