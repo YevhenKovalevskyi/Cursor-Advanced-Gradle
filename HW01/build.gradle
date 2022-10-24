@@ -34,6 +34,18 @@ dependencies {
     compileOnly libraries.logback_classic
     runtimeOnly libraries.logback_classic
     testCompileOnly libraries.logback_classic
+
+    // mysql
+    compileOnly libraries.mysql
+    runtimeOnly libraries.mysql
+
+    // pgsql
+    compileOnly libraries.pgsql
+    runtimeOnly libraries.pgsql
+
+    // oracle
+    compileOnly libraries.oracle
+    runtimeOnly libraries.oracle
 }
 
 description = 'home_work_01'

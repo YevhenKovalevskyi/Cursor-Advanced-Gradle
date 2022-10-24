@@ -1,0 +1,32 @@
+CREATE DATABASE `cursor`;
+USE `cursor`;
+
+CREATE TABLE users (
+    u_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    u_email VARCHAR(50) NOT NULL,
+    u_password VARCHAR(50) NOT NULL,
+    u_first_name VARCHAR(50) NOT NULL,
+    u_last_name VARCHAR(50) NOT NULL,
+    u_gender enum('male','female') NOT NULL,
+    u_age TINYINT UNSIGNED NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (u_id),
+    UNIQUE KEY i__u_email (u_email),
+    KEY i__u_email_u_password (u_email, u_password),
+    KEY i_u_age (u_age),
+    KEY i_u_gender (u_gender)
+) ENGINE=InnoDB;
+
+INSERT INTO users (u_id, u_email, u_password, u_first_name, u_last_name, u_gender, u_age) 
+VALUES
+(1, 'amapowder0@nydailynews.com', '7IdDTOp', 'Agnese', 'Mapowder', 'female', 45),
+(2, 'lyancey1@istockphoto.com', 'EeVVcaEjel66', 'Liesa', 'Yancey', 'female', 61),
+(3, 'trozsa2@edublogs.org', '5iqNIyaNR', 'Teodorico', 'Rozsa', 'male', 48),
+(4, 'pduncklee3@guardian.co.uk', 'kpcBUmjoQR', 'Page', 'Duncklee', 'male', 38),
+(5, 'ldosdale4@wikispaces.com', '3CzwrESph3', 'Lenora', 'Dosdale', 'female', 20),
+(6, 'sgresser5@businesswire.com', 'tEiKoHtMqfY', 'Stefania', 'Gresser', 'female', 70),
+(7, 'cvel6@github.io', 'g56Thqbvr', 'Cherie', 'Vel', 'female', 20),
+(8, 'aparradine7@vinaora.com', 'tOlArLO', 'Ardella', 'Parradine', 'female', 65),
+(9, 'jwholesworth8@cargocollective.com', 'QetCpAccHM', 'Jessey', 'Wholesworth', 'male', 57),
+(10, 'sainley9@bigcartel.com', 'EsEYv0kix', 'Sonya', 'Ainley', 'female', 43);
