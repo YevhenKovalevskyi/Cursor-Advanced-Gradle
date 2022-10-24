@@ -25,7 +25,7 @@ public class Main {
         //UserService userService = new UserService("oracle"); /* works but without results(rs.next() return false) */
         
         // 1. Users with age less than 18
-        List<User> mysqlUsersTask1 = userService.getUsersFilteredByAgeLess(48, true);
+        List<User> mysqlUsersTask1 = userService.getUsersFilteredByAgeLess(18, true);
         printUsersList(mysqlUsersTask1, Messages.GETTING_USERS_AGE_LESS.getOutMessage());
         
         System.out.println("----------");
