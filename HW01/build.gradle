@@ -42,6 +42,10 @@ dependencies {
     // pgsql
     compileOnly libraries.pgsql
     runtimeOnly libraries.pgsql
+
+    // oracle
+    compileOnly libraries.oracle
+    runtimeOnly libraries.oracle
 }
 
 description = 'home_work_01'

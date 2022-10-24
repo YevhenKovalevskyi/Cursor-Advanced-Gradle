@@ -20,13 +20,14 @@ public class Main {
         log.info(Messages.START_PROGRAM.getLogMessage());
         System.out.println(Messages.START_PROGRAM.getOutMessage());
         
-        //UserService userService = new UserService("mysql"); /* works */
-        UserService userService = new UserService("pgsql"); /* works */
+        UserService userService = new UserService("mysql"); /* works */
+        //UserService userService = new UserService("pgsql"); /* works */
+        //UserService userService = new UserService("oracle"); /* works but without results(rs.next() return false) */
         
         // 1. Users with age less than 18
-        List<User> mysqlUsersTask1 = userService.getUsersFilteredByAgeLess(18, true);
+        List<User> mysqlUsersTask1 = userService.getUsersFilteredByAgeLess(48, true);
         printUsersList(mysqlUsersTask1, Messages.GETTING_USERS_AGE_LESS.getOutMessage());
-
+        
         System.out.println("----------");
         
         // 2. Users with name ends in "o"
@@ -50,7 +51,7 @@ public class Main {
         // 5. The count of Users with age more than 18
         int mysqlUsersTask5 = userService.getUsersCountFilteredByAgeMore(18, false);
         printUsersCount(mysqlUsersTask5, Messages.GETTING_USERS_COUNT_ADULT.getOutMessage());
-
+        
         log.info(Messages.END_PROGRAM.getLogMessage());
         System.out.println(Messages.END_PROGRAM.getOutMessage());
     }

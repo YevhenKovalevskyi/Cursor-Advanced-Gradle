@@ -28,5 +28,6 @@ subprojects {
         mysql: "mysql:mysql-connector-java:8.0.31",
         pgsql: "org.postgresql:postgresql:42.5.0",
         mongo: "org.mongodb:mongo-java-driver:3.12.11",
+        oracle: "com.oracle.database.jdbc:ojdbc8:21.7.0.0",
     ]
 }

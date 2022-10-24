@@ -2,6 +2,7 @@ package hw01.task1.database.datasource;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.pool.OracleDataSource;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
@@ -21,7 +22,7 @@ public class DataSourceFactory {
         switch (db) {
             case "mysql" -> ds = getMySQLDataSource();
             case "pgsql" -> ds = getPgSQLDataSource();
-            //case "oracle" -> ds = getOracleDataSource();
+            case "oracle" -> ds = getOracleDataSource();
         }
         
         return ds;
@@ -80,6 +81,38 @@ public class DataSourceFactory {
             e.printStackTrace();
         }
         
+        return ds;
+    }
+    
+    /**
+     * Get DataSource for Oracle
+     * 1. Got path to jdbc.properties
+     * 2. Load jdbc.properties
+     * 3. Create DataSource
+     */
+    public static DataSource getOracleDataSource() {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Properties props = new Properties();
+        OracleDataSource ds = null;
+        
+        try (InputStream is = loader.getResourceAsStream(DB_PROPS)) {
+            props.load(is);
+            
+            ds = new OracleDataSource();
+            ds.setDriverType(props.getProperty("jdbc.oracle.type"));
+            ds.setServerName(props.getProperty("jdbc.oracle.host"));
+            ds.setPortNumber(Integer.parseInt(props.getProperty("jdbc.oracle.port")));
+            ds.setDatabaseName(props.getProperty("jdbc.oracle.dbname"));
+            ds.setUser(props.getProperty("jdbc.oracle.user"));
+            ds.setPassword(props.getProperty("jdbc.oracle.password"));
+        } catch (IOException e) {
+            log.error("jdbc.properties file not found / loaded error.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            log.error("DataSource connection failed.");
+            throw new RuntimeException(e);
+        }
+    
         return ds;
     }
 }
