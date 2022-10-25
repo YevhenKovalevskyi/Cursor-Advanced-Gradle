@@ -1,3 +1,4 @@
 rootProject.name = 'HW_Kovalevskyi_Gradle'
 
 include(':HW01')
+include(':HW02')
