@@ -1,4 +1,4 @@
-package hw02.task1.messages;
+package hw02.task2.messages;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

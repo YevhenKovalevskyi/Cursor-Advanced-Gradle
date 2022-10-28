@@ -1,8 +1,8 @@
-package hw02.task1;
+package hw02.task3;
 
-import hw02.task1.messages.Messages;
+import hw02.task3.messages.Messages;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * The Main Class represents homework #2 #task1
@@ -16,8 +16,7 @@ public class Main {
         log.info(Messages.START_PROGRAM.getLogMessage());
         System.out.println(Messages.START_PROGRAM.getOutMessage());
     
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("task1/applicationContext.xml");
-        
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         
         log.info(Messages.END_PROGRAM.getLogMessage());
         System.out.println(Messages.END_PROGRAM.getOutMessage());
