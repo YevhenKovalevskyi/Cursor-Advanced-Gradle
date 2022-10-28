@@ -35,17 +35,15 @@ dependencies {
     runtimeOnly libraries.logback_classic
     testCompileOnly libraries.logback_classic
 
-    // mysql
-    compileOnly libraries.mysql
-    runtimeOnly libraries.mysql
-
-    // pgsql
-    compileOnly libraries.pgsql
-    runtimeOnly libraries.pgsql
-
-    // oracle
-    compileOnly libraries.oracle
-    runtimeOnly libraries.oracle
+    // spring_core
+    compileOnly libraries.spring_core
+    runtimeOnly libraries.spring_core
+    // spring_beans
+    compileOnly libraries.spring_beans
+    runtimeOnly libraries.spring_beans
+    // spring_context
+    compileOnly libraries.spring_context
+    runtimeOnly libraries.spring_context
 }
 
-description = 'home_work_02'
+description = "home_work_02"

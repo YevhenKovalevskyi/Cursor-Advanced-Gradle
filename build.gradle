@@ -29,5 +29,8 @@ subprojects {
         pgsql: "org.postgresql:postgresql:42.5.0",
         mongo: "org.mongodb:mongo-java-driver:3.12.11",
         oracle: "com.oracle.database.jdbc:ojdbc8:21.7.0.0",
+        spring_core: "org.springframework:spring-core:5.3.23",
+        spring_beans: "org.springframework:spring-beans:5.3.23",
+        spring_context: "org.springframework:spring-context:5.3.23",
     ]
 }

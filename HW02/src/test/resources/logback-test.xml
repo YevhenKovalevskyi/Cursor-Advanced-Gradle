@@ -34,6 +34,72 @@
         </encoder>
     </appender>
 
+    <appender name="TASK2_ACTUAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.filePath}/task2/${log.actual}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.filePath}/task2/${log.actualRolling}</fileNamePattern>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="TASK2_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.filePath}/task2/${log.error}</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.filePath}/task2/${log.errorRolling}</fileNamePattern>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="TASK3_ACTUAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.filePath}/task3/${log.actual}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.filePath}/task3/${log.actualRolling}</fileNamePattern>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="TASK3_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.filePath}/task3/${log.error}</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.filePath}/task3/${log.errorRolling}</fileNamePattern>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${log.pattern}</pattern>
@@ -43,6 +109,16 @@
     <logger name="hw02.task1">
         <appender-ref ref="TASK1_ACTUAL" />
         <appender-ref ref="TASK1_ERROR" />
+    </logger>
+
+    <logger name="hw02.task3">
+        <appender-ref ref="TASK2_ACTUAL" />
+        <appender-ref ref="TASK2_ERROR" />
+    </logger>
+
+    <logger name="hw02.task3">
+        <appender-ref ref="TASK3_ACTUAL" />
+        <appender-ref ref="TASK3_ERROR" />
     </logger>
 
     <root level="INFO">

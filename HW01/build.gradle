@@ -48,4 +48,4 @@ dependencies {
     runtimeOnly libraries.oracle
 }
 
-description = 'home_work_01'
+description = "home_work_01"

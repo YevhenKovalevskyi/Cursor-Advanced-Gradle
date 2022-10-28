@@ -1,6 +1,6 @@
-package hw02.task1;
+package hw02.task2;
 
-import hw02.task1.messages.Messages;
+import hw02.task2.messages.Messages;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,8 +16,7 @@ public class Main {
         log.info(Messages.START_PROGRAM.getLogMessage());
         System.out.println(Messages.START_PROGRAM.getOutMessage());
     
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("task1/applicationContext.xml");
-        
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("task2/applicationContext.xml");
         
         log.info(Messages.END_PROGRAM.getLogMessage());
         System.out.println(Messages.END_PROGRAM.getOutMessage());
