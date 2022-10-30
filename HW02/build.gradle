@@ -44,6 +44,9 @@ dependencies {
     // spring_context
     compileOnly libraries.spring_context
     runtimeOnly libraries.spring_context
+    // javax_annotation
+    compileOnly libraries.javax_annotation
+    runtimeOnly libraries.javax_annotation
 }
 
 description = "home_work_02"

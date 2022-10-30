@@ -12,6 +12,7 @@ import lombok.Getter;
 public enum Messages {
     START_PROGRAM("Start of the program...", "\nStart of the program...\n\n----------"),
     END_PROGRAM("End of the program.\n", "----------\n\nEnd of the program.\n"),
+    NOW_PLAYING("Now playing: {} - {}", "Now playing: %s - %s"),
     ;
     
     @Getter private final String logMessage;

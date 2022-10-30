@@ -1,7 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:task1/musicPlayer.properties"/>
+
+    <bean id="classicSong1" class="hw02.task1.entities.Song">
+        <constructor-arg index="0" value="${classicSong1.name}"/>
+        <constructor-arg index="1" value="${classicSong1.author}"/>
+    </bean>
+    <bean id="classicSong2" class="hw02.task1.entities.Song">
+        <constructor-arg index="0" value="${classicSong2.name}"/>
+        <constructor-arg index="1" value="${classicSong2.author}"/>
+    </bean>
+    <bean id="classicSong3" class="hw02.task1.entities.Song">
+        <constructor-arg index="0" value="${classicSong3.name}"/>
+        <constructor-arg index="1" value="${classicSong3.author}"/>
+    </bean>
+    <bean id="rockSong1" class="hw02.task1.entities.Song">
+        <constructor-arg index="0" value="${rockSong1.name}"/>
+        <constructor-arg index="1" value="${rockSong1.author}"/>
+    </bean>
+    <bean id="rockSong2" class="hw02.task1.entities.Song">
+        <constructor-arg index="0" value="${rockSong2.name}"/>
+        <constructor-arg index="1" value="${rockSong2.author}"/>
+    </bean>
+    <bean id="rockSong3" class="hw02.task1.entities.Song">
+        <constructor-arg index="0" value="${rockSong3.name}"/>
+        <constructor-arg index="1" value="${rockSong3.author}"/>
+    </bean>
+
+    <bean id="classicMusicPlayer"
+          class="hw02.task1.services.ClassicMusicPlayerService">
+        <constructor-arg>
+            <list>
+                <ref bean="classicSong1"/>
+                <ref bean="classicSong2"/>
+                <ref bean="classicSong3"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="rockMusicPlayer"
+          class="hw02.task1.services.RockMusicPlayerService">
+        <constructor-arg>
+            <list>
+                <ref bean="rockSong1"/>
+                <ref bean="rockSong2"/>
+                <ref bean="rockSong3"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="musicPlayer"
+          class="hw02.task1.services.MusicPlayerService">
+        <constructor-arg index="0" ref="rockMusicPlayer"/>
+        <constructor-arg index="1" ref="classicMusicPlayer"/>
+    </bean>
 
 </beans>
