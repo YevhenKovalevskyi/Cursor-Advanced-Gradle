@@ -34,16 +34,10 @@ public class DataSourceFactory {
         MysqlDataSource ds = null;
         
         if (!JDBC_PROPS.isEmpty()) {
-            try {
-                ds = new MysqlDataSource();
-                ds.setURL(JDBC_PROPS.getProperty("jdbc.mysql.url"));
-                ds.setUser(JDBC_PROPS.getProperty("jdbc.mysql.user"));
-                ds.setPassword(JDBC_PROPS.getProperty("jdbc.mysql.password"));
-                ds.setServerTimezone(JDBC_PROPS.getProperty("jdbc.mysql.timezone"));
-            } catch (SQLException e) {
-                log.error("MySQL DataSource setServerTimezone error.");
-                e.printStackTrace();
-            }
+            ds = new MysqlDataSource();
+            ds.setURL(JDBC_PROPS.getProperty("jdbc.mysql.url"));
+            ds.setUser(JDBC_PROPS.getProperty("jdbc.mysql.user"));
+            ds.setPassword(JDBC_PROPS.getProperty("jdbc.mysql.password"));
         }
         
         return ds;
@@ -74,10 +68,7 @@ public class DataSourceFactory {
         if (!JDBC_PROPS.isEmpty()) {
             try {
                 ds = new OracleDataSource();
-                ds.setDriverType(JDBC_PROPS.getProperty("jdbc.oracle.type"));
-                ds.setServerName(JDBC_PROPS.getProperty("jdbc.oracle.host"));
-                ds.setPortNumber(Integer.parseInt(JDBC_PROPS.getProperty("jdbc.oracle.port")));
-                ds.setDatabaseName(JDBC_PROPS.getProperty("jdbc.oracle.dbname"));
+                ds.setURL(JDBC_PROPS.getProperty("jdbc.oracle.url"));
                 ds.setUser(JDBC_PROPS.getProperty("jdbc.oracle.user"));
                 ds.setPassword(JDBC_PROPS.getProperty("jdbc.oracle.password"));
             } catch (SQLException e) {
