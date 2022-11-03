@@ -111,7 +111,7 @@
         <appender-ref ref="TASK1_ERROR" />
     </logger>
 
-    <logger name="hw02.task3">
+    <logger name="hw02.task2">
         <appender-ref ref="TASK2_ACTUAL" />
         <appender-ref ref="TASK2_ERROR" />
     </logger>

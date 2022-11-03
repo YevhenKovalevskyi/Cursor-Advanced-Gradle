@@ -1,0 +1,39 @@
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes(
+                "Class-Path": configurations.collect { it.getName() }.join(" "),
+                "Main-Class": "hw03.task1.Main"
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+dependencies {
+    // lombok
+    compileOnly libraries.lombok
+    annotationProcessor libraries.lombok
+    testCompileOnly libraries.lombok
+    testAnnotationProcessor libraries.lombok
+
+    // spring-boot
+    implementation libraries.spring_boot_starter_web
+    implementation libraries.snakeyaml
+    testImplementation libraries.spring_boot_starter_test
+
+    // testing
+    testImplementation libraries.junit5_core
+    testImplementation libraries.junit5_api
+    testImplementation libraries.junit5_params
+    testImplementation libraries.assertj_core
+}
+
+test {
+    useJUnitPlatform()
+}
+
+description = "home_work_03"
