@@ -1,0 +1,32 @@
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    // lombok
+    compileOnly libraries.lombok
+    annotationProcessor libraries.lombok
+    testCompileOnly libraries.lombok
+    testAnnotationProcessor libraries.lombok
+
+    // tests
+    testImplementation libraries.junit5_core
+    testImplementation libraries.junit5_api
+    testImplementation libraries.junit5_params
+    testImplementation libraries.assertj_core
+
+    // logs
+    implementation libraries.slf4j_api
+    testImplementation libraries.slf4j_api
+    implementation libraries.logback_core
+    testImplementation libraries.logback_core
+    implementation libraries.logback_classic
+    testImplementation libraries.logback_classic
+
+    // databases
+    implementation libraries.mysql
+    implementation libraries.pgsql
+    implementation libraries.oracle
+}
+
+description = "home_work_04"
