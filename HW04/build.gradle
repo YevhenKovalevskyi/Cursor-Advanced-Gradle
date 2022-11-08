@@ -9,24 +9,29 @@ dependencies {
     testCompileOnly libraries.lombok
     testAnnotationProcessor libraries.lombok
 
-    // tests
+    // utils
+    implementation libraries.guava
+
+    // testing
     testImplementation libraries.junit5_core
     testImplementation libraries.junit5_api
     testImplementation libraries.junit5_params
     testImplementation libraries.assertj_core
 
-    // logs
-    implementation libraries.slf4j_api
-    testImplementation libraries.slf4j_api
-    implementation libraries.logback_core
-    testImplementation libraries.logback_core
-    implementation libraries.logback_classic
-    testImplementation libraries.logback_classic
-
     // databases
     implementation libraries.mysql
+    implementation libraries.protobuf
     implementation libraries.pgsql
     implementation libraries.oracle
+
+    // javax
+    implementation libraries.javax_annotation
+    implementation libraries.jaxb_api
+
+    // spring-boot
+    implementation libraries.snakeyaml
+    implementation libraries.spring_boot_starter_jpa
+    testImplementation libraries.spring_boot_starter_test
 }
 
 description = "home_work_04"
