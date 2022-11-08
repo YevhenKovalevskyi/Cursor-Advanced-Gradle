@@ -1,5 +1,5 @@
 <configuration>
-    <property file="HW04/src/main/resources/logback.properties" />
+    <property file="./src/test/resources/logback.properties" />
 
     <appender name="TASK1_ACTUAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.filePath}/task1/${log.actual}</file>
@@ -40,7 +40,7 @@
         </encoder>
     </appender>
 
-    <logger name="hw04.task1">
+    <logger name="hw07.task1">
         <appender-ref ref="TASK1_ACTUAL" />
         <appender-ref ref="TASK1_ERROR" />
     </logger>
