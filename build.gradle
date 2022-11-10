@@ -32,7 +32,6 @@ subprojects {
         snakeyaml: "1.33",
         protobuf: "3.21.9",
         jaxb_api: "2.3.1",
-        guava: "31.1-jre",
     ]
 
     ext.libraries = [
@@ -58,6 +57,5 @@ subprojects {
         snakeyaml: "org.yaml:snakeyaml:${versions.snakeyaml}",
         protobuf: "com.google.protobuf:protobuf-java:${versions.protobuf}",
         jaxb_api: "javax.xml.bind:jaxb-api:${versions.jaxb_api}",
-        guava: "com.google.guava:guava:${versions.guava}",
     ]
 }
