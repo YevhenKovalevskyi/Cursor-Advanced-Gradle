@@ -1,4 +1,4 @@
-package hw04.task1.entities;
+package hw04.task1.database.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -77,5 +77,11 @@ public class User implements Serializable {
                 .age(Integer.parseInt(params.get("age")))
                 .updatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                 .build();
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("║ %-3s ┆ %-35s ┆ %-15s ┆ %-10s ┆ %-12s ┆ %-8s ┆ %-3s ║",
+                id, email, password, firstName, lastName, gender, age);
     }
 }

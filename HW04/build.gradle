@@ -9,9 +9,6 @@ dependencies {
     testCompileOnly libraries.lombok
     testAnnotationProcessor libraries.lombok
 
-    // utils
-    implementation libraries.guava
-
     // testing
     testImplementation libraries.junit5_core
     testImplementation libraries.junit5_api
