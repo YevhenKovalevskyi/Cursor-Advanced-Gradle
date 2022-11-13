@@ -26,31 +26,31 @@ public class User implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="u_id")
+    @Column(name="u_id", columnDefinition = "INT UNSIGNED")
     private Integer id;
     
-    @Column(name="u_email")
+    @Column(name="u_email", columnDefinition = "VARCHAR(50) NOT NULL")
     private String email;
     
-    @Column(name="u_password")
+    @Column(name="u_password", columnDefinition = "VARCHAR(50) NOT NULL")
     private String password;
     
-    @Column(name="u_first_name")
+    @Column(name="u_first_name", columnDefinition = "VARCHAR(50) NOT NULL")
     private String firstName;
     
-    @Column(name="u_last_name")
+    @Column(name="u_last_name", columnDefinition = "VARCHAR(50) NOT NULL")
     private String lastName;
     
-    @Column(name="u_gender")
+    @Column(name="u_gender", columnDefinition = "VARCHAR(10) NOT NULL")
     private String gender;
     
-    @Column(name="u_age")
-    private int age;
+    @Column(name="u_age", columnDefinition = "TINYINT UNSIGNED NOT NULL")
+    private Integer age;
     
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private String createdAt;
     
-    @Column(name="updated_at")
+    @Column(name="updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00'")
     private String updatedAt;
     
     public static User build(Map<String, String> params) {

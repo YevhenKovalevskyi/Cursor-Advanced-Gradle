@@ -1,7 +1,7 @@
 package hw05.task1;
 
-import hw05.task1.messages.Messages;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * The Main Class represents homework #5 #task1
@@ -9,16 +9,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author YevhenKovalevskyi
  * @version 1.0
  */
-@Slf4j
+@SpringBootApplication
 public class Main {
     
     public static void main(String[] args) {
-        log.info(Messages.START_PROGRAM.getLogMessage());
-        System.out.println(Messages.START_PROGRAM.getOutMessage());
-    
-
-        
-        log.info(Messages.END_PROGRAM.getLogMessage());
-        System.out.println(Messages.END_PROGRAM.getOutMessage());
+        SpringApplication.run(Main.class, args);
     }
 }

@@ -10,6 +10,9 @@ import lombok.Getter;
 public enum Messages {
     START_PROGRAM("Start of the program...", "\nStart of the program...\n\n----------"),
     END_PROGRAM("End of the program.\n", "----------\n\nEnd of the program.\n"),
+    
+    SHOP_NOT_FOUND("Shop ID[{}] not found!", "Shop ID[%s] not found!"),
+    EMPLOYEE_NOT_FOUND("Employee ID[{}] not found!", "Employee ID[%s] not found!"),
 
     ;
     
