@@ -1,18 +1,16 @@
-package hw05.task1.database.entities;
+package hw05.task1.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serial;
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author YevhenKovalevskyi
@@ -23,14 +21,11 @@ import java.util.Map;
 @Builder
 @Entity
 @Table(name="shops")
-public class Shop implements Serializable {
+public class Shop {
 
-    @Serial
-    private static final long serialVersionUID = -3760445487636086036L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="s_id", columnDefinition = "INT UNSIGNED")
+    @Column(name="s_id", columnDefinition = "SMALLINT UNSIGNED")
     private Integer id;
     
     @Column(name="s_name", columnDefinition = "VARCHAR(100) NOT NULL")
@@ -51,32 +46,10 @@ public class Shop implements Serializable {
     @Column(name="updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00'")
     private String updatedAt;
     
-    @OneToMany(targetEntity=Employee.class, mappedBy="shop", cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @OneToMany(mappedBy="shop", cascade=CascadeType.REMOVE)
+    @JsonIgnore
     private List<Employee> employees;
-    
-    public static Shop build(Map<String, String> params) {
-        return Shop.builder()
-                .name(params.get("name"))
-                .city(params.get("city"))
-                .address(params.get("address"))
-                .hasSite(Integer.parseInt(params.get("hasSite")))
-                .createdAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
-                .updatedAt("0000-00-00 00:00:00")
-                .build();
-    }
-    
-    public static Shop build(Map<String, String> params, Integer id) {
-        return Shop.builder()
-                .id(id)
-                .name(params.get("name"))
-                .city(params.get("city"))
-                .address(params.get("address"))
-                .hasSite(Integer.parseInt(params.get("hasSite")))
-                .updatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
-                .build();
-    }
-    
+
     public static Shop build(Shop params) {
         return Shop.builder()
                 .name(params.getName())
@@ -88,7 +61,7 @@ public class Shop implements Serializable {
                 .build();
     }
     
-    public static Shop build(Shop params, Integer id) {
+    public static Shop build(Integer id, Shop params) {
         return Shop.builder()
                 .id(id)
                 .name(params.getName())
