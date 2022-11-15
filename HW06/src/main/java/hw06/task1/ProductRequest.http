@@ -1,0 +1,75 @@
+# / | index()
+GET http://localhost:8080/
+
+###
+
+# products | findAll()
+GET http://localhost:8080/products
+
+###
+
+# products/{id} | findOne()
+GET http://localhost:8080/products/3
+
+###
+
+# products/{id} | findOne() - wrong ID
+GET http://localhost:8080/products/321
+
+###
+
+# products | create
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "qwerty qwe rtyu",
+  "price": 101.0,
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  "manufactured": 2000,
+  "useBefore": 2012,
+  "country": {
+    "id": 11,
+    "name": "Egypt"
+  }
+}
+
+###
+
+# products/{id} | update
+POST http://localhost:8080/products/103
+Content-Type: application/json
+
+{
+  "name": "qwerty qwe rtyu",
+  "price": 404.0,
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  "manufactured": 2006,
+  "useBefore": 2021,
+  "country": {
+    "id": 8
+  }
+}
+
+###
+
+# products/{id} | delete
+DELETE http://localhost:8080/products/101
+
+###
+
+# products/filters/?max-use-before={useBefore} | getByMaxUseBefore()
+GET http://localhost:8080/products/filters/?max-use-before=2000
+
+###
+
+# products/filters/?min-price={price} | getByMinPrice()
+GET http://localhost:8080/products/filters/?min-price=700
+
+###
+
+# products/filters/?manufactured={manufactured}&use-before={useBefore} | getByBestBeforeDate()
+GET http://localhost:8080/products/filters/?manufactured=2006&use-before=2025
+
+###
+

@@ -1,4 +1,4 @@
-package hw05.task1.controllers;
+package hw06.task1.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

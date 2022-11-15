@@ -8,12 +8,12 @@ GET http://localhost:8080/shops
 
 ###
 
-# shops/{id} | findOnel()
+# shops/{id} | findOne()
 GET http://localhost:8080/shops/3
 
 ###
 
-# shops/{id} | findOnel() - wrong ID
+# shops/{id} | findOne() - wrong ID
 GET http://localhost:8080/shops/32
 
 ###
@@ -23,7 +23,7 @@ GET http://localhost:8080/shops/2/employees
 
 ###
 
-# shops/{id} | create
+# shops | create
 POST http://localhost:8080/shops
 Content-Type: application/json
 
@@ -41,7 +41,6 @@ POST http://localhost:8080/shops/6
 Content-Type: application/json
 
 {
-  "id": 6,
   "name": "Amazon11",
   "city": "Dublin11",
   "address": "27820 Farwell Point",
@@ -50,6 +49,7 @@ Content-Type: application/json
 
 ###
 
+# shops/{id} | delete
 DELETE http://localhost:8080/shops/6
 
 ###
