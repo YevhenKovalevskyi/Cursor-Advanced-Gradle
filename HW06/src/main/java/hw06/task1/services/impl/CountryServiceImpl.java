@@ -25,37 +25,28 @@ public class CountryServiceImpl implements CountryService {
     
     CountryRepository countryRepository;
     
-    public Country save(Country newCountry) {
-        newCountry = Country.build(newCountry);
+    public Country checkFound(Integer id, Optional<Country> country) {
+        return country.orElseThrow(() -> {
+            log.error(Messages.COUNTRY_NOT_FOUND.getLogMessage(), id);
+            throw new CountryNotFoundException(
+                    String.format(Messages.COUNTRY_NOT_FOUND.getOutMessage(), id)
+            );
+        });
+    }
     
-        return countryRepository.save(newCountry);
+    public Country save(Country newCountry) {
+        return countryRepository.save(Country.build(newCountry));
     }
     
     public Country save(Integer id, Country newCountry) {
-        Optional<Country> currCountry = countryRepository.findById(id);
-    
-        if (currCountry.isEmpty()) {
-            log.error(Messages.COUNTRY_NOT_FOUND.getLogMessage(), id);
-            throw new CountryNotFoundException(
-                    String.format(Messages.PRODUCT_NOT_FOUND.getOutMessage(), id)
-            );
-        }
-    
-        newCountry = CountryMapper.getForUpdate(id, currCountry.get(), newCountry);
+        Country currCountry = checkFound(id, countryRepository.findById(id));
+        newCountry = CountryMapper.getForUpdate(id, currCountry, newCountry);
     
         return countryRepository.save(newCountry);
     }
     
     public void deleteById(Integer id) {
-        Optional<Country> currCountry = countryRepository.findById(id);
-    
-        if (currCountry.isEmpty()) {
-            log.error(Messages.COUNTRY_NOT_FOUND.getLogMessage(), id);
-            throw new CountryNotFoundException(
-                    String.format(Messages.PRODUCT_NOT_FOUND.getOutMessage(), id)
-            );
-        }
-    
+        checkFound(id, countryRepository.findById(id));
         countryRepository.deleteById(id);
     }
     
@@ -64,15 +55,6 @@ public class CountryServiceImpl implements CountryService {
     }
     
     public Country findById(Integer id) {
-        Optional<Country> currCountry = countryRepository.findById(id);
-    
-        if (currCountry.isEmpty()) {
-            log.error(Messages.COUNTRY_NOT_FOUND.getLogMessage(), id);
-            throw new CountryNotFoundException(
-                    String.format(Messages.PRODUCT_NOT_FOUND.getOutMessage(), id)
-            );
-        }
-        
-        return currCountry.get();
+        return checkFound(id, countryRepository.findById(id));
     }
 }

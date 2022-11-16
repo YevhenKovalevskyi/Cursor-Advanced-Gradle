@@ -25,37 +25,28 @@ public class ProductServiceImpl implements ProductService {
 
     ProductRepository productRepository;
     
-    public Product save(Product newProduct) {
-        newProduct = Product.build(newProduct);
-        
-        return productRepository.save(newProduct);
-    }
-    
-    public Product save(Integer id, Product newProduct) {
-        Optional<Product> currProduct = productRepository.findById(id);
-    
-        if (currProduct.isEmpty()) {
+    public Product checkFound(Integer id, Optional<Product> product) {
+        return product.orElseThrow(() -> {
             log.error(Messages.PRODUCT_NOT_FOUND.getLogMessage(), id);
             throw new ProductNotFoundException(
                     String.format(Messages.PRODUCT_NOT_FOUND.getOutMessage(), id)
             );
-        }
-        
-        newProduct = ProductMapper.getForUpdate(id, currProduct.get(), newProduct);
+        });
+    }
+    
+    public Product save(Product newProduct) {
+        return productRepository.save(Product.build(newProduct));
+    }
+    
+    public Product save(Integer id, Product newProduct) {
+        Product currProduct = checkFound(id, productRepository.findById(id));
+        newProduct = ProductMapper.getForUpdate(id, currProduct, newProduct);
         
         return productRepository.save(newProduct);
     }
     
     public void deleteById(Integer id) {
-        Optional<Product> currProduct = productRepository.findById(id);
-    
-        if (currProduct.isEmpty()) {
-            log.error(Messages.PRODUCT_NOT_FOUND.getLogMessage(), id);
-            throw new ProductNotFoundException(
-                    String.format(Messages.PRODUCT_NOT_FOUND.getOutMessage(), id)
-            );
-        }
-        
+        checkFound(id, productRepository.findById(id));
         productRepository.deleteById(id);
     }
     
@@ -64,16 +55,7 @@ public class ProductServiceImpl implements ProductService {
     }
     
     public Product findById(Integer id) {
-        Optional<Product> currProduct = productRepository.findById(id);
-    
-        if (currProduct.isEmpty()) {
-            log.error(Messages.PRODUCT_NOT_FOUND.getLogMessage(), id);
-            throw new ProductNotFoundException(
-                    String.format(Messages.PRODUCT_NOT_FOUND.getOutMessage(), id)
-            );
-        }
-        
-        return currProduct.get();
+        return checkFound(id, productRepository.findById(id));
     }
     
     public List<Product> findByMaxUseBefore(int useBefore) {
