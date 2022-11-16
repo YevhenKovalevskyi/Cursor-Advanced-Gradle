@@ -25,6 +25,15 @@ public class ShopService {
     
     private ShopRepository shopRepository;
     
+    public Shop checkFound(Integer id, Optional<Shop> shop) {
+        return shop.orElseThrow(() -> {
+            log.error(Messages.SHOP_NOT_FOUND.getLogMessage(), id);
+            throw new ShopNotFoundException(
+                    String.format(Messages.SHOP_NOT_FOUND.getOutMessage(), id)
+            );
+        });
+    }
+    
     public Shop save(Shop newShop) {
         newShop = Shop.build(newShop);
         
@@ -32,30 +41,14 @@ public class ShopService {
     }
     
     public Shop save(Integer id, Shop newShop) {
-        Optional<Shop> currShop = shopRepository.findById(id);
-        
-        if (currShop.isEmpty()) {
-            log.error(Messages.SHOP_NOT_FOUND.getLogMessage(), id);
-            throw new ShopNotFoundException(
-                    String.format(Messages.SHOP_NOT_FOUND.getOutMessage(), id)
-            );
-        }
-    
-        newShop = ShopMapper.getForUpdate(id, currShop.get(), newShop);
-        
+        Shop currShop = checkFound(id, shopRepository.findById(id));
+        newShop = ShopMapper.getForUpdate(id, currShop, newShop);
+
         return shopRepository.save(newShop);
     }
 
     public void deleteById(Integer id) {
-        Optional<Shop> currShop = shopRepository.findById(id);
-    
-        if (currShop.isEmpty()) {
-            log.error(Messages.SHOP_NOT_FOUND.getLogMessage(), id);
-            throw new ShopNotFoundException(
-                    String.format(Messages.SHOP_NOT_FOUND.getOutMessage(), id)
-            );
-        }
-        
+        checkFound(id, shopRepository.findById(id));
         shopRepository.deleteById(id);
     }
     
@@ -64,28 +57,12 @@ public class ShopService {
     }
     
     public Shop findById(Integer id) {
-        Optional<Shop> currShop = shopRepository.findById(id);
-    
-        if (currShop.isEmpty()) {
-            log.error(Messages.SHOP_NOT_FOUND.getLogMessage(), id);
-            throw new ShopNotFoundException(
-                    String.format(Messages.SHOP_NOT_FOUND.getOutMessage(), id)
-            );
-        }
-    
-        return currShop.get();
+        return checkFound(id, shopRepository.findById(id));
     }
     
     public List<Employee> findEmployees(Integer id) {
-        Optional<Shop> currShop = shopRepository.findById(id);
-    
-        if (currShop.isEmpty()) {
-            log.error(Messages.SHOP_NOT_FOUND.getLogMessage(), id);
-            throw new ShopNotFoundException(
-                    String.format(Messages.SHOP_NOT_FOUND.getOutMessage(), id)
-            );
-        }
+        Shop currShop = checkFound(id, shopRepository.findById(id));
         
-        return currShop.get().getEmployees();
+        return currShop.getEmployees();
     }
 }
