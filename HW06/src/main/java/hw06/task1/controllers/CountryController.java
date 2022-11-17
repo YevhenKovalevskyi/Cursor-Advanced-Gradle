@@ -1,7 +1,9 @@
 package hw06.task1.controllers;
 
+import hw06.task1.dto.CountryDto;
 import hw06.task1.dto.ProductDto;
 import hw06.task1.entities.Country;
+import hw06.task1.mappers.CountryMapper;
 import hw06.task1.mappers.ProductMapper;
 import hw06.task1.services.CountryService;
 
@@ -27,8 +29,8 @@ public class CountryController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Country create(@RequestBody Country country) {
-        return countryService.save(country);
+    public CountryDto create(@RequestBody Country country) {
+        return CountryMapper.getForShow(countryService.save(country));
     }
     
     /**
@@ -36,8 +38,8 @@ public class CountryController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Country update(@PathVariable Integer id, @RequestBody Country country) {
-        return countryService.save(country);
+    public CountryDto update(@PathVariable Integer id, @RequestBody Country country) {
+        return CountryMapper.getForShow(countryService.save(id, country));
     }
     
     /**
@@ -53,8 +55,9 @@ public class CountryController {
      * Get all Countries
      */
     @GetMapping
-    public List<Country> getAll() {
-        return countryService.findAll();
+    public List<CountryDto> getAll() {
+        return countryService.findAll()
+                .stream().map(CountryMapper::getForShow).toList();
     }
     
     /**
@@ -62,8 +65,8 @@ public class CountryController {
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Country getOne(@PathVariable Integer id) {
-        return countryService.findById(id);
+    public CountryDto getOne(@PathVariable Integer id) {
+        return CountryMapper.getForShow(countryService.findById(id));
     }
     
     /**
