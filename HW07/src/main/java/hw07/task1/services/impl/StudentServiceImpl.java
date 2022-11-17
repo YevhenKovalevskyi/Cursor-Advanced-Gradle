@@ -1,4 +1,4 @@
-package hw07.task1.services.Impl;
+package hw07.task1.services.impl;
 
 import hw07.task1.entities.Student;
 import hw07.task1.exceptions.StudentNotFoundException;
