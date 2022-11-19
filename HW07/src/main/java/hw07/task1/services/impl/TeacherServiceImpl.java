@@ -23,7 +23,7 @@ import java.util.Optional;
 @Slf4j
 public class TeacherServiceImpl implements TeacherService {
     
-    TeacherRepository teacherRepository;
+    private TeacherRepository teacherRepository;
     
     public Teacher checkFound(Integer id, Optional<Teacher> teacher) {
         return teacher.orElseThrow(() -> {

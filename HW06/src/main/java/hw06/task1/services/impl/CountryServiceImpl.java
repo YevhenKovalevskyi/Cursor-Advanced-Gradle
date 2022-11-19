@@ -23,7 +23,7 @@ import java.util.Optional;
 @Slf4j
 public class CountryServiceImpl implements CountryService {
     
-    CountryRepository countryRepository;
+    private CountryRepository countryRepository;
     
     public Country checkFound(Integer id, Optional<Country> country) {
         return country.orElseThrow(() -> {

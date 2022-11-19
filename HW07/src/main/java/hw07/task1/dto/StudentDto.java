@@ -15,7 +15,7 @@ public class StudentDto {
     
     private Integer id;
     private String name;
-    private GroupSingleDto group;
+    private GroupLightDto group;
     
     public static StudentDto build(Student student) {
         return StudentDto.builder()

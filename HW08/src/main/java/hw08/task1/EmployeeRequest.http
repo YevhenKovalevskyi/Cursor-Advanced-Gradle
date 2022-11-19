@@ -1,0 +1,55 @@
+# employees | findAll()
+GET http://localhost:8080/employees
+
+###
+
+# employees/{id} | findOne()
+GET http://localhost:8080/employees/2
+
+###
+
+# employees/{id} | findOne() - wrong ID
+GET http://localhost:8080/employees/321
+
+###
+
+# employees | create
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "firstName": "Arlana",
+  "lastName": "Wilson",
+  "gender": "female",
+  "age": 18,
+  "shop": {
+    "id": 3,
+    "name": "Quatz"
+  }
+}
+
+###
+
+# employees/{id} | update
+POST http://localhost:8080/employees/21
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "firstName": "Tyison",
+  "lastName": "Wilson",
+  "gender": "male",
+  "age": 28,
+  "shop": {
+    "id": 4,
+    "name": "Dynava"
+  }
+}
+
+###
+
+# employees/{id} | delete
+DELETE http://localhost:8080/employees/21
+
+###
