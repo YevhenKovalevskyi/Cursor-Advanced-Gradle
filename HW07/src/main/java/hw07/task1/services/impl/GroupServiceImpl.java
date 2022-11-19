@@ -23,7 +23,7 @@ import java.util.Optional;
 @Slf4j
 public class GroupServiceImpl implements GroupService {
     
-    GroupRepository groupRepository;
+    private GroupRepository groupRepository;
     
     public Group checkFound(Integer id, Optional<Group> group) {
         return group.orElseThrow(() -> {

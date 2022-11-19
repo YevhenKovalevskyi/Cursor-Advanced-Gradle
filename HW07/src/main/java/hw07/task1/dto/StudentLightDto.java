@@ -10,13 +10,13 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class StudentSingleDto {
+public class StudentLightDto {
     
     private Integer id;
     private String name;
     
-    public static StudentSingleDto build(Student student) {
-        return StudentSingleDto.builder()
+    public static StudentLightDto build(Student student) {
+        return StudentLightDto.builder()
                 .id(student.getId())
                 .name(student.getName())
                 .build();

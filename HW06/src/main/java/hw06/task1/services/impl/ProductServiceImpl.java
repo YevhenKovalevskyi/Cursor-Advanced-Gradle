@@ -22,8 +22,8 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
-
-    ProductRepository productRepository;
+    
+    private ProductRepository productRepository;
     
     public Product checkFound(Integer id, Optional<Product> product) {
         return product.orElseThrow(() -> {

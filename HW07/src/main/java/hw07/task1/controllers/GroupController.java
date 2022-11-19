@@ -1,7 +1,7 @@
 package hw07.task1.controllers;
 
 import hw07.task1.dto.GroupDto;
-import hw07.task1.dto.StudentSingleDto;
+import hw07.task1.dto.StudentLightDto;
 import hw07.task1.entities.Group;
 import hw07.task1.mappers.GroupMapper;
 import hw07.task1.mappers.StudentMapper;
@@ -74,7 +74,7 @@ public class GroupController {
      */
     @GetMapping("/{id}/students")
     @ResponseStatus(HttpStatus.OK)
-    public List<StudentSingleDto> getStudents(@PathVariable Integer id) {
+    public List<StudentLightDto> getStudents(@PathVariable Integer id) {
         return groupService.findById(id).getStudents()
                 .stream().map(StudentMapper::getForShowSingle).toList();
     }

@@ -1,7 +1,7 @@
 package hw07.task1.mappers;
 
 import hw07.task1.dto.StudentDto;
-import hw07.task1.dto.StudentSingleDto;
+import hw07.task1.dto.StudentLightDto;
 import hw07.task1.entities.Student;
 
 /**
@@ -19,7 +19,7 @@ public class StudentMapper {
         return StudentDto.build(student);
     }
     
-    public static StudentSingleDto getForShowSingle(Student student) {
-        return StudentSingleDto.build(student);
+    public static StudentLightDto getForShowSingle(Student student) {
+        return StudentLightDto.build(student);
     }
 }

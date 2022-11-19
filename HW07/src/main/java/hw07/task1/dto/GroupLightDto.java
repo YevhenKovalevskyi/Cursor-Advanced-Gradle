@@ -10,13 +10,13 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class GroupSingleDto {
+public class GroupLightDto {
     
     private Integer id;
     private String name;
     
-    public static GroupSingleDto build(Group group) {
-        return GroupSingleDto.builder()
+    public static GroupLightDto build(Group group) {
+        return GroupLightDto.builder()
                 .id(group.getId())
                 .name(group.getName())
                 .build();

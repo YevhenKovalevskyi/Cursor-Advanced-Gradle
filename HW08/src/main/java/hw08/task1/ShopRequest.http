@@ -1,0 +1,55 @@
+# shops | findAll()
+GET http://localhost:8080/shops
+
+###
+
+# shops/{id} | findOne()
+GET http://localhost:8080/shops/2
+
+###
+
+# shops/{id} | findOne() - wrong ID
+GET http://localhost:8080/shops/321
+
+###
+
+# shops/{id}/employees | getEmployees()
+GET http://localhost:8080/shops/2/employees
+
+###
+
+# shops/{id}/employees/count | getEmployeesCount()
+GET http://localhost:8080/shops/2/employees/count
+
+###
+
+# shops | create
+POST http://localhost:8080/shops
+Content-Type: application/json
+
+{
+  "name": "Amazon",
+  "city": "Dublin",
+  "address": "27820 Farwell Point",
+  "hasSite": 1
+}
+
+###
+
+# shops/{id} | update
+POST http://localhost:8080/shops/6
+Content-Type: application/json
+
+{
+  "name": "Amazon11",
+  "city": "Dublin11",
+  "address": "27820 Farwell Point",
+  "hasSite": 0
+}
+
+###
+
+# shops/{id} | delete
+DELETE http://localhost:8080/shops/6
+
+###

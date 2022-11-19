@@ -1,7 +1,7 @@
 package hw07.task1.mappers;
 
 import hw07.task1.dto.GroupDto;
-import hw07.task1.dto.GroupSingleDto;
+import hw07.task1.dto.GroupLightDto;
 import hw07.task1.entities.Group;
 
 /**
@@ -19,7 +19,7 @@ public class GroupMapper {
         return GroupDto.build(group);
     }
     
-    public static GroupSingleDto getForShowSingle(Group group) {
-        return GroupSingleDto.build(group);
+    public static GroupLightDto getForShowSingle(Group group) {
+        return GroupLightDto.build(group);
     }
 }
