@@ -12,7 +12,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     
     Iterable<Product> findByUseBeforeLessThan(int useBefore);
     
-    Iterable<Product> findByPriceGreaterThan(Float price);
+    Iterable<Product> findByPriceGreaterThan(int price);
     
     @Query("select p from #{#entityName} p where p.manufactured = ?1 and p.useBefore = ?2")
     Iterable<Product> findByBestBeforeDate(int manufactured, int useBefore);

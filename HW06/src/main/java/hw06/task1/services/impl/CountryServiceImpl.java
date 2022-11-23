@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author YevhenKovalevskyi
@@ -26,8 +25,8 @@ public class CountryServiceImpl implements CountryService {
     
     private CountryRepository countryRepository;
     
-    public Country checkFound(Integer id, Optional<Country> country) {
-        return country.orElseThrow(() -> {
+    public Country findByIdIfExists(Integer id) {
+        return countryRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.COUNTRY_NOT_FOUND.getLogMessage(), id);
             throw new CountryNotFoundException(
                     String.format(Messages.COUNTRY_NOT_FOUND.getOutMessage(), id)
@@ -40,14 +39,14 @@ public class CountryServiceImpl implements CountryService {
     }
     
     public Country save(Integer id, Country newCountry) {
-        Country currCountry = checkFound(id, countryRepository.findById(id));
+        Country currCountry = findByIdIfExists(id);
         newCountry = CountryMapper.getForUpdate(id, currCountry, newCountry);
     
         return countryRepository.save(newCountry);
     }
     
     public void deleteById(Integer id) {
-        checkFound(id, countryRepository.findById(id));
+        findByIdIfExists(id);
         countryRepository.deleteById(id);
     }
     
@@ -63,6 +62,6 @@ public class CountryServiceImpl implements CountryService {
     }
     
     public Country findById(Integer id) {
-        return checkFound(id, countryRepository.findById(id));
+        return findByIdIfExists(id);
     }
 }

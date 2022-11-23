@@ -15,6 +15,6 @@ public interface ProductService {
     List<Product> findAll();
     Product findById(Integer id);
     List<Product> findByMaxUseBefore(int useBefore);
-    List<Product> findByMinPrice(Float price);
+    List<Product> findByMinPrice(int price);
     List<Product> findByBestBeforeDate(int manufactured, int useBefore);
 }

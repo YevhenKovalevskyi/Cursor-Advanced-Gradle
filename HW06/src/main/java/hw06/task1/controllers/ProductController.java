@@ -84,7 +84,7 @@ public class ProductController {
     @GetMapping(value = "/filters/", params = {"min-price"})
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDto> getByMinPrice(@RequestParam("min-price") int price) {
-        return productService.findByMinPrice((float) price)
+        return productService.findByMinPrice(price)
                 .stream().map(ProductMapper::getForShow).toList();
     }
     
