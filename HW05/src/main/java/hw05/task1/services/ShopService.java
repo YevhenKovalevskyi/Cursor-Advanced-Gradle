@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author YevhenKovalevskyi
@@ -26,8 +25,8 @@ public class ShopService {
     
     private ShopRepository shopRepository;
     
-    public Shop checkFound(Integer id, Optional<Shop> shop) {
-        return shop.orElseThrow(() -> {
+    public Shop findByIdIfExists(Integer id) {
+        return shopRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.SHOP_NOT_FOUND.getLogMessage(), id);
             throw new ShopNotFoundException(
                     String.format(Messages.SHOP_NOT_FOUND.getOutMessage(), id)
@@ -42,14 +41,14 @@ public class ShopService {
     }
     
     public Shop save(Integer id, Shop newShop) {
-        Shop currShop = checkFound(id, shopRepository.findById(id));
+        Shop currShop = findByIdIfExists(id);
         newShop = ShopMapper.getForUpdate(id, currShop, newShop);
 
         return shopRepository.save(newShop);
     }
 
     public void deleteById(Integer id) {
-        checkFound(id, shopRepository.findById(id));
+        findByIdIfExists(id);
         shopRepository.deleteById(id);
     }
     
@@ -65,10 +64,10 @@ public class ShopService {
     }
     
     public Shop findById(Integer id) {
-        return checkFound(id, shopRepository.findById(id));
+        return findByIdIfExists(id);
     }
     
     public List<Employee> findEmployees(Integer id) {
-        return checkFound(id, shopRepository.findById(id)).getEmployees();
+        return findByIdIfExists(id).getEmployees();
     }
 }
