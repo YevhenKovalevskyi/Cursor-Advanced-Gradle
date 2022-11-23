@@ -55,6 +55,7 @@ public class CountryController {
      * Get all Countries
      */
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<CountryDto> getAll() {
         return countryService.findAll()
                 .stream().map(CountryMapper::getForShow).toList();

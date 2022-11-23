@@ -57,6 +57,7 @@ public class TeacherController {
      * Get all Teachers
      */
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<TeacherDto> getAll() {
         return teacherService.findAll()
                 .stream().map(TeacherMapper::getForShow).toList();

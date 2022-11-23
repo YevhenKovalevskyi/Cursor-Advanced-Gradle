@@ -1,9 +1,13 @@
 package hw08.task1.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import hw08.task1.actions.RequestAction;
+import hw08.task1.actions.ResponseAction;
 import hw08.task1.dto.EmployeeDto;
+import hw08.task1.entities.Employee;
 import hw08.task1.mappers.EmployeeMapper;
 import hw08.task1.services.EmployeeService;
-import hw08.task1.utils.HttpServletRequestUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -11,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -22,56 +27,61 @@ import java.util.List;
 public class EmployeeController {
     
     private EmployeeService employeeService;
+    private ObjectMapper mapper;
     
     /**
      * Create Employee from FormData
      */
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public EmployeeDto create(HttpServletRequest request) {
-        return EmployeeMapper.getForShow(
-                employeeService.save(request)
-        );
+    public void create(HttpServletRequest request, HttpServletResponse response) {
+        Employee employee = RequestAction.getRequestBody(request, mapper, Employee.class);
+        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.save(employee));
+    
+        ResponseAction.setResponse(response, mapper, HttpStatus.CREATED, employeeDto);
     }
     
     /**
      * Update Employee by ID from FormData
      */
     @PostMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public EmployeeDto update(HttpServletRequest request) {
-        Integer id = Integer.valueOf(HttpServletRequestUtil.getAttributeByKey(request, "id"));
-        
-        return EmployeeMapper.getForShow(employeeService.save(id, request));
+    public void update(HttpServletRequest request, HttpServletResponse response) {
+        Integer employeeId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
+        Employee employee = RequestAction.getRequestBody(request, mapper, Employee.class);
+        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.save(employeeId, employee));
+    
+        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeeDto);
     }
     
     /**
      * Delete Employee by ID
      */
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(HttpServletRequest request) {
-        Integer id = Integer.valueOf(HttpServletRequestUtil.getAttributeByKey(request, "id"));
-        employeeService.deleteById(id);
+    public void delete(HttpServletRequest request, HttpServletResponse response) {
+        Integer employeeId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
+        
+        employeeService.deleteById(employeeId);
+        ResponseAction.setResponse(response, mapper, HttpStatus.OK, "Deleted!");
     }
     
     /**
      * Get all Employees
      */
     @GetMapping
-    public List<EmployeeDto> getAll() {
-        return employeeService.findAll()
+    public void getAll(HttpServletResponse response) {
+        List<EmployeeDto> employeesDto = employeeService.findAll()
                 .stream().map(EmployeeMapper::getForShow).toList();
+    
+        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeesDto);
     }
     
     /**
      * Get Employee by ID
      */
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public EmployeeDto getOne(HttpServletRequest request) {
-        Integer id = Integer.valueOf(HttpServletRequestUtil.getAttributeByKey(request, "id"));
-        
-        return EmployeeMapper.getForShow(employeeService.findById(id));
+    public void getOne(HttpServletRequest request, HttpServletResponse response) {
+        Integer employeeId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
+        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.findById(employeeId));
+    
+        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeeDto);
     }
 }

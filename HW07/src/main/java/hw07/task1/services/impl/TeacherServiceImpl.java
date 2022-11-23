@@ -1,6 +1,7 @@
 package hw07.task1.services.impl;
 
 import hw07.task1.entities.Teacher;
+import hw07.task1.exceptions.DataNotFoundException;
 import hw07.task1.exceptions.TeacherNotFoundException;
 import hw07.task1.mappers.TeacherMapper;
 import hw07.task1.messages.Messages;
@@ -51,7 +52,14 @@ public class TeacherServiceImpl implements TeacherService {
     }
     
     public List<Teacher> findAll() {
-        return (List<Teacher>) teacherRepository.findAll();
+        List<Teacher> teachers = (List<Teacher>) teacherRepository.findAll();
+    
+        if (teachers.isEmpty()) {
+            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
+            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
+        }
+    
+        return teachers;
     }
     
     public Teacher findById(Integer id) {

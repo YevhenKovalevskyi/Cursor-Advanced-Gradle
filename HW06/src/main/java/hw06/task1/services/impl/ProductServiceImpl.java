@@ -1,6 +1,7 @@
 package hw06.task1.services.impl;
 
 import hw06.task1.entities.Product;
+import hw06.task1.exceptions.DataNotFoundException;
 import hw06.task1.exceptions.ProductNotFoundException;
 import hw06.task1.mappers.ProductMapper;
 import hw06.task1.messages.Messages;
@@ -51,7 +52,14 @@ public class ProductServiceImpl implements ProductService {
     }
     
     public List<Product> findAll() {
-        return (List<Product>) productRepository.findAll();
+        List<Product> products = (List<Product>) productRepository.findAll();
+        
+        if (products.isEmpty()) {
+            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
+            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
+        }
+        
+        return products;
     }
     
     public Product findById(Integer id) {

@@ -1,6 +1,7 @@
 package hw07.task1.services.impl;
 
 import hw07.task1.entities.Group;
+import hw07.task1.exceptions.DataNotFoundException;
 import hw07.task1.exceptions.GroupNotFoundException;
 import hw07.task1.mappers.GroupMapper;
 import hw07.task1.messages.Messages;
@@ -51,7 +52,14 @@ public class GroupServiceImpl implements GroupService {
     }
     
     public List<Group> findAll() {
-        return (List<Group>) groupRepository.findAll();
+        List<Group> groups = (List<Group>) groupRepository.findAll();
+    
+        if (groups.isEmpty()) {
+            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
+            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
+        }
+    
+        return groups;
     }
     
     public Group findById(Integer id) {
