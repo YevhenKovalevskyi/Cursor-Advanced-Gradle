@@ -1,9 +1,7 @@
 package hw08.task1.services.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import hw08.task1.entities.Shop;
-import hw08.task1.exceptions.RequestAlreadyTakenException;
+import hw08.task1.exceptions.DataNotFoundException;
 import hw08.task1.exceptions.ShopNotFoundException;
 import hw08.task1.mappers.ShopMapper;
 import hw08.task1.messages.Messages;
@@ -15,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,9 +24,8 @@ import java.util.List;
 public class ShopServiceImpl implements ShopService {
     
     private ShopRepository shopRepository;
-    private ObjectMapper mapper;
     
-    private Shop getEntityIfExists(Integer id) {
+    private Shop findByIdIfExists(Integer id) {
         return shopRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.SHOP_NOT_FOUND.getLogMessage(), id);
             throw new ShopNotFoundException(
@@ -39,24 +34,14 @@ public class ShopServiceImpl implements ShopService {
         });
     }
     
-    private Shop getDataFromRequest(HttpServletRequest request) {
-        try {
-            return mapper.readValue(request.getInputStream(), Shop.class);
-        } catch (IOException e) {
-            log.error(Messages.REQUEST_ALREADY_TAKEN.getLogMessage());
-            throw new RequestAlreadyTakenException(Messages.REQUEST_ALREADY_TAKEN.getOutMessage());
-        }
-    }
-    
-    public Shop save(HttpServletRequest request) {
+    public Shop save(Shop shop) {
         return shopRepository.save(
-                Shop.build(getDataFromRequest(request))
+                Shop.build(shop)
         );
     }
     
-    public Shop save(Integer id, HttpServletRequest request) {
-        Shop currShop = getEntityIfExists(id);
-        Shop newShop = getDataFromRequest(request);
+    public Shop save(Integer id, Shop newShop) {
+        Shop currShop = findByIdIfExists(id);
     
         return shopRepository.save(
                 ShopMapper.getForUpdate(id, currShop, newShop)
@@ -64,15 +49,22 @@ public class ShopServiceImpl implements ShopService {
     }
     
     public void deleteById(Integer id) {
-        getEntityIfExists(id);
+        findByIdIfExists(id);
         shopRepository.deleteById(id);
     }
     
     public List<Shop> findAll() {
-        return shopRepository.findAll();
+        List<Shop> shops = shopRepository.findAll();
+        
+        if (shops.isEmpty()) {
+            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
+            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
+        }
+        
+        return shops;
     }
     
     public Shop findById(Integer id) {
-        return getEntityIfExists(id);
+        return findByIdIfExists(id);
     }
 }

@@ -1,10 +1,8 @@
 package hw08.task1.services.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import hw08.task1.entities.Employee;
+import hw08.task1.exceptions.DataNotFoundException;
 import hw08.task1.exceptions.EmployeeNotFoundException;
-import hw08.task1.exceptions.RequestAlreadyTakenException;
 import hw08.task1.mappers.EmployeeMapper;
 import hw08.task1.messages.Messages;
 import hw08.task1.repositories.EmployeeRepository;
@@ -15,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,9 +24,8 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
     
     private EmployeeRepository employeeRepository;
-    private ObjectMapper mapper;
     
-    public Employee getEntityIfExists(Integer id) {
+    public Employee findByIdIfExists(Integer id) {
         return employeeRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.EMPLOYEE_NOT_FOUND.getLogMessage(), id);
             throw new EmployeeNotFoundException(
@@ -39,24 +34,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         });
     }
     
-    private Employee getDataFromRequest(HttpServletRequest request) {
-        try {
-            return mapper.readValue(request.getInputStream(), Employee.class);
-        } catch (IOException e) {
-            log.error(Messages.REQUEST_ALREADY_TAKEN.getLogMessage());
-            throw new RequestAlreadyTakenException(Messages.REQUEST_ALREADY_TAKEN.getOutMessage());
-        }
-    }
-    
-    public Employee save(HttpServletRequest request) {
+    public Employee save(Employee employee) {
         return employeeRepository.save(
-                Employee.build(getDataFromRequest(request))
+                Employee.build(employee)
         );
     }
     
-    public Employee save(Integer id, HttpServletRequest request) {
-        Employee currEmployee = getEntityIfExists(id);
-        Employee newEmployee = getDataFromRequest(request);
+    public Employee save(Integer id, Employee newEmployee) {
+        Employee currEmployee = findByIdIfExists(id);
 
         return employeeRepository.save(
                 EmployeeMapper.getForUpdate(id, currEmployee, newEmployee)
@@ -64,15 +49,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     public void deleteById(Integer id) {
-        getEntityIfExists(id);
+        findByIdIfExists(id);
         employeeRepository.deleteById(id);
     }
     
     public List<Employee> findAll() {
-        return employeeRepository.findAll();
+        List<Employee> employees = employeeRepository.findAll();
+    
+        if (employees.isEmpty()) {
+            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
+            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
+        }
+    
+        return employees;
     }
     
     public Employee findById(Integer id) {
-        return getEntityIfExists(id);
+        return findByIdIfExists(id);
     }
 }

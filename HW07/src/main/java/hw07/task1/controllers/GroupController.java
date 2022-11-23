@@ -55,6 +55,7 @@ public class GroupController {
      * Get all Countries
      */
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<GroupDto> getAll() {
         return groupService.findAll()
                 .stream().map(GroupMapper::getForShow).toList();

@@ -2,7 +2,6 @@ package hw08.task1.services;
 
 import hw08.task1.entities.Employee;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -10,8 +9,8 @@ import java.util.List;
  */
 public interface EmployeeService {
     
-    Employee save(HttpServletRequest request);
-    Employee save(Integer id, HttpServletRequest request);
+    Employee save(Employee employee);
+    Employee save(Integer id, Employee employee);
     void deleteById(Integer id);
     List<Employee> findAll();
     Employee findById(Integer id);

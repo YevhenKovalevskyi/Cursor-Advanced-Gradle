@@ -2,6 +2,7 @@ package hw06.task1.services.impl;
 
 import hw06.task1.entities.Country;
 import hw06.task1.exceptions.CountryNotFoundException;
+import hw06.task1.exceptions.DataNotFoundException;
 import hw06.task1.mappers.CountryMapper;
 import hw06.task1.messages.Messages;
 import hw06.task1.repositories.CountryRepository;
@@ -51,7 +52,14 @@ public class CountryServiceImpl implements CountryService {
     }
     
     public List<Country> findAll() {
-        return (List<Country>) countryRepository.findAll();
+        List<Country> countries = (List<Country>) countryRepository.findAll();
+        
+        if (countries.isEmpty()) {
+            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
+            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
+        }
+        
+        return countries;
     }
     
     public Country findById(Integer id) {
