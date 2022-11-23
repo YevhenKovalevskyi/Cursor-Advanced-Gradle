@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author YevhenKovalevskyi
@@ -26,8 +25,8 @@ public class TeacherServiceImpl implements TeacherService {
     
     private TeacherRepository teacherRepository;
     
-    public Teacher checkFound(Integer id, Optional<Teacher> teacher) {
-        return teacher.orElseThrow(() -> {
+    public Teacher findByIdIfExists(Integer id) {
+        return teacherRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.TEACHER_NOT_FOUND.getLogMessage(), id);
             throw new TeacherNotFoundException(
                     String.format(Messages.TEACHER_NOT_FOUND.getOutMessage(), id)
@@ -40,14 +39,14 @@ public class TeacherServiceImpl implements TeacherService {
     }
     
     public Teacher save(Integer id, Teacher newTeacher) {
-        Teacher currTeacher = checkFound(id, teacherRepository.findById(id));
+        Teacher currTeacher = findByIdIfExists(id);
         newTeacher = TeacherMapper.getForUpdate(id, currTeacher, newTeacher);
         
         return teacherRepository.save(newTeacher);
     }
     
     public void deleteById(Integer id) {
-        checkFound(id, teacherRepository.findById(id));
+        findByIdIfExists(id);
         teacherRepository.deleteById(id);
     }
     
@@ -63,6 +62,6 @@ public class TeacherServiceImpl implements TeacherService {
     }
     
     public Teacher findById(Integer id) {
-        return checkFound(id, teacherRepository.findById(id));
+        return findByIdIfExists(id);
     }
 }

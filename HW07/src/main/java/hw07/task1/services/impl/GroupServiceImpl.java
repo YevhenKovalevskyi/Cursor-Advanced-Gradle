@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author YevhenKovalevskyi
@@ -26,8 +25,8 @@ public class GroupServiceImpl implements GroupService {
     
     private GroupRepository groupRepository;
     
-    public Group checkFound(Integer id, Optional<Group> group) {
-        return group.orElseThrow(() -> {
+    public Group findByIdIfExists(Integer id) {
+        return groupRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.GROUP_NOT_FOUND.getLogMessage(), id);
             throw new GroupNotFoundException(
                     String.format(Messages.GROUP_NOT_FOUND.getOutMessage(), id)
@@ -40,14 +39,14 @@ public class GroupServiceImpl implements GroupService {
     }
     
     public Group save(Integer id, Group newGroup) {
-        Group currGroup = checkFound(id, groupRepository.findById(id));
+        Group currGroup = findByIdIfExists(id);
         newGroup = GroupMapper.getForUpdate(id, currGroup, newGroup);
         
         return groupRepository.save(newGroup);
     }
     
     public void deleteById(Integer id) {
-        checkFound(id, groupRepository.findById(id));
+        findByIdIfExists(id);
         groupRepository.deleteById(id);
     }
     
@@ -63,6 +62,6 @@ public class GroupServiceImpl implements GroupService {
     }
     
     public Group findById(Integer id) {
-        return checkFound(id, groupRepository.findById(id));
+        return findByIdIfExists(id);
     }
 }
