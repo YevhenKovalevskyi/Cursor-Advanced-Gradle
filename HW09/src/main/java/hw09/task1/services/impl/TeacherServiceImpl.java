@@ -1,7 +1,8 @@
 package hw09.task1.services.impl;
 
+import hw09.task1.entities.Group;
+import hw09.task1.entities.Student;
 import hw09.task1.entities.Teacher;
-import hw09.task1.exceptions.DataNotFoundException;
 import hw09.task1.exceptions.TeacherNotFoundException;
 import hw09.task1.mappers.TeacherMapper;
 import hw09.task1.messages.Messages;
@@ -13,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author YevhenKovalevskyi
@@ -26,8 +27,8 @@ public class TeacherServiceImpl implements TeacherService {
     
     private TeacherRepository teacherRepository;
     
-    public Teacher checkFound(Integer id, Optional<Teacher> teacher) {
-        return teacher.orElseThrow(() -> {
+    public Teacher findByIdIfExists(Integer id) {
+        return teacherRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.TEACHER_NOT_FOUND.getLogMessage(), id);
             throw new TeacherNotFoundException(
                     String.format(Messages.TEACHER_NOT_FOUND.getOutMessage(), id)
@@ -40,29 +41,47 @@ public class TeacherServiceImpl implements TeacherService {
     }
     
     public Teacher save(Integer id, Teacher newTeacher) {
-        Teacher currTeacher = checkFound(id, teacherRepository.findById(id));
+        Teacher currTeacher = findByIdIfExists(id);
         newTeacher = TeacherMapper.getForUpdate(id, currTeacher, newTeacher);
         
         return teacherRepository.save(newTeacher);
     }
     
     public void deleteById(Integer id) {
-        checkFound(id, teacherRepository.findById(id));
+        findByIdIfExists(id);
         teacherRepository.deleteById(id);
     }
     
     public List<Teacher> findAll() {
-        List<Teacher> teachers = (List<Teacher>) teacherRepository.findAll();
-        
-        if (teachers.isEmpty()) {
-            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
-            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
-        }
-        
-        return teachers;
+        return (List<Teacher>) teacherRepository.findAll();
     }
     
     public Teacher findById(Integer id) {
-        return checkFound(id, teacherRepository.findById(id));
+        return findByIdIfExists(id);
+    }
+    
+    public List<Group> findGroups(Integer id) {
+        return findByIdIfExists(id).getGroups();
+    }
+    
+    public int findGroupsCount(Integer id) {
+        return findGroups(id).size();
+    }
+    
+    public List<Student> findStudents(Integer id) {
+        List<Group> groups = findByIdIfExists(id).getGroups();
+        List<Student> students = new ArrayList<>();
+        
+        if (!groups.isEmpty()) {
+            for (Group group: groups) {
+                students.addAll(group.getStudents());
+            }
+        }
+    
+        return students;
+    }
+    
+    public int findStudentsCount(Integer id) {
+        return findStudents(id).size();
     }
 }

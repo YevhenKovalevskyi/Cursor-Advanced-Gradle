@@ -1,11 +1,11 @@
-package hw07.task1.controllers;
+package hw09.task1.controllers;
 
-import hw07.task1.dto.GroupDto;
-import hw07.task1.dto.StudentLightDto;
-import hw07.task1.entities.Group;
-import hw07.task1.mappers.GroupMapper;
-import hw07.task1.mappers.StudentMapper;
-import hw07.task1.services.GroupService;
+import hw09.task1.dto.GroupDto;
+import hw09.task1.dto.StudentLightDto;
+import hw09.task1.entities.Group;
+import hw09.task1.mappers.GroupMapper;
+import hw09.task1.mappers.StudentMapper;
+import hw09.task1.services.GroupService;
 
 import lombok.AllArgsConstructor;
 
@@ -76,7 +76,7 @@ public class GroupController {
     @GetMapping("/{id}/students")
     @ResponseStatus(HttpStatus.OK)
     public List<StudentLightDto> getStudents(@PathVariable Integer id) {
-        return groupService.findById(id).getStudents()
+        return groupService.findStudents(id)
                 .stream().map(StudentMapper::getForShowSingle).toList();
     }
     
@@ -86,6 +86,6 @@ public class GroupController {
     @GetMapping("/{id}/students/count")
     @ResponseStatus(HttpStatus.OK)
     public int getStudentsCount(@PathVariable Integer id) {
-        return groupService.findById(id).getStudents().size();
+        return groupService.findStudentsCount(id);
     }
 }

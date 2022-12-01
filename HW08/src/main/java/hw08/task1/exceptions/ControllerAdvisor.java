@@ -59,19 +59,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
     
-    @ExceptionHandler(DataNotFoundException.class)
-    public ResponseEntity<Object> handleDataNotFoundException(
-            DataNotFoundException ex, HttpServletRequest request
-    ) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", "error");
-        body.put("code", HttpStatus.NOT_FOUND.value());
-        body.put("timestamp", TIMESTAMP);
-        body.put("message", ex.getMessage());
-        
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-    }
-    
     @ExceptionHandler(PrintWriterException.class)
     public ResponseEntity<Object> handlePrintWriterException(
             PrintWriterException ex, HttpServletRequest request

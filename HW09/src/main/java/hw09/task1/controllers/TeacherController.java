@@ -78,7 +78,7 @@ public class TeacherController {
     @GetMapping("/{id}/groups")
     @ResponseStatus(HttpStatus.OK)
     public List<GroupLightDto> getGroups(@PathVariable Integer id) {
-        return teacherService.findById(id).getGroups()
+        return teacherService.findGroups(id)
                 .stream().map(GroupMapper::getForShowSingle).toList();
     }
     
@@ -88,7 +88,7 @@ public class TeacherController {
     @GetMapping("/{id}/groups/count")
     @ResponseStatus(HttpStatus.OK)
     public int getGroupsCount(@PathVariable Integer id) {
-        return teacherService.findById(id).getGroups().size();
+        return teacherService.findGroupsCount(id);
     }
     
     /**
@@ -97,14 +97,8 @@ public class TeacherController {
     @GetMapping("/{id}/students")
     @ResponseStatus(HttpStatus.OK)
     public List<StudentLightDto> getStudents(@PathVariable Integer id) {
-        List<StudentLightDto> students = new ArrayList<>();
-        
-        for (Group group: teacherService.findById(id).getGroups()) {
-            students.addAll(group.getStudents()
-                    .stream().map(StudentMapper::getForShowSingle).toList());
-        }
-        
-        return students;
+        return teacherService.findStudents(id)
+                .stream().map(StudentMapper::getForShowSingle).toList();
     }
     
     /**
@@ -113,12 +107,6 @@ public class TeacherController {
     @GetMapping("/{id}/students/count")
     @ResponseStatus(HttpStatus.OK)
     public int getStudentsCount(@PathVariable Integer id) {
-        int students = 0;
-        
-        for (Group group: teacherService.findById(id).getGroups()) {
-            students += group.getStudents().size();
-        }
-        
-        return students;
+        return teacherService.findStudentsCount(id);
     }
 }

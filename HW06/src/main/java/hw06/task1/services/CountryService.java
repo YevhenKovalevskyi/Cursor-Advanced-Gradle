@@ -1,6 +1,7 @@
 package hw06.task1.services;
 
 import hw06.task1.entities.Country;
+import hw06.task1.entities.Product;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface CountryService {
     void deleteById(Integer id);
     List<Country> findAll();
     Country findById(Integer id);
+    List<Product> findProducts(Integer id);
 }

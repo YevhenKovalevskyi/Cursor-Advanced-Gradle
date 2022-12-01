@@ -1,12 +1,11 @@
-package hw07.task1.services.impl;
+package hw09.task1.services.impl;
 
-import hw07.task1.entities.Student;
-import hw07.task1.exceptions.DataNotFoundException;
-import hw07.task1.exceptions.StudentNotFoundException;
-import hw07.task1.mappers.StudentMapper;
-import hw07.task1.messages.Messages;
-import hw07.task1.services.StudentService;
-import hw07.task1.repositories.StudentRepository;
+import hw09.task1.entities.Student;
+import hw09.task1.exceptions.StudentNotFoundException;
+import hw09.task1.mappers.StudentMapper;
+import hw09.task1.messages.Messages;
+import hw09.task1.services.StudentService;
+import hw09.task1.repositories.StudentRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,14 +50,7 @@ public class StudentServiceImpl implements StudentService {
     }
     
     public List<Student> findAll() {
-        List<Student> students = (List<Student>) studentRepository.findAll();
-    
-        if (students.isEmpty()) {
-            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
-            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
-        }
-    
-        return students;
+        return (List<Student>) studentRepository.findAll();
     }
     
     public Student findById(Integer id) {

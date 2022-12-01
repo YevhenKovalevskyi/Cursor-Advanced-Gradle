@@ -1,4 +1,4 @@
-package hw07.task1.exceptions;
+package hw09.task1.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,19 +49,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(StudentNotFoundException.class)
     public ResponseEntity<Object> handleStudentNotFoundException(
             StudentNotFoundException ex, HttpServletRequest request
-    ) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", "error");
-        body.put("code", HttpStatus.NOT_FOUND.value());
-        body.put("timestamp", TIMESTAMP);
-        body.put("message", ex.getMessage());
-        
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-    }
-    
-    @ExceptionHandler(DataNotFoundException.class)
-    public ResponseEntity<Object> handleDataNotFoundException(
-            DataNotFoundException ex, HttpServletRequest request
     ) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", "error");

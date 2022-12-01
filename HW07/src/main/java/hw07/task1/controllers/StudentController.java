@@ -1,9 +1,9 @@
-package hw07.task1.controllers;
+package hw09.task1.controllers;
 
-import hw07.task1.dto.StudentDto;
-import hw07.task1.entities.Student;
-import hw07.task1.mappers.StudentMapper;
-import hw07.task1.services.StudentService;
+import hw09.task1.dto.StudentDto;
+import hw09.task1.entities.Student;
+import hw09.task1.mappers.StudentMapper;
+import hw09.task1.services.StudentService;
 
 import lombok.AllArgsConstructor;
 

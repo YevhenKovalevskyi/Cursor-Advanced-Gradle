@@ -93,7 +93,7 @@ public class ShopController {
     @GetMapping("/{id}/employees")
     public void getEmployees(HttpServletRequest request, HttpServletResponse response) {
         Integer shopId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
-        List<EmployeeLightDto> employeesDto = shopService.findById(shopId).getEmployees()
+        List<EmployeeLightDto> employeesDto = shopService.findEmployees(shopId)
                 .stream().map(EmployeeMapper::getForShowLight).toList();
     
         ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeesDto);
@@ -106,7 +106,7 @@ public class ShopController {
     @ResponseStatus(HttpStatus.OK)
     public void getEmployeesCount(HttpServletRequest request, HttpServletResponse response) {
         Integer shopId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
-        Integer employeesCount = shopService.findById(shopId).getEmployees().size();
+        Integer employeesCount = shopService.findEmployeesCount(shopId);
     
         ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeesCount);
     }
