@@ -1,6 +1,8 @@
-package hw07.task1.services;
+package hw09.task1.services;
 
-import hw07.task1.entities.Teacher;
+import hw09.task1.entities.Student;
+import hw09.task1.entities.Group;
+import hw09.task1.entities.Teacher;
 
 import java.util.List;
 
@@ -14,4 +16,8 @@ public interface TeacherService {
     void deleteById(Integer id);
     List<Teacher> findAll();
     Teacher findById(Integer id);
+    List<Group> findGroups(Integer id);
+    int findGroupsCount(Integer id);
+    List<Student> findStudents(Integer id);
+    int findStudentsCount(Integer id);
 }

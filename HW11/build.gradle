@@ -1,0 +1,19 @@
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    // lombok
+    compileOnly libraries.lombok
+    annotationProcessor libraries.lombok
+    testCompileOnly libraries.lombok
+    testAnnotationProcessor libraries.lombok
+
+    // testing
+    testImplementation libraries.junit5_core
+    testImplementation libraries.junit5_api
+    testImplementation libraries.junit5_params
+    testImplementation libraries.assertj_core
+}
+
+description = "home_work_11"

@@ -1,7 +1,6 @@
 package hw08.task1.services.impl;
 
 import hw08.task1.entities.Employee;
-import hw08.task1.exceptions.DataNotFoundException;
 import hw08.task1.exceptions.EmployeeNotFoundException;
 import hw08.task1.mappers.EmployeeMapper;
 import hw08.task1.messages.Messages;
@@ -54,14 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     public List<Employee> findAll() {
-        List<Employee> employees = employeeRepository.findAll();
-    
-        if (employees.isEmpty()) {
-            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
-            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
-        }
-    
-        return employees;
+        return employeeRepository.findAll();
     }
     
     public Employee findById(Integer id) {

@@ -1,5 +1,6 @@
 package hw08.task1.services;
 
+import hw08.task1.entities.Employee;
 import hw08.task1.entities.Shop;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ShopService {
     void deleteById(Integer id);
     List<Shop> findAll();
     Shop findById(Integer id);
+    List<Employee> findEmployees(Integer id);
+    int findEmployeesCount(Integer id);
 }

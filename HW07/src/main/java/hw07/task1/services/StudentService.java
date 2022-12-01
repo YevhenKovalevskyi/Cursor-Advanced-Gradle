@@ -1,6 +1,6 @@
-package hw07.task1.services;
+package hw09.task1.services;
 
-import hw07.task1.entities.Student;
+import hw09.task1.entities.Student;
 
 import java.util.List;
 

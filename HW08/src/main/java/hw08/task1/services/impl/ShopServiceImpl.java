@@ -1,7 +1,7 @@
 package hw08.task1.services.impl;
 
+import hw08.task1.entities.Employee;
 import hw08.task1.entities.Shop;
-import hw08.task1.exceptions.DataNotFoundException;
 import hw08.task1.exceptions.ShopNotFoundException;
 import hw08.task1.mappers.ShopMapper;
 import hw08.task1.messages.Messages;
@@ -54,17 +54,18 @@ public class ShopServiceImpl implements ShopService {
     }
     
     public List<Shop> findAll() {
-        List<Shop> shops = shopRepository.findAll();
-        
-        if (shops.isEmpty()) {
-            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
-            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
-        }
-        
-        return shops;
+        return shopRepository.findAll();
     }
     
     public Shop findById(Integer id) {
         return findByIdIfExists(id);
+    }
+    
+    public List<Employee> findEmployees(Integer id) {
+        return findByIdIfExists(id).getEmployees();
+    }
+    
+    public int findEmployeesCount(Integer id) {
+        return findEmployees(id).size();
     }
 }

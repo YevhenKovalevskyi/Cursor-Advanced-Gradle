@@ -76,7 +76,7 @@ public class GroupController {
     @GetMapping("/{id}/students")
     @ResponseStatus(HttpStatus.OK)
     public List<StudentLightDto> getStudents(@PathVariable Integer id) {
-        return groupService.findById(id).getStudents()
+        return groupService.findStudents(id)
                 .stream().map(StudentMapper::getForShowSingle).toList();
     }
     
@@ -86,6 +86,6 @@ public class GroupController {
     @GetMapping("/{id}/students/count")
     @ResponseStatus(HttpStatus.OK)
     public int getStudentsCount(@PathVariable Integer id) {
-        return groupService.findById(id).getStudents().size();
+        return groupService.findStudentsCount(id);
     }
 }

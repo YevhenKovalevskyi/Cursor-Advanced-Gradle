@@ -2,7 +2,6 @@ package hw05.task1.services;
 
 import hw05.task1.entities.Employee;
 import hw05.task1.entities.Shop;
-import hw05.task1.exceptions.DataNotFoundException;
 import hw05.task1.exceptions.ShopNotFoundException;
 import hw05.task1.mappers.ShopMapper;
 import hw05.task1.messages.Messages;
@@ -53,14 +52,7 @@ public class ShopService {
     }
     
     public List<Shop> findAll() {
-        List<Shop> shops = (List<Shop>) shopRepository.findAll();
-    
-        if (shops.isEmpty()) {
-            log.error(Messages.DATA_NOT_FOUND.getLogMessage());
-            throw new DataNotFoundException(Messages.DATA_NOT_FOUND.getOutMessage());
-        }
-    
-        return shops;
+        return (List<Shop>) shopRepository.findAll();
     }
     
     public Shop findById(Integer id) {

@@ -1,5 +1,5 @@
-test {
-    useJUnitPlatform()
+plugins {
+    id "jacoco"
 }
 
 dependencies {
@@ -14,6 +14,7 @@ dependencies {
     testImplementation libraries.junit5_api
     testImplementation libraries.junit5_params
     testImplementation libraries.assertj_core
+    testImplementation libraries.mockito_core
 
     // databases
     implementation libraries.mysql
@@ -26,11 +27,34 @@ dependencies {
     implementation libraries.jaxb_api
     implementation libraries.validation
 
+    // utils
+    implementation libraries.jacoco
+
     // spring-boot
     implementation libraries.snakeyaml
     implementation libraries.spring_boot_starter_web
     implementation libraries.spring_boot_starter_jpa
     testImplementation libraries.spring_boot_starter_test
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy(jacocoTestReport)
+    maxParallelForks = Runtime.runtime.availableProcessors()
+}
+
+jacocoTestReport {
+    dependsOn(test)
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "**/entities",
+                    "**/dto",
+                    "**/exceptions",
+                    "**/messages"
+            ])
+        }))
+    }
 }
 
 description = "home_work_09"

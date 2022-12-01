@@ -76,7 +76,7 @@ public class CountryController {
     @GetMapping("/{id}/products")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDto> getProducts(@PathVariable Integer id) {
-        return countryService.findById(id).getProducts()
+        return countryService.findProducts(id)
                 .stream().map(ProductMapper::getForShow).toList();
     }
 }
