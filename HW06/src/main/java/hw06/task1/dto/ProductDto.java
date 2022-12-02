@@ -5,6 +5,8 @@ import hw06.task1.mappers.CountryMapper;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @author YevhenKovalevskyi
  */
@@ -14,7 +16,7 @@ public class ProductDto {
     
     private Integer id;
     private String name;
-    private Float price;
+    private BigDecimal price;
     private String description;
     private Integer manufactured;
     private Integer useBefore;

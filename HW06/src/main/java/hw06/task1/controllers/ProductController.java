@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -83,7 +84,7 @@ public class ProductController {
      */
     @GetMapping(value = "/filters/", params = {"min-price"})
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductDto> getByMinPrice(@RequestParam("min-price") int price) {
+    public List<ProductDto> getByMinPrice(@RequestParam("min-price") BigDecimal price) {
         return productService.findByMinPrice(price)
                 .stream().map(ProductMapper::getForShow).toList();
     }

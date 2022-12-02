@@ -2,6 +2,7 @@ package hw06.task1.services;
 
 import hw06.task1.entities.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -15,6 +16,6 @@ public interface ProductService {
     List<Product> findAll();
     Product findById(Integer id);
     List<Product> findByMaxUseBefore(int useBefore);
-    List<Product> findByMinPrice(int price);
+    List<Product> findByMinPrice(BigDecimal price);
     List<Product> findByBestBeforeDate(int manufactured, int useBefore);
 }
