@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,7 +34,7 @@ public class Product {
     
     @Positive
     @Column(name="p_price", columnDefinition = "FLOAT NOT NULL")
-    private Float price;
+    private BigDecimal price;
     
     @Column(name="p_description", columnDefinition = "TEXT DEFAULT NULL")
     private String description;
