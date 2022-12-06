@@ -8,7 +8,7 @@ import hw09.task1.exceptions.TeacherNotFoundException;
 import hw09.task1.mappers.GroupMapper;
 import hw09.task1.mappers.StudentMapper;
 import hw09.task1.mappers.TeacherMapper;
-import hw09.task1.services.TeacherService;
+import hw09.task1.services.impl.TeacherServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,44 +38,41 @@ public class TeacherControllerTest {
     private static final Student STUDENT = new Student();
     
     @Mock
-    private TeacherService teacherService;
+    private TeacherServiceImpl teacherService;
     
     @InjectMocks
     private TeacherController teacherController;
     
     @Test
     public void createReturnValidResponse() {
-        when(teacherService.save(TEACHER)).thenReturn(TEACHER);
+        when(teacherService.create(TEACHER)).thenReturn(TEACHER);
         assertEquals(TeacherMapper.getForShow(TEACHER), teacherController.create(TEACHER));
     }
     
     @Test
     public void updateReturnValidResponse() {
-        when(teacherService.save(1, TEACHER)).thenReturn(TEACHER);
+        when(teacherService.update(1, TEACHER)).thenReturn(TEACHER);
         assertEquals(TeacherMapper.getForShow(TEACHER), teacherController.update(1, TEACHER));
     }
     
     @Test
     public void updateReturnException() {
-        when(teacherService.save(1, TEACHER)).thenThrow(TeacherNotFoundException.class);
+        doThrow(TeacherNotFoundException.class).when(teacherService).update(1, TEACHER);
         assertThatThrownBy(() -> teacherController.update(1, TEACHER))
                 .isInstanceOf(TeacherNotFoundException.class);
     }
     
-    //@Test
+    @Test
     public void deleteReturnValidResponse() {
-        doNothing().when(teacherService).deleteById(1);
-        
-        //teacherController.delete(1);
-        //verify(teacherService).deleteById(1);
+        teacherController.delete(1);
+        verify(teacherService).deleteById(1);
     }
     
-    //@Test
+    @Test
     public void deleteReturnException() {
-        doNothing().when(teacherService).deleteById(1);
-        
-        //teacherController.delete(1);
-        //verify(teacherService).deleteById(1);
+        doThrow(TeacherNotFoundException.class).when(teacherService).deleteById(1);
+        assertThatThrownBy(() -> teacherController.delete(1))
+                .isInstanceOf(TeacherNotFoundException.class);
     }
     
     @Test
@@ -92,7 +89,7 @@ public class TeacherControllerTest {
     
     @Test
     public void getOneReturnException() {
-        when(teacherService.findById(1)).thenThrow(TeacherNotFoundException.class);
+        doThrow(TeacherNotFoundException.class).when(teacherService).findById(1);
         assertThatThrownBy(() -> teacherController.getOne(1))
                 .isInstanceOf(TeacherNotFoundException.class);
     }
@@ -105,7 +102,7 @@ public class TeacherControllerTest {
     
     @Test
     public void getGroupsReturnException() {
-        when(teacherService.findGroups(1)).thenThrow(TeacherNotFoundException.class);
+        doThrow(TeacherNotFoundException.class).when(teacherService).findGroups(1);
         assertThatThrownBy(() -> teacherController.getGroups(1))
                 .isInstanceOf(TeacherNotFoundException.class);
     }
@@ -119,7 +116,7 @@ public class TeacherControllerTest {
     
     @Test
     public void getGroupsCountReturnException() {
-        when(teacherService.findGroupsCount(1)).thenThrow(TeacherNotFoundException.class);
+        doThrow(TeacherNotFoundException.class).when(teacherService).findGroupsCount(1);
         assertThatThrownBy(() -> teacherController.getGroupsCount(1))
                 .isInstanceOf(TeacherNotFoundException.class);
     }
@@ -132,7 +129,7 @@ public class TeacherControllerTest {
     
     @Test
     public void getStudentsReturnException() {
-        when(teacherService.findStudents(1)).thenThrow(TeacherNotFoundException.class);
+        doThrow(TeacherNotFoundException.class).when(teacherService).findStudents(1);
         assertThatThrownBy(() -> teacherController.getStudents(1))
                 .isInstanceOf(TeacherNotFoundException.class);
     }
@@ -146,7 +143,7 @@ public class TeacherControllerTest {
     
     @Test
     public void getStudentsCountReturnException() {
-        when(teacherService.findStudentsCount(1)).thenThrow(TeacherNotFoundException.class);
+        doThrow(TeacherNotFoundException.class).when(teacherService).findStudentsCount(1);
         assertThatThrownBy(() -> teacherController.getStudentsCount(1))
                 .isInstanceOf(TeacherNotFoundException.class);
     }

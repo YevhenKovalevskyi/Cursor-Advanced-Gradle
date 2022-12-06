@@ -33,13 +33,11 @@ public class ShopService {
         });
     }
     
-    public Shop save(Shop newShop) {
-        newShop = Shop.build(newShop);
-        
-        return shopRepository.save(newShop);
+    public Shop create(Shop newShop) {
+        return shopRepository.save(Shop.build(newShop));
     }
     
-    public Shop save(Integer id, Shop newShop) {
+    public Shop update(Integer id, Shop newShop) {
         Shop currShop = findByIdIfExists(id);
         newShop = ShopMapper.getForUpdate(id, currShop, newShop);
 

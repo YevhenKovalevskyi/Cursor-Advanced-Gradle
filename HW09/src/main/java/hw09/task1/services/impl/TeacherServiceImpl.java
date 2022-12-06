@@ -36,11 +36,11 @@ public class TeacherServiceImpl implements TeacherService {
         });
     }
     
-    public Teacher save(Teacher newTeacher) {
+    public Teacher create(Teacher newTeacher) {
         return teacherRepository.save(Teacher.build(newTeacher));
     }
     
-    public Teacher save(Integer id, Teacher newTeacher) {
+    public Teacher update(Integer id, Teacher newTeacher) {
         Teacher currTeacher = findByIdIfExists(id);
         newTeacher = TeacherMapper.getForUpdate(id, currTeacher, newTeacher);
         

@@ -1,4 +1,4 @@
-package hw09.task1.messages;
+package hw07.task1.messages;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

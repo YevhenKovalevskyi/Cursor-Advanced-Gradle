@@ -35,7 +35,7 @@ public class EmployeeController {
     @PostMapping
     public void create(HttpServletRequest request, HttpServletResponse response) {
         Employee employee = RequestAction.getRequestBody(request, mapper, Employee.class);
-        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.save(employee));
+        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.create(employee));
     
         ResponseAction.setResponse(response, mapper, HttpStatus.CREATED, employeeDto);
     }
@@ -47,7 +47,7 @@ public class EmployeeController {
     public void update(HttpServletRequest request, HttpServletResponse response) {
         Integer employeeId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
         Employee employee = RequestAction.getRequestBody(request, mapper, Employee.class);
-        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.save(employeeId, employee));
+        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.update(employeeId, employee));
     
         ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeeDto);
     }

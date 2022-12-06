@@ -1,9 +1,9 @@
-package hw09.task1.controllers;
+package hw07.task1.controllers;
 
-import hw09.task1.dto.StudentDto;
-import hw09.task1.entities.Student;
-import hw09.task1.mappers.StudentMapper;
-import hw09.task1.services.StudentService;
+import hw07.task1.dto.StudentDto;
+import hw07.task1.entities.Student;
+import hw07.task1.mappers.StudentMapper;
+import hw07.task1.services.StudentService;
 
 import lombok.AllArgsConstructor;
 
@@ -28,7 +28,7 @@ public class StudentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public StudentDto create(@RequestBody Student student) {
-        return StudentMapper.getForShow(studentService.save(student));
+        return StudentMapper.getForShow(studentService.create(student));
     }
     
     /**
@@ -37,7 +37,7 @@ public class StudentController {
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public StudentDto update(@PathVariable Integer id, @RequestBody Student student) {
-        return StudentMapper.getForShow(studentService.save(id, student));
+        return StudentMapper.getForShow(studentService.update(id, student));
     }
     
     /**

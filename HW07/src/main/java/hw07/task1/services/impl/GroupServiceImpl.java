@@ -1,12 +1,12 @@
-package hw09.task1.services.impl;
+package hw07.task1.services.impl;
 
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Student;
-import hw09.task1.exceptions.GroupNotFoundException;
-import hw09.task1.mappers.GroupMapper;
-import hw09.task1.messages.Messages;
-import hw09.task1.services.GroupService;
-import hw09.task1.repositories.GroupRepository;
+import hw07.task1.entities.Group;
+import hw07.task1.entities.Student;
+import hw07.task1.exceptions.GroupNotFoundException;
+import hw07.task1.mappers.GroupMapper;
+import hw07.task1.messages.Messages;
+import hw07.task1.services.GroupService;
+import hw07.task1.repositories.GroupRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +34,11 @@ public class GroupServiceImpl implements GroupService {
         });
     }
     
-    public Group save(Group newGroup) {
+    public Group create(Group newGroup) {
         return groupRepository.save(Group.build(newGroup));
     }
     
-    public Group save(Integer id, Group newGroup) {
+    public Group update(Integer id, Group newGroup) {
         Group currGroup = findByIdIfExists(id);
         newGroup = GroupMapper.getForUpdate(id, currGroup, newGroup);
         

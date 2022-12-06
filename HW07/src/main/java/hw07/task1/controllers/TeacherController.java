@@ -1,19 +1,17 @@
-package hw09.task1.controllers;
+package hw07.task1.controllers;
 
-import hw09.task1.dto.*;
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Teacher;
-import hw09.task1.mappers.GroupMapper;
-import hw09.task1.mappers.StudentMapper;
-import hw09.task1.mappers.TeacherMapper;
-import hw09.task1.services.TeacherService;
+import hw07.task1.dto.*;
+import hw07.task1.entities.Teacher;
+import hw07.task1.mappers.GroupMapper;
+import hw07.task1.mappers.StudentMapper;
+import hw07.task1.mappers.TeacherMapper;
+import hw07.task1.services.TeacherService;
 
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +30,7 @@ public class TeacherController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TeacherDto create(@RequestBody Teacher teacher) {
-        return TeacherMapper.getForShow(teacherService.save(teacher));
+        return TeacherMapper.getForShow(teacherService.create(teacher));
     }
     
     /**
@@ -41,7 +39,7 @@ public class TeacherController {
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public TeacherDto update(@PathVariable Integer id, @RequestBody Teacher teacher) {
-        return TeacherMapper.getForShow(teacherService.save(id, teacher));
+        return TeacherMapper.getForShow(teacherService.update(id, teacher));
     }
     
     /**

@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface GroupService {
     
-    Group save(Group group);
-    Group save(Integer id, Group group);
+    Group create(Group group);
+    Group update(Integer id, Group group);
     void deleteById(Integer id);
     List<Group> findAll();
     Group findById(Integer id);

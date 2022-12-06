@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface ProductService {
     
-    Product save(Product product);
-    Product save(Integer id, Product product);
+    Product create(Product product);
+    Product update(Integer id, Product product);
     void deleteById(Integer id);
     List<Product> findAll();
     Product findById(Integer id);

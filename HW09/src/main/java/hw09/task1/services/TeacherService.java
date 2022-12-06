@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface TeacherService {
     
-    Teacher save(Teacher teacher);
-    Teacher save(Integer id, Teacher teacher);
+    Teacher create(Teacher teacher);
+    Teacher update(Integer id, Teacher teacher);
     void deleteById(Integer id);
     List<Teacher> findAll();
     Teacher findById(Integer id);

@@ -1,8 +1,8 @@
-package hw09.task1.services;
+package hw07.task1.services;
 
-import hw09.task1.entities.Student;
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Teacher;
+import hw07.task1.entities.Student;
+import hw07.task1.entities.Group;
+import hw07.task1.entities.Teacher;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface TeacherService {
     
-    Teacher save(Teacher teacher);
-    Teacher save(Integer id, Teacher teacher);
+    Teacher create(Teacher teacher);
+    Teacher update(Integer id, Teacher teacher);
     void deleteById(Integer id);
     List<Teacher> findAll();
     Teacher findById(Integer id);

@@ -1,13 +1,13 @@
-package hw09.task1.services.impl;
+package hw07.task1.services.impl;
 
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Student;
-import hw09.task1.entities.Teacher;
-import hw09.task1.exceptions.TeacherNotFoundException;
-import hw09.task1.mappers.TeacherMapper;
-import hw09.task1.messages.Messages;
-import hw09.task1.services.TeacherService;
-import hw09.task1.repositories.TeacherRepository;
+import hw07.task1.entities.Group;
+import hw07.task1.entities.Student;
+import hw07.task1.entities.Teacher;
+import hw07.task1.exceptions.TeacherNotFoundException;
+import hw07.task1.mappers.TeacherMapper;
+import hw07.task1.messages.Messages;
+import hw07.task1.services.TeacherService;
+import hw07.task1.repositories.TeacherRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,11 +36,11 @@ public class TeacherServiceImpl implements TeacherService {
         });
     }
     
-    public Teacher save(Teacher newTeacher) {
+    public Teacher create(Teacher newTeacher) {
         return teacherRepository.save(Teacher.build(newTeacher));
     }
     
-    public Teacher save(Integer id, Teacher newTeacher) {
+    public Teacher update(Integer id, Teacher newTeacher) {
         Teacher currTeacher = findByIdIfExists(id);
         newTeacher = TeacherMapper.getForUpdate(id, currTeacher, newTeacher);
         
@@ -69,7 +69,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
     
     public List<Student> findStudents(Integer id) {
-        List<Group> groups = findGroups(id);
+        List<Group> groups = findByIdIfExists(id).getGroups();
         List<Student> students = new ArrayList<>();
         
         if (!groups.isEmpty()) {

@@ -1,7 +1,7 @@
-package hw09.task1.services;
+package hw07.task1.services;
 
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Student;
+import hw07.task1.entities.Group;
+import hw07.task1.entities.Student;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface GroupService {
     
-    Group save(Group group);
-    Group save(Integer id, Group group);
+    Group create(Group group);
+    Group update(Integer id, Group group);
     void deleteById(Integer id);
     List<Group> findAll();
     Group findById(Integer id);

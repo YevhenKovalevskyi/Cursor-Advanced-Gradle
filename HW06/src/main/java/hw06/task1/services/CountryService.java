@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface CountryService {
     
-    Country save(Country country);
-    Country save(Integer id, Country country);
+    Country create(Country country);
+    Country update(Integer id, Country country);
     void deleteById(Integer id);
     List<Country> findAll();
     Country findById(Integer id);

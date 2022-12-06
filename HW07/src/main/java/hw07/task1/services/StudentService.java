@@ -1,6 +1,6 @@
-package hw09.task1.services;
+package hw07.task1.services;
 
-import hw09.task1.entities.Student;
+import hw07.task1.entities.Student;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface StudentService {
     
-    Student save(Student student);
-    Student save(Integer id, Student student);
+    Student create(Student student);
+    Student update(Integer id, Student student);
     void deleteById(Integer id);
     List<Student> findAll();
     Student findById(Integer id);

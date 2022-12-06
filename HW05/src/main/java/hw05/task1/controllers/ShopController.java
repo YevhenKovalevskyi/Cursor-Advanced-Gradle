@@ -27,7 +27,7 @@ public class ShopController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Shop create(@RequestBody Shop shop) {
-        return shopService.save(shop);
+        return shopService.create(shop);
     }
     
     /**
@@ -36,7 +36,7 @@ public class ShopController {
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Shop update(@PathVariable Integer id, @RequestBody Shop shop) {
-        return shopService.save(id, shop);
+        return shopService.update(id, shop);
     }
     
     /**
