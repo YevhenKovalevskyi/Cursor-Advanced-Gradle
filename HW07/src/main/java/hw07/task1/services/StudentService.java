@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface StudentService {
     
-    Student save(Student student);
-    Student save(Integer id, Student student);
+    Student create(Student student);
+    Student update(Integer id, Student student);
     void deleteById(Integer id);
     List<Student> findAll();
     Student findById(Integer id);

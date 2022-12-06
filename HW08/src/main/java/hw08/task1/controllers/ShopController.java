@@ -37,7 +37,7 @@ public class ShopController {
     @PostMapping
     public void create(HttpServletRequest request, HttpServletResponse response) {
         Shop shop = RequestAction.getRequestBody(request, mapper, Shop.class);
-        ShopDto shopDto = ShopMapper.getForShow(shopService.save(shop));
+        ShopDto shopDto = ShopMapper.getForShow(shopService.create(shop));
 
         ResponseAction.setResponse(response, mapper, HttpStatus.CREATED, shopDto);
     }
@@ -49,7 +49,7 @@ public class ShopController {
     public void update(HttpServletRequest request, HttpServletResponse response) {
         Integer shopId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
         Shop shop = RequestAction.getRequestBody(request, mapper, Shop.class);
-        ShopDto shopDto = ShopMapper.getForShow(shopService.save(shopId, shop));
+        ShopDto shopDto = ShopMapper.getForShow(shopService.update(shopId, shop));
     
         ResponseAction.setResponse(response, mapper, HttpStatus.OK, shopDto);
     }

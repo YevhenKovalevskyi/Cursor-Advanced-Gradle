@@ -33,13 +33,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         });
     }
     
-    public Employee save(Employee employee) {
+    public Employee create(Employee employee) {
         return employeeRepository.save(
                 Employee.build(employee)
         );
     }
     
-    public Employee save(Integer id, Employee newEmployee) {
+    public Employee update(Integer id, Employee newEmployee) {
         Employee currEmployee = findByIdIfExists(id);
 
         return employeeRepository.save(

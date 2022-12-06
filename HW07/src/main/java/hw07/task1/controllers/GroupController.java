@@ -30,7 +30,7 @@ public class GroupController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public GroupDto create(@RequestBody Group group) {
-        return GroupMapper.getForShow(groupService.save(group));
+        return GroupMapper.getForShow(groupService.create(group));
     }
     
     /**
@@ -39,7 +39,7 @@ public class GroupController {
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public GroupDto update(@PathVariable Integer id, @RequestBody Group group) {
-        return GroupMapper.getForShow(groupService.save(id, group));
+        return GroupMapper.getForShow(groupService.update(id, group));
     }
     
     /**

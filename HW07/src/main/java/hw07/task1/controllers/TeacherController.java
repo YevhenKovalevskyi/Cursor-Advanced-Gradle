@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class TeacherController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TeacherDto create(@RequestBody Teacher teacher) {
-        return TeacherMapper.getForShow(teacherService.save(teacher));
+        return TeacherMapper.getForShow(teacherService.create(teacher));
     }
     
     /**
@@ -40,7 +39,7 @@ public class TeacherController {
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public TeacherDto update(@PathVariable Integer id, @RequestBody Teacher teacher) {
-        return TeacherMapper.getForShow(teacherService.save(id, teacher));
+        return TeacherMapper.getForShow(teacherService.update(id, teacher));
     }
     
     /**

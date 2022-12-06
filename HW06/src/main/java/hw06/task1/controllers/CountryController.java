@@ -30,7 +30,7 @@ public class CountryController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CountryDto create(@RequestBody Country country) {
-        return CountryMapper.getForShow(countryService.save(country));
+        return CountryMapper.getForShow(countryService.create(country));
     }
     
     /**
@@ -39,7 +39,7 @@ public class CountryController {
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CountryDto update(@PathVariable Integer id, @RequestBody Country country) {
-        return CountryMapper.getForShow(countryService.save(id, country));
+        return CountryMapper.getForShow(countryService.update(id, country));
     }
     
     /**

@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface EmployeeService {
     
-    Employee save(Employee employee);
-    Employee save(Integer id, Employee employee);
+    Employee create(Employee employee);
+    Employee update(Integer id, Employee employee);
     void deleteById(Integer id);
     List<Employee> findAll();
     Employee findById(Integer id);

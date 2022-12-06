@@ -34,11 +34,11 @@ public class CountryServiceImpl implements CountryService {
         });
     }
     
-    public Country save(Country newCountry) {
+    public Country create(Country newCountry) {
         return countryRepository.save(Country.build(newCountry));
     }
     
-    public Country save(Integer id, Country newCountry) {
+    public Country update(Integer id, Country newCountry) {
         Country currCountry = findByIdIfExists(id);
         newCountry = CountryMapper.getForUpdate(id, currCountry, newCountry);
     

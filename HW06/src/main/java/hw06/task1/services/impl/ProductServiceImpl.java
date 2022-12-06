@@ -34,11 +34,11 @@ public class ProductServiceImpl implements ProductService {
         });
     }
     
-    public Product save(Product newProduct) {
+    public Product create(Product newProduct) {
         return productRepository.save(Product.build(newProduct));
     }
     
-    public Product save(Integer id, Product newProduct) {
+    public Product update(Integer id, Product newProduct) {
         Product currProduct = findByIdIfExists(id);
         newProduct = ProductMapper.getForUpdate(id, currProduct, newProduct);
         

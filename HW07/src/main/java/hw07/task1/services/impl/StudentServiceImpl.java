@@ -33,11 +33,11 @@ public class StudentServiceImpl implements StudentService {
         });
     }
     
-    public Student save(Student newStudent) {
+    public Student create(Student newStudent) {
         return studentRepository.save(Student.build(newStudent));
     }
     
-    public Student save(Integer id, Student newStudent) {
+    public Student update(Integer id, Student newStudent) {
         Student currStudent = findByIdIfExists(id);
         newStudent = StudentMapper.getForUpdate(id, currStudent, newStudent);
         

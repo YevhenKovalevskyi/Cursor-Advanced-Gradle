@@ -34,13 +34,13 @@ public class ShopServiceImpl implements ShopService {
         });
     }
     
-    public Shop save(Shop shop) {
+    public Shop create(Shop shop) {
         return shopRepository.save(
                 Shop.build(shop)
         );
     }
     
-    public Shop save(Integer id, Shop newShop) {
+    public Shop update(Integer id, Shop newShop) {
         Shop currShop = findByIdIfExists(id);
     
         return shopRepository.save(

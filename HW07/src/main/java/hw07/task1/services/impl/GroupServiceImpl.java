@@ -34,11 +34,11 @@ public class GroupServiceImpl implements GroupService {
         });
     }
     
-    public Group save(Group newGroup) {
+    public Group create(Group newGroup) {
         return groupRepository.save(Group.build(newGroup));
     }
     
-    public Group save(Integer id, Group newGroup) {
+    public Group update(Integer id, Group newGroup) {
         Group currGroup = findByIdIfExists(id);
         newGroup = GroupMapper.getForUpdate(id, currGroup, newGroup);
         

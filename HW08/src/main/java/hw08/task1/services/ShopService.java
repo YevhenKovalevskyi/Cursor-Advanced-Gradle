@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface ShopService {
     
-    Shop save(Shop shop);
-    Shop save(Integer id, Shop shop);
+    Shop create(Shop shop);
+    Shop update(Integer id, Shop shop);
     void deleteById(Integer id);
     List<Shop> findAll();
     Shop findById(Integer id);

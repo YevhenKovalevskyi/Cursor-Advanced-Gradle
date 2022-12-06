@@ -29,7 +29,7 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto create(@RequestBody Product product) {
-        return ProductMapper.getForShow(productService.save(product));
+        return ProductMapper.getForShow(productService.create(product));
     }
     
     /**
@@ -38,7 +38,7 @@ public class ProductController {
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProductDto update(@PathVariable Integer id, @RequestBody Product product) {
-        return ProductMapper.getForShow(productService.save(id, product));
+        return ProductMapper.getForShow(productService.update(id, product));
     }
     
     /**
