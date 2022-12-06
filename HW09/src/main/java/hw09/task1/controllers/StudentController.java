@@ -28,7 +28,7 @@ public class StudentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public StudentDto create(@RequestBody Student student) {
-        return StudentMapper.getForShow(studentService.save(student));
+        return StudentMapper.getForShow(studentService.create(student));
     }
     
     /**
@@ -37,7 +37,7 @@ public class StudentController {
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public StudentDto update(@PathVariable Integer id, @RequestBody Student student) {
-        return StudentMapper.getForShow(studentService.save(id, student));
+        return StudentMapper.getForShow(studentService.update(id, student));
     }
     
     /**

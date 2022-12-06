@@ -1,11 +1,11 @@
-package hw09.task1.controllers;
+package hw07.task1.controllers;
 
-import hw09.task1.dto.GroupDto;
-import hw09.task1.dto.StudentLightDto;
-import hw09.task1.entities.Group;
-import hw09.task1.mappers.GroupMapper;
-import hw09.task1.mappers.StudentMapper;
-import hw09.task1.services.GroupService;
+import hw07.task1.dto.GroupDto;
+import hw07.task1.dto.StudentLightDto;
+import hw07.task1.entities.Group;
+import hw07.task1.mappers.GroupMapper;
+import hw07.task1.mappers.StudentMapper;
+import hw07.task1.services.GroupService;
 
 import lombok.AllArgsConstructor;
 

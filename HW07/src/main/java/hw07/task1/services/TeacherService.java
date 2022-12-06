@@ -1,8 +1,8 @@
-package hw09.task1.services;
+package hw07.task1.services;
 
-import hw09.task1.entities.Student;
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Teacher;
+import hw07.task1.entities.Student;
+import hw07.task1.entities.Group;
+import hw07.task1.entities.Teacher;
 
 import java.util.List;
 

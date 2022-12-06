@@ -1,4 +1,4 @@
-package hw09.task1.exceptions;
+package hw07.task1.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
