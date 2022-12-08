@@ -51,7 +51,8 @@ jacocoTestReport {
                     "**/entities",
                     "**/dto",
                     "**/exceptions",
-                    "**/messages"
+                    "**/messages",
+                    "**/Main.class"
             ])
         }))
     }
