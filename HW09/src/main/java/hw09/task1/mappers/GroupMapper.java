@@ -4,10 +4,14 @@ import hw09.task1.dto.GroupDto;
 import hw09.task1.dto.GroupLightDto;
 import hw09.task1.entities.Group;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * @author YevhenKovalevskyi
  */
-public class GroupMapper {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class GroupMapper {
     
     public static Group getForUpdate(Integer id, Group currentGroup, Group newGroup) {
         newGroup.setCreatedAt(currentGroup.getCreatedAt());

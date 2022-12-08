@@ -25,7 +25,7 @@ public class GroupServiceImpl implements GroupService {
     
     private GroupRepository groupRepository;
     
-    private Group findByIdIfExists(Integer id) {
+    public Group findByIdIfExists(Integer id) {
         return groupRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.GROUP_NOT_FOUND.getLogMessage(), id);
             throw new GroupNotFoundException(
