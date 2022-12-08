@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -65,7 +65,10 @@ public class TeacherServiceTest {
     
     @Test
     public void deleteReturnValidResponse() {
+        when(teacherRepository.findById(1)).thenReturn(Optional.of(TEACHER));
+        
         teacherService.deleteById(1);
+        
         verify(teacherRepository).deleteById(1);
     }
     
@@ -78,8 +81,8 @@ public class TeacherServiceTest {
     
     @Test
     public void findAllReturnValidResponse() {
-        when(teacherRepository.findAll()).thenReturn(Collections.singletonList(TEACHER));
-        assertEquals(Collections.singletonList(TEACHER), teacherService.findAll());
+        when(teacherRepository.findAll()).thenReturn(List.of(TEACHER));
+        assertEquals(List.of(TEACHER), teacherService.findAll());
     }
     
     @Test
@@ -98,8 +101,10 @@ public class TeacherServiceTest {
     @Test
     public void findGroupsReturnValidResponse() {
         when(teacherRepository.findById(1)).thenReturn(Optional.of(TEACHER));
-        TEACHER.setGroups(Collections.singletonList(GROUP));
-        assertEquals(Collections.singletonList(GROUP), teacherService.findGroups(1));
+        
+        TEACHER.setGroups(List.of(GROUP));
+        
+        assertEquals(List.of(GROUP), teacherService.findGroups(1));
     }
     
     @Test
@@ -111,9 +116,11 @@ public class TeacherServiceTest {
     
     @Test
     public void findGroupsCountReturnValidResponse() {
-        int count = anyInt();
         when(teacherRepository.findById(1)).thenReturn(Optional.of(TEACHER));
+        
+        int count = anyInt();
         TEACHER.setGroups(new ArrayList<>(count));
+        
         assertEquals(count, teacherService.findGroupsCount(1));
     }
     
@@ -127,9 +134,12 @@ public class TeacherServiceTest {
     @Test
     public void findStudentsReturnValidResponse() {
         when(teacherRepository.findById(1)).thenReturn(Optional.of(TEACHER));
-        TEACHER.setGroups(Collections.singletonList(GROUP));
         
-        assertEquals(Collections.singletonList(STUDENT), teacherService.findStudents(1));
+        List<Group> groups = List.of(GROUP);
+        groups.forEach(group -> group.setStudents(List.of(STUDENT)));
+        TEACHER.setGroups(groups);
+        
+        assertEquals(List.of(STUDENT), teacherService.findStudents(1));
     }
     
     @Test
@@ -141,8 +151,11 @@ public class TeacherServiceTest {
     
     @Test
     public void findStudentsCountReturnValidResponse() {
+        when(teacherRepository.findById(1)).thenReturn(Optional.of(TEACHER));
+        
         int count = anyInt();
-        when(teacherService.findStudents(1).size()).thenReturn(count);
+        TEACHER.setGroups(new ArrayList<>(count));
+
         assertEquals(count, teacherService.findStudentsCount(1));
     }
     
