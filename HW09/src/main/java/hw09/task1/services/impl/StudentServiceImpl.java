@@ -24,7 +24,7 @@ public class StudentServiceImpl implements StudentService {
     
     private StudentRepository studentRepository;
     
-    public Student findByIdIfExists(Integer id) {
+    private Student findByIdIfExists(Integer id) {
         return studentRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.STUDENT_NOT_FOUND.getLogMessage(), id);
             throw new StudentNotFoundException(
