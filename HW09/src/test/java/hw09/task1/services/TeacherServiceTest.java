@@ -44,6 +44,19 @@ public class TeacherServiceTest {
     private TeacherServiceImpl teacherService;
     
     @Test
+    public void findByIdIfExistsReturnValidResponse() {
+        when(teacherRepository.findById(1)).thenReturn(Optional.of(TEACHER));
+        assertEquals(TEACHER, teacherService.findByIdIfExists(1));
+    }
+    
+    @Test
+    public void findByIdIfExistsReturnException() {
+        doThrow(TeacherNotFoundException.class).when(teacherRepository).findById(1);
+        assertThatThrownBy(() -> teacherService.findByIdIfExists(1))
+                .isInstanceOf(TeacherNotFoundException.class);
+    }
+    
+    @Test
     public void createReturnValidResponse() {
         when(teacherRepository.save(Teacher.build(TEACHER))).thenReturn(TEACHER);
         assertEquals(TEACHER, teacherService.create(TEACHER));

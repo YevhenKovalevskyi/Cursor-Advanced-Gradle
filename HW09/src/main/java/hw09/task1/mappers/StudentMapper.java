@@ -4,10 +4,14 @@ import hw09.task1.dto.StudentDto;
 import hw09.task1.dto.StudentLightDto;
 import hw09.task1.entities.Student;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * @author YevhenKovalevskyi
  */
-public class StudentMapper {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class StudentMapper {
     
     public static Student getForUpdate(Integer id, Student currentStudent, Student newStudent) {
         newStudent.setCreatedAt(currentStudent.getCreatedAt());

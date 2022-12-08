@@ -27,7 +27,7 @@ public class TeacherServiceImpl implements TeacherService {
     
     private TeacherRepository teacherRepository;
     
-    private Teacher findByIdIfExists(Integer id) {
+    public Teacher findByIdIfExists(Integer id) {
         return teacherRepository.findById(id).orElseThrow(() -> {
             log.error(Messages.TEACHER_NOT_FOUND.getLogMessage(), id);
             throw new TeacherNotFoundException(

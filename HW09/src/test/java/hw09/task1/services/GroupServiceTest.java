@@ -41,6 +41,19 @@ public class GroupServiceTest {
     private GroupServiceImpl groupService;
     
     @Test
+    public void findByIdIfExistsReturnValidResponse() {
+        when(groupRepository.findById(1)).thenReturn(Optional.of(GROUP));
+        assertEquals(GROUP, groupService.findByIdIfExists(1));
+    }
+    
+    @Test
+    public void findByIdIfExistsReturnException() {
+        doThrow(GroupNotFoundException.class).when(groupRepository).findById(1);
+        assertThatThrownBy(() -> groupService.findByIdIfExists(1))
+                .isInstanceOf(GroupNotFoundException.class);
+    }
+    
+    @Test
     public void createReturnValidResponse() {
         when(groupRepository.save(Group.build(GROUP))).thenReturn(GROUP);
         assertEquals(GROUP, groupService.create(GROUP));

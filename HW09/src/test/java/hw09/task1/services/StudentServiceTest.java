@@ -38,6 +38,19 @@ public class StudentServiceTest {
     private StudentServiceImpl studentService;
     
     @Test
+    public void findByIdIfExistsReturnValidResponse() {
+        when(studentRepository.findById(1)).thenReturn(Optional.of(STUDENT));
+        assertEquals(STUDENT, studentService.findByIdIfExists(1));
+    }
+    
+    @Test
+    public void findByIdIfExistsReturnException() {
+        doThrow(StudentNotFoundException.class).when(studentRepository).findById(1);
+        assertThatThrownBy(() -> studentService.findByIdIfExists(1))
+                .isInstanceOf(StudentNotFoundException.class);
+    }
+    
+    @Test
     public void createReturnValidResponse() {
         when(studentRepository.save(Student.build(STUDENT))).thenReturn(STUDENT);
         assertEquals(STUDENT, studentService.create(STUDENT));
