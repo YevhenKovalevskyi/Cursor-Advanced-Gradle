@@ -17,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,8 +81,8 @@ public class TeacherServiceTest {
     
     @Test
     public void findAllReturnValidResponse() {
-        when(teacherRepository.findAll()).thenReturn(Collections.singletonList(TEACHER));
-        assertEquals(Collections.singletonList(TEACHER), teacherService.findAll());
+        when(teacherRepository.findAll()).thenReturn(List.of(TEACHER));
+        assertEquals(List.of(TEACHER), teacherService.findAll());
     }
     
     @Test
@@ -103,9 +102,9 @@ public class TeacherServiceTest {
     public void findGroupsReturnValidResponse() {
         when(teacherRepository.findById(1)).thenReturn(Optional.of(TEACHER));
         
-        TEACHER.setGroups(Collections.singletonList(GROUP));
+        TEACHER.setGroups(List.of(GROUP));
         
-        assertEquals(Collections.singletonList(GROUP), teacherService.findGroups(1));
+        assertEquals(List.of(GROUP), teacherService.findGroups(1));
     }
     
     @Test
@@ -136,11 +135,11 @@ public class TeacherServiceTest {
     public void findStudentsReturnValidResponse() {
         when(teacherRepository.findById(1)).thenReturn(Optional.of(TEACHER));
         
-        List<Group> groups = Collections.singletonList(GROUP);
-        groups.forEach(group -> group.setStudents(Collections.singletonList(STUDENT)));
+        List<Group> groups = List.of(GROUP);
+        groups.forEach(group -> group.setStudents(List.of(STUDENT)));
         TEACHER.setGroups(groups);
         
-        assertEquals(Collections.singletonList(STUDENT), teacherService.findStudents(1));
+        assertEquals(List.of(STUDENT), teacherService.findStudents(1));
     }
     
     @Test

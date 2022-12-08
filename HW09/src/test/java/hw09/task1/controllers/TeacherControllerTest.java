@@ -18,7 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -77,7 +77,7 @@ public class TeacherControllerTest {
     
     @Test
     public void getAllReturnValidResponse() {
-        when(teacherService.findAll()).thenReturn(Collections.singletonList(TEACHER));
+        when(teacherService.findAll()).thenReturn(List.of(TEACHER));
         assertEquals(Stream.of(TEACHER).map(TeacherMapper::getForShow).toList(), teacherController.getAll());
     }
 
@@ -96,7 +96,7 @@ public class TeacherControllerTest {
     
     @Test
     public void getGroupsReturnValidResponse() {
-        when(teacherService.findGroups(1)).thenReturn(Collections.singletonList(GROUP));
+        when(teacherService.findGroups(1)).thenReturn(List.of(GROUP));
         assertEquals(Stream.of(GROUP).map(GroupMapper::getForShowSingle).toList(), teacherController.getGroups(1));
     }
     
@@ -123,7 +123,7 @@ public class TeacherControllerTest {
     
     @Test
     public void getStudentsReturnValidResponse() {
-        when(teacherService.findStudents(1)).thenReturn(Collections.singletonList(STUDENT));
+        when(teacherService.findStudents(1)).thenReturn(List.of(STUDENT));
         assertEquals(Stream.of(STUDENT).map(StudentMapper::getForShowSingle).toList(), teacherController.getStudents(1));
     }
     
