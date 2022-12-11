@@ -1,4 +1,4 @@
-package hw07.task1.dto;
+package hw06.task1.dto;
 
 import lombok.Data;
 
@@ -6,9 +6,8 @@ import lombok.Data;
  * @author YevhenKovalevskyi
  */
 @Data
-public class StudentDto {
+public class CountryProductDto {
     
     private Integer id;
     private String name;
-    private GroupStudentDto group;
 }

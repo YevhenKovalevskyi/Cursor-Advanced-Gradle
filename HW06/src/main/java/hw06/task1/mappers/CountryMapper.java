@@ -1,20 +1,18 @@
 package hw06.task1.mappers;
 
+import hw06.task1.dto.CountryEditDto;
 import hw06.task1.dto.CountryDto;
 import hw06.task1.entities.Country;
+
+import org.mapstruct.Mapper;
 
 /**
  * @author YevhenKovalevskyi
  */
-public class CountryMapper {
-    
-    public static Country getForUpdate(Integer id, Country currentCountry, Country newCountry) {
-        newCountry.setCreatedAt(currentCountry.getCreatedAt());
-        
-        return Country.build(id, newCountry);
-    }
-    
-    public static CountryDto getForShow(Country country) {
-        return CountryDto.build(country);
-    }
+@Mapper(componentModel = "spring")
+public interface CountryMapper {
+
+    CountryDto toDto(Country country);
+    Country toCreateEntity(CountryEditDto countryDto);
+    Country toUpdateEntity(Country currentCountry, CountryEditDto countryDto);
 }

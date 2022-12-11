@@ -32,7 +32,7 @@ Content-Type: application/json
 ###
 
 # products/{id} | update
-POST http://localhost:8080/products/103
+POST http://localhost:8080/products/101
 Content-Type: application/json
 
 {

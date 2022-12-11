@@ -1,0 +1,46 @@
+package hw07.task1.mappers.impl;
+
+import hw07.task1.dto.StudentDto;
+import hw07.task1.dto.StudentEditDto;
+import hw07.task1.entities.Student;
+import hw07.task1.mappers.StudentMapper;
+
+import lombok.AllArgsConstructor;
+
+import org.modelmapper.ModelMapper;
+
+import org.springframework.stereotype.Component;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * @author YevhenKovalevskyi
+ */
+@AllArgsConstructor
+@Component
+public class StudentMapperImpl implements StudentMapper {
+    
+    private ModelMapper modelMapper;
+    
+    public StudentDto toDto(Student student) {
+        return modelMapper.map(student, StudentDto.class);
+    }
+    
+    public Student toCreateEntity(StudentEditDto studentDto) {
+        Student student = modelMapper.map(studentDto, Student.class);
+        student.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        student.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        
+        return student;
+    }
+    
+    public Student toUpdateEntity(Student currentStudent, StudentEditDto studentDto) {
+        Student student = modelMapper.map(studentDto, Student.class);
+        student.setId(currentStudent.getId());
+        student.setCreatedAt(currentStudent.getCreatedAt());
+        student.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        
+        return student;
+    }
+}

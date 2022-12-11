@@ -1,6 +1,7 @@
 package hw06.task1.services;
 
-import hw06.task1.entities.Product;
+import hw06.task1.dto.ProductEditDto;
+import hw06.task1.dto.ProductDto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,12 +11,12 @@ import java.util.List;
  */
 public interface ProductService {
     
-    Product create(Product product);
-    Product update(Integer id, Product product);
+    ProductDto create(ProductEditDto productDto);
+    ProductDto update(Integer id, ProductEditDto productDto);
     void deleteById(Integer id);
-    List<Product> findAll();
-    Product findById(Integer id);
-    List<Product> findByMaxUseBefore(int useBefore);
-    List<Product> findByMinPrice(BigDecimal price);
-    List<Product> findByBestBeforeDate(int manufactured, int useBefore);
+    List<ProductDto> findAll();
+    ProductDto findById(Integer id);
+    List<ProductDto> findByMaxUseBefore(int useBefore);
+    List<ProductDto> findByMinPrice(BigDecimal price);
+    List<ProductDto> findByBestBeforeDate(int manufactured, int useBefore);
 }

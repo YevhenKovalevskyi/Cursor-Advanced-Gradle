@@ -1,10 +1,9 @@
 package hw07.task1.controllers;
 
-import hw07.task1.dto.*;
-import hw07.task1.entities.Teacher;
-import hw07.task1.mappers.GroupMapper;
-import hw07.task1.mappers.StudentMapper;
-import hw07.task1.mappers.TeacherMapper;
+import hw07.task1.dto.TeacherDto;
+import hw07.task1.dto.TeacherEditDto;
+import hw07.task1.dto.GroupDto;
+import hw07.task1.dto.StudentDto;
 import hw07.task1.services.TeacherService;
 
 import lombok.AllArgsConstructor;
@@ -29,8 +28,8 @@ public class TeacherController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TeacherDto create(@RequestBody Teacher teacher) {
-        return TeacherMapper.getForShow(teacherService.create(teacher));
+    public TeacherDto create(@RequestBody TeacherEditDto teacherDto) {
+        return teacherService.create(teacherDto);
     }
     
     /**
@@ -38,8 +37,8 @@ public class TeacherController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TeacherDto update(@PathVariable Integer id, @RequestBody Teacher teacher) {
-        return TeacherMapper.getForShow(teacherService.update(id, teacher));
+    public TeacherDto update(@PathVariable Integer id, @RequestBody TeacherEditDto teacherDto) {
+        return teacherService.update(id, teacherDto);
     }
     
     /**
@@ -57,8 +56,7 @@ public class TeacherController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<TeacherDto> getAll() {
-        return teacherService.findAll()
-                .stream().map(TeacherMapper::getForShow).toList();
+        return teacherService.findAll();
     }
     
     /**
@@ -67,7 +65,7 @@ public class TeacherController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public TeacherDto getOne(@PathVariable Integer id) {
-        return TeacherMapper.getForShow(teacherService.findById(id));
+        return teacherService.findById(id);
     }
     
     /**
@@ -75,9 +73,8 @@ public class TeacherController {
      */
     @GetMapping("/{id}/groups")
     @ResponseStatus(HttpStatus.OK)
-    public List<GroupLightDto> getGroups(@PathVariable Integer id) {
-        return teacherService.findGroups(id)
-                .stream().map(GroupMapper::getForShowSingle).toList();
+    public List<GroupDto> getGroups(@PathVariable Integer id) {
+        return teacherService.findGroups(id);
     }
     
     /**
@@ -94,9 +91,8 @@ public class TeacherController {
      */
     @GetMapping("/{id}/students")
     @ResponseStatus(HttpStatus.OK)
-    public List<StudentLightDto> getStudents(@PathVariable Integer id) {
-        return teacherService.findStudents(id)
-                .stream().map(StudentMapper::getForShowSingle).toList();
+    public List<StudentDto> getStudents(@PathVariable Integer id) {
+        return teacherService.findStudents(id);
     }
     
     /**

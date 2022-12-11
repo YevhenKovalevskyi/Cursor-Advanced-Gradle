@@ -30,12 +30,14 @@ subprojects {
         oracle: "21.7.0.0",
         annotation: "1.3.2",
         spring: "5.3.23",
-        spring_boot: "2.7.5",
+        spring_boot: "3.0.0",
         snakeyaml: "1.33",
         protobuf: "3.21.9",
-        jaxb_api: "2.3.1",
+        jaxb_api: "2.4.0-b180830.0359",
         guava: "31.1-jre",
         validation: "2.0.1.Final",
+        modelmapper: "3.1.0",
+        mapstruct: "1.5.3.Final",
     ]
 
     ext.libraries = [
@@ -49,7 +51,7 @@ subprojects {
         assertj_core: "org.assertj:assertj-core:${versions.assertj}",
         mockito_core: "org.mockito:mockito-core:${versions.mockito}",
         jacoco: "org.jacoco:org.jacoco.agent:${versions.jacoco}",
-        mysql: "mysql:mysql-connector-java:${versions.mysql}",
+        mysql: "com.mysql:mysql-connector-j:${versions.mysql}",
         pgsql: "org.postgresql:postgresql:${versions.pgsql}",
         mongo: "org.mongodb:mongo-java-driver:${versions.mongo}",
         oracle: "com.oracle.database.jdbc:ojdbc8:${versions.oracle}",
@@ -65,5 +67,7 @@ subprojects {
         jaxb_api: "javax.xml.bind:jaxb-api:${versions.jaxb_api}",
         guava: "com.google.guava:guava:${versions.guava}",
         validation: "javax.validation:validation-api:${versions.validation}",
+        modelmapper: "org.modelmapper:modelmapper:${versions.modelmapper}",
+        mapstruct: "org.mapstruct:mapstruct:${versions.mapstruct}",
     ]
 }

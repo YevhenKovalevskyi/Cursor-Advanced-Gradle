@@ -8,9 +8,8 @@ import java.math.BigDecimal;
  * @author YevhenKovalevskyi
  */
 @Data
-public class ProductDto {
+public class ProductEditDto {
     
-    private Integer id;
     private String name;
     private String description;
     private BigDecimal price;

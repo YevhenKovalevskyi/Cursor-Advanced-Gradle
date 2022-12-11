@@ -1,9 +1,15 @@
 package hw07.task1.services.impl;
 
+import hw07.task1.dto.GroupDto;
+import hw07.task1.dto.StudentDto;
+import hw07.task1.dto.TeacherDto;
+import hw07.task1.dto.TeacherEditDto;
 import hw07.task1.entities.Group;
 import hw07.task1.entities.Student;
 import hw07.task1.entities.Teacher;
 import hw07.task1.exceptions.TeacherNotFoundException;
+import hw07.task1.mappers.GroupMapper;
+import hw07.task1.mappers.StudentMapper;
 import hw07.task1.mappers.TeacherMapper;
 import hw07.task1.messages.Messages;
 import hw07.task1.services.TeacherService;
@@ -26,6 +32,9 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
     
     private TeacherRepository teacherRepository;
+    private TeacherMapper teacherMapper;
+    private GroupMapper groupMapper;
+    private StudentMapper studentMapper;
     
     public Teacher findByIdIfExists(Integer id) {
         return teacherRepository.findById(id).orElseThrow(() -> {
@@ -36,15 +45,21 @@ public class TeacherServiceImpl implements TeacherService {
         });
     }
     
-    public Teacher create(Teacher newTeacher) {
-        return teacherRepository.save(Teacher.build(newTeacher));
+    public TeacherDto create(TeacherEditDto teacherDto) {
+        Teacher teacher = teacherRepository.save(
+                teacherMapper.toCreateEntity(teacherDto)
+        );
+    
+        return teacherMapper.toDto(teacher);
     }
     
-    public Teacher update(Integer id, Teacher newTeacher) {
-        Teacher currTeacher = findByIdIfExists(id);
-        newTeacher = TeacherMapper.getForUpdate(id, currTeacher, newTeacher);
-        
-        return teacherRepository.save(newTeacher);
+    public TeacherDto update(Integer id, TeacherEditDto teacherDto) {
+        Teacher currentTeacher = findByIdIfExists(id);
+        Teacher updatedTeacher = teacherRepository.save(
+                teacherMapper.toUpdateEntity(currentTeacher, teacherDto)
+        );
+    
+        return teacherMapper.toDto(updatedTeacher);
     }
     
     public void deleteById(Integer id) {
@@ -52,23 +67,29 @@ public class TeacherServiceImpl implements TeacherService {
         teacherRepository.deleteById(id);
     }
     
-    public List<Teacher> findAll() {
-        return (List<Teacher>) teacherRepository.findAll();
+    public List<TeacherDto> findAll() {
+        return ((List<Teacher>) teacherRepository.findAll())
+                .stream()
+                .map(teacher -> teacherMapper.toDto(teacher))
+                .toList();
     }
     
-    public Teacher findById(Integer id) {
-        return findByIdIfExists(id);
+    public TeacherDto findById(Integer id) {
+        return teacherMapper.toDto(findByIdIfExists(id));
     }
     
-    public List<Group> findGroups(Integer id) {
-        return findByIdIfExists(id).getGroups();
+    public List<GroupDto> findGroups(Integer id) {
+        return findByIdIfExists(id).getGroups()
+                .stream()
+                .map(group -> groupMapper.toDto(group))
+                .toList();
     }
     
     public int findGroupsCount(Integer id) {
         return findGroups(id).size();
     }
     
-    public List<Student> findStudents(Integer id) {
+    public List<StudentDto> findStudents(Integer id) {
         List<Group> groups = findByIdIfExists(id).getGroups();
         List<Student> students = new ArrayList<>();
         
@@ -78,7 +99,10 @@ public class TeacherServiceImpl implements TeacherService {
             }
         }
     
-        return students;
+        return students
+                .stream()
+                .map(student -> studentMapper.toDto(student))
+                .toList();
     }
     
     public int findStudentsCount(Integer id) {

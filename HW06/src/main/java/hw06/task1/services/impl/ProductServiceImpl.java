@@ -1,5 +1,7 @@
 package hw06.task1.services.impl;
 
+import hw06.task1.dto.ProductEditDto;
+import hw06.task1.dto.ProductDto;
 import hw06.task1.entities.Product;
 import hw06.task1.exceptions.ProductNotFoundException;
 import hw06.task1.mappers.ProductMapper;
@@ -24,6 +26,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     
     private ProductRepository productRepository;
+    private ProductMapper productMapper;
     
     public Product findByIdIfExists(Integer id) {
         return productRepository.findById(id).orElseThrow(() -> {
@@ -34,15 +37,21 @@ public class ProductServiceImpl implements ProductService {
         });
     }
     
-    public Product create(Product newProduct) {
-        return productRepository.save(Product.build(newProduct));
+    public ProductDto create(ProductEditDto productDto) {
+        Product product = productRepository.save(
+                productMapper.toCreateEntity(productDto)
+        );
+        
+        return productMapper.toDto(product);
     }
     
-    public Product update(Integer id, Product newProduct) {
-        Product currProduct = findByIdIfExists(id);
-        newProduct = ProductMapper.getForUpdate(id, currProduct, newProduct);
+    public ProductDto update(Integer id, ProductEditDto productDto) {
+        Product currentProduct = findByIdIfExists(id);
+        Product updatedProduct = productRepository.save(
+                productMapper.toUpdateEntity(currentProduct, productDto)
+        );
         
-        return productRepository.save(newProduct);
+        return productMapper.toDto(updatedProduct);
     }
     
     public void deleteById(Integer id) {
@@ -50,23 +59,35 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
     
-    public List<Product> findAll() {
-        return (List<Product>) productRepository.findAll();
+    public List<ProductDto> findAll() {
+        return ((List<Product>) productRepository.findAll())
+                .stream()
+                .map(product -> productMapper.toDto(product))
+                .toList();
     }
     
-    public Product findById(Integer id) {
-        return findByIdIfExists(id);
+    public ProductDto findById(Integer id) {
+        return productMapper.toDto(findByIdIfExists(id));
     }
     
-    public List<Product> findByMaxUseBefore(int useBefore) {
-        return (List<Product>) productRepository.findByUseBeforeLessThan(useBefore);
+    public List<ProductDto> findByMaxUseBefore(int useBefore) {
+        return ((List<Product>) productRepository.findByUseBeforeLessThan(useBefore))
+                .stream()
+                .map(product -> productMapper.toDto(product))
+                .toList();
     }
     
-    public List<Product> findByMinPrice(BigDecimal price) {
-        return (List<Product>) productRepository.findByPriceGreaterThan(price);
+    public List<ProductDto> findByMinPrice(BigDecimal price) {
+        return ((List<Product>) productRepository.findByPriceGreaterThan(price))
+                .stream()
+                .map(product -> productMapper.toDto(product))
+                .toList();
     }
     
-    public List<Product> findByBestBeforeDate(int manufactured, int useBefore) {
-        return (List<Product>) productRepository.findByBestBeforeDate(manufactured, useBefore);
+    public List<ProductDto> findByBestBeforeDate(int manufactured, int useBefore) {
+        return ((List<Product>) productRepository.findByBestBeforeDate(manufactured, useBefore))
+                .stream()
+                .map(product -> productMapper.toDto(product))
+                .toList();
     }
 }

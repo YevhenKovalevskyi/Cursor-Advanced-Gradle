@@ -1,8 +1,7 @@
 package hw07.task1.controllers;
 
 import hw07.task1.dto.StudentDto;
-import hw07.task1.entities.Student;
-import hw07.task1.mappers.StudentMapper;
+import hw07.task1.dto.StudentEditDto;
 import hw07.task1.services.StudentService;
 
 import lombok.AllArgsConstructor;
@@ -27,8 +26,8 @@ public class StudentController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StudentDto create(@RequestBody Student student) {
-        return StudentMapper.getForShow(studentService.create(student));
+    public StudentDto create(@RequestBody StudentEditDto studentDto) {
+        return studentService.create(studentDto);
     }
     
     /**
@@ -36,8 +35,8 @@ public class StudentController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public StudentDto update(@PathVariable Integer id, @RequestBody Student student) {
-        return StudentMapper.getForShow(studentService.update(id, student));
+    public StudentDto update(@PathVariable Integer id, @RequestBody StudentEditDto studentDto) {
+        return studentService.update(id, studentDto);
     }
     
     /**
@@ -55,8 +54,7 @@ public class StudentController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<StudentDto> getAll() {
-        return studentService.findAll()
-                .stream().map(StudentMapper::getForShow).toList();
+        return studentService.findAll();
     }
     
     /**
@@ -65,6 +63,6 @@ public class StudentController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public StudentDto getOne(@PathVariable Integer id) {
-        return StudentMapper.getForShow(studentService.findById(id));
+        return studentService.findById(id);
     }
 }

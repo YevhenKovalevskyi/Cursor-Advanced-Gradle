@@ -1,9 +1,12 @@
 package hw06.task1.services.impl;
 
+import hw06.task1.dto.CountryEditDto;
+import hw06.task1.dto.CountryDto;
+import hw06.task1.dto.ProductDto;
 import hw06.task1.entities.Country;
-import hw06.task1.entities.Product;
 import hw06.task1.exceptions.CountryNotFoundException;
 import hw06.task1.mappers.CountryMapper;
+import hw06.task1.mappers.ProductMapper;
 import hw06.task1.messages.Messages;
 import hw06.task1.repositories.CountryRepository;
 import hw06.task1.services.CountryService;
@@ -24,6 +27,8 @@ import java.util.List;
 public class CountryServiceImpl implements CountryService {
     
     private CountryRepository countryRepository;
+    private CountryMapper countryMapper;
+    private ProductMapper productMapper;
     
     public Country findByIdIfExists(Integer id) {
         return countryRepository.findById(id).orElseThrow(() -> {
@@ -34,15 +39,21 @@ public class CountryServiceImpl implements CountryService {
         });
     }
     
-    public Country create(Country newCountry) {
-        return countryRepository.save(Country.build(newCountry));
+    public CountryDto create(CountryEditDto countryDto) {
+        Country country = countryRepository.save(
+                countryMapper.toCreateEntity(countryDto)
+        );
+        
+        return countryMapper.toDto(country);
     }
     
-    public Country update(Integer id, Country newCountry) {
-        Country currCountry = findByIdIfExists(id);
-        newCountry = CountryMapper.getForUpdate(id, currCountry, newCountry);
-    
-        return countryRepository.save(newCountry);
+    public CountryDto update(Integer id, CountryEditDto countryDto) {
+        Country currentCountry = findByIdIfExists(id);
+        Country updatedCountry = countryRepository.save(
+                countryMapper.toUpdateEntity(currentCountry, countryDto)
+        );
+        
+        return countryMapper.toDto(updatedCountry);
     }
     
     public void deleteById(Integer id) {
@@ -50,15 +61,21 @@ public class CountryServiceImpl implements CountryService {
         countryRepository.deleteById(id);
     }
     
-    public List<Country> findAll() {
-        return (List<Country>) countryRepository.findAll();
+    public List<CountryDto> findAll() {
+        return ((List<Country>) countryRepository.findAll())
+                .stream()
+                .map(country -> countryMapper.toDto(country))
+                .toList();
     }
     
-    public Country findById(Integer id) {
-        return findByIdIfExists(id);
+    public CountryDto findById(Integer id) {
+        return countryMapper.toDto(findByIdIfExists(id));
     }
     
-    public List<Product> findProducts(Integer id) {
-        return findByIdIfExists(id).getProducts();
+    public List<ProductDto> findProducts(Integer id) {
+        return findByIdIfExists(id).getProducts()
+                .stream()
+                .map(product -> productMapper.toDto(product))
+                .toList();
     }
 }
