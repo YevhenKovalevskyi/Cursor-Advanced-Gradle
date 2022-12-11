@@ -1,7 +1,8 @@
 package hw06.task1.services;
 
-import hw06.task1.entities.Country;
-import hw06.task1.entities.Product;
+import hw06.task1.dto.CountryEditDto;
+import hw06.task1.dto.CountryDto;
+import hw06.task1.dto.ProductDto;
 
 import java.util.List;
 
@@ -10,10 +11,10 @@ import java.util.List;
  */
 public interface CountryService {
     
-    Country create(Country country);
-    Country update(Integer id, Country country);
+    CountryDto create(CountryEditDto countryDto);
+    CountryDto update(Integer id, CountryEditDto countryDto);
     void deleteById(Integer id);
-    List<Country> findAll();
-    Country findById(Integer id);
-    List<Product> findProducts(Integer id);
+    List<CountryDto> findAll();
+    CountryDto findById(Integer id);
+    List<ProductDto> findProducts(Integer id);
 }

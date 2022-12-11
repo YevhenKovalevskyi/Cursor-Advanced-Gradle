@@ -26,6 +26,10 @@ dependencies {
     implementation libraries.jaxb_api
     implementation libraries.validation
 
+    // utils
+    implementation libraries.modelmapper
+    implementation libraries.mapstruct
+
     // spring-boot
     implementation libraries.snakeyaml
     implementation libraries.spring_boot_starter_web

@@ -1,8 +1,7 @@
 package hw06.task1.controllers;
 
+import hw06.task1.dto.ProductEditDto;
 import hw06.task1.dto.ProductDto;
-import hw06.task1.entities.Product;
-import hw06.task1.mappers.ProductMapper;
 import hw06.task1.services.ProductService;
 
 import lombok.AllArgsConstructor;
@@ -10,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -28,8 +28,8 @@ public class ProductController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDto create(@RequestBody Product product) {
-        return ProductMapper.getForShow(productService.create(product));
+    public ProductDto create(@RequestBody ProductEditDto productDto) {
+        return productService.create(productDto);
     }
     
     /**
@@ -37,8 +37,8 @@ public class ProductController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductDto update(@PathVariable Integer id, @RequestBody Product product) {
-        return ProductMapper.getForShow(productService.update(id, product));
+    public ProductDto update(@PathVariable Integer id, @RequestBody ProductEditDto productDto) {
+        return productService.update(id, productDto);
     }
     
     /**
@@ -56,8 +56,7 @@ public class ProductController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDto> getAll() {
-        return productService.findAll()
-                .stream().map(ProductMapper::getForShow).toList();
+        return productService.findAll();
     }
     
     /**
@@ -66,7 +65,7 @@ public class ProductController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProductDto getOne(@PathVariable Integer id) {
-        return ProductMapper.getForShow(productService.findById(id));
+        return productService.findById(id);
     }
     
     /*
@@ -74,9 +73,8 @@ public class ProductController {
      */
     @GetMapping(value = "/filters/", params = {"max-use-before"})
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductDto> getByMaxUseBefore(@RequestParam("max-use-before") int useBefore) {
-        return productService.findByMaxUseBefore(useBefore)
-                .stream().map(ProductMapper::getForShow).toList();
+    public List<ProductDto> getByMaxUseBefore(@RequestParam("max-use-before") @Valid int useBefore) {
+        return productService.findByMaxUseBefore(useBefore);
     }
     
     /*
@@ -84,9 +82,8 @@ public class ProductController {
      */
     @GetMapping(value = "/filters/", params = {"min-price"})
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductDto> getByMinPrice(@RequestParam("min-price") BigDecimal price) {
-        return productService.findByMinPrice(price)
-                .stream().map(ProductMapper::getForShow).toList();
+    public List<ProductDto> getByMinPrice(@RequestParam("min-price") @Valid BigDecimal price) {
+        return productService.findByMinPrice(price);
     }
     
     /*
@@ -95,9 +92,8 @@ public class ProductController {
     @GetMapping(value = "/filters/", params = {"manufactured", "use-before"})
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDto> getByBestBeforeDate(
-            @RequestParam("manufactured") int manufactured, @RequestParam("use-before") int useBefore
+            @RequestParam("manufactured") @Valid int manufactured, @RequestParam("use-before") @Valid int useBefore
     ) {
-        return productService.findByBestBeforeDate(manufactured, useBefore)
-                .stream().map(ProductMapper::getForShow).toList();
+        return productService.findByBestBeforeDate(manufactured, useBefore);
     }
 }

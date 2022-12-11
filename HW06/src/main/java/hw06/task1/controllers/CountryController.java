@@ -1,10 +1,8 @@
 package hw06.task1.controllers;
 
+import hw06.task1.dto.CountryEditDto;
 import hw06.task1.dto.CountryDto;
 import hw06.task1.dto.ProductDto;
-import hw06.task1.entities.Country;
-import hw06.task1.mappers.CountryMapper;
-import hw06.task1.mappers.ProductMapper;
 import hw06.task1.services.CountryService;
 
 import lombok.AllArgsConstructor;
@@ -29,8 +27,8 @@ public class CountryController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CountryDto create(@RequestBody Country country) {
-        return CountryMapper.getForShow(countryService.create(country));
+    public CountryDto create(@RequestBody CountryEditDto countryDto) {
+        return countryService.create(countryDto);
     }
     
     /**
@@ -38,8 +36,8 @@ public class CountryController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CountryDto update(@PathVariable Integer id, @RequestBody Country country) {
-        return CountryMapper.getForShow(countryService.update(id, country));
+    public CountryDto update(@PathVariable Integer id, @RequestBody CountryEditDto countryDto) {
+        return countryService.update(id, countryDto);
     }
     
     /**
@@ -57,8 +55,7 @@ public class CountryController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<CountryDto> getAll() {
-        return countryService.findAll()
-                .stream().map(CountryMapper::getForShow).toList();
+        return countryService.findAll();
     }
     
     /**
@@ -67,7 +64,7 @@ public class CountryController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CountryDto getOne(@PathVariable Integer id) {
-        return CountryMapper.getForShow(countryService.findById(id));
+        return countryService.findById(id);
     }
     
     /**
@@ -76,7 +73,6 @@ public class CountryController {
     @GetMapping("/{id}/products")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDto> getProducts(@PathVariable Integer id) {
-        return countryService.findProducts(id)
-                .stream().map(ProductMapper::getForShow).toList();
+        return countryService.findProducts(id);
     }
 }

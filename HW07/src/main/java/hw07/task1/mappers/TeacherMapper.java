@@ -1,20 +1,18 @@
 package hw07.task1.mappers;
 
 import hw07.task1.dto.TeacherDto;
+import hw07.task1.dto.TeacherEditDto;
 import hw07.task1.entities.Teacher;
+
+import org.mapstruct.Mapper;
 
 /**
  * @author YevhenKovalevskyi
  */
-public class TeacherMapper {
+@Mapper(componentModel = "spring")
+public interface TeacherMapper {
     
-    public static Teacher getForUpdate(Integer id, Teacher currentTeacher, Teacher newTeacher) {
-        newTeacher.setCreatedAt(currentTeacher.getCreatedAt());
-        
-        return Teacher.build(id, newTeacher);
-    }
-    
-    public static TeacherDto getForShow(Teacher teacher) {
-        return TeacherDto.build(teacher);
-    }
+    TeacherDto toDto(Teacher teacher);
+    Teacher toCreateEntity(TeacherEditDto teacherDto);
+    Teacher toUpdateEntity(Teacher currentTeacher, TeacherEditDto teacherDto);
 }

@@ -6,9 +6,8 @@ import lombok.Data;
  * @author YevhenKovalevskyi
  */
 @Data
-public class StudentDto {
+public class GroupEditDto {
     
-    private Integer id;
     private String name;
-    private GroupStudentDto group;
+    private TeacherGroupDto teacher;
 }

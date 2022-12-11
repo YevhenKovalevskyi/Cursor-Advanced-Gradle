@@ -15,6 +15,7 @@ dependencies {
     testImplementation libraries.junit5_params
     testImplementation libraries.assertj_core
     testImplementation libraries.mockito_core
+    testImplementation libraries.jacoco
 
     // databases
     implementation libraries.mysql
@@ -28,7 +29,8 @@ dependencies {
     implementation libraries.validation
 
     // utils
-    implementation libraries.jacoco
+    implementation libraries.modelmapper
+    implementation libraries.mapstruct
 
     // spring-boot
     implementation libraries.snakeyaml

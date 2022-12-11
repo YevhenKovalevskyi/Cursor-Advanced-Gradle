@@ -1,25 +1,18 @@
 package hw07.task1.mappers;
 
 import hw07.task1.dto.GroupDto;
-import hw07.task1.dto.GroupLightDto;
+import hw07.task1.dto.GroupEditDto;
 import hw07.task1.entities.Group;
+
+import org.mapstruct.Mapper;
 
 /**
  * @author YevhenKovalevskyi
  */
-public class GroupMapper {
+@Mapper(componentModel = "spring")
+public interface GroupMapper {
     
-    public static Group getForUpdate(Integer id, Group currentGroup, Group newGroup) {
-        newGroup.setCreatedAt(currentGroup.getCreatedAt());
-        
-        return Group.build(id, newGroup);
-    }
-    
-    public static GroupDto getForShow(Group group) {
-        return GroupDto.build(group);
-    }
-    
-    public static GroupLightDto getForShowSingle(Group group) {
-        return GroupLightDto.build(group);
-    }
+    GroupDto toDto(Group group);
+    Group toCreateEntity(GroupEditDto groupDto);
+    Group toUpdateEntity(Group currentGroup, GroupEditDto groupDto);
 }
