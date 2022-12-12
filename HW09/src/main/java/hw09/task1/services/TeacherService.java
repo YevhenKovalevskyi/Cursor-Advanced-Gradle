@@ -1,8 +1,9 @@
 package hw09.task1.services;
 
-import hw09.task1.entities.Student;
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Teacher;
+import hw09.task1.dto.GroupDto;
+import hw09.task1.dto.StudentDto;
+import hw09.task1.dto.TeacherDto;
+import hw09.task1.dto.TeacherEditDto;
 
 import java.util.List;
 
@@ -11,13 +12,13 @@ import java.util.List;
  */
 public interface TeacherService {
     
-    Teacher create(Teacher teacher);
-    Teacher update(Integer id, Teacher teacher);
+    TeacherDto create(TeacherEditDto teacherToCreate);
+    TeacherDto update(Integer id, TeacherEditDto teacherToUpdate);
     void deleteById(Integer id);
-    List<Teacher> findAll();
-    Teacher findById(Integer id);
-    List<Group> findGroups(Integer id);
+    List<TeacherDto> findAll();
+    TeacherDto findById(Integer id);
+    List<GroupDto> findGroups(Integer id);
     int findGroupsCount(Integer id);
-    List<Student> findStudents(Integer id);
+    List<StudentDto> findStudents(Integer id);
     int findStudentsCount(Integer id);
 }

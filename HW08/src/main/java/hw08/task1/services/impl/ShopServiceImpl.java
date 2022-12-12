@@ -1,8 +1,11 @@
 package hw08.task1.services.impl;
 
-import hw08.task1.entities.Employee;
+import hw08.task1.dto.EmployeeDto;
+import hw08.task1.dto.ShopDto;
+import hw08.task1.dto.ShopEditDto;
 import hw08.task1.entities.Shop;
 import hw08.task1.exceptions.ShopNotFoundException;
+import hw08.task1.mappers.EmployeeMapper;
 import hw08.task1.mappers.ShopMapper;
 import hw08.task1.messages.Messages;
 import hw08.task1.repositories.ShopRepository;
@@ -24,6 +27,8 @@ import java.util.List;
 public class ShopServiceImpl implements ShopService {
     
     private ShopRepository shopRepository;
+    private ShopMapper shopMapper;
+    private EmployeeMapper employeeMapper;
     
     private Shop findByIdIfExists(Integer id) {
         return shopRepository.findById(id).orElseThrow(() -> {
@@ -34,18 +39,21 @@ public class ShopServiceImpl implements ShopService {
         });
     }
     
-    public Shop create(Shop shop) {
-        return shopRepository.save(
-                Shop.build(shop)
+    public ShopDto create(ShopEditDto shopToCreate) {
+        Shop shopCreated = shopRepository.save(
+                shopMapper.toCreateEntity(shopToCreate)
         );
+    
+        return shopMapper.toDto(shopCreated);
     }
     
-    public Shop update(Integer id, Shop newShop) {
-        Shop currShop = findByIdIfExists(id);
-    
-        return shopRepository.save(
-                ShopMapper.getForUpdate(id, currShop, newShop)
+    public ShopDto update(Integer id, ShopEditDto shopToUpdate) {
+        Shop shopCurrent = findByIdIfExists(id);
+        Shop shopUpdated = shopRepository.save(
+                shopMapper.toUpdateEntity(shopCurrent, shopToUpdate)
         );
+        
+        return shopMapper.toDto(shopUpdated);
     }
     
     public void deleteById(Integer id) {
@@ -53,16 +61,22 @@ public class ShopServiceImpl implements ShopService {
         shopRepository.deleteById(id);
     }
     
-    public List<Shop> findAll() {
-        return shopRepository.findAll();
+    public List<ShopDto> findAll() {
+        return shopRepository.findAll()
+                .stream()
+                .map(shop -> shopMapper.toDto(shop))
+                .toList();
     }
     
-    public Shop findById(Integer id) {
-        return findByIdIfExists(id);
+    public ShopDto findById(Integer id) {
+        return shopMapper.toDto(findByIdIfExists(id));
     }
     
-    public List<Employee> findEmployees(Integer id) {
-        return findByIdIfExists(id).getEmployees();
+    public List<EmployeeDto> findEmployees(Integer id) {
+        return findByIdIfExists(id).getEmployees()
+                .stream()
+                .map(employee -> employeeMapper.toDto(employee))
+                .toList();
     }
     
     public int findEmployeesCount(Integer id) {

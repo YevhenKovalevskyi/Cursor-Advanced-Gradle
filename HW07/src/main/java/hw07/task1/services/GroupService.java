@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface GroupService {
     
-    GroupDto create(GroupEditDto groupDto);
-    GroupDto update(Integer id, GroupEditDto groupDto);
+    GroupDto create(GroupEditDto groupToCreate);
+    GroupDto update(Integer id, GroupEditDto groupToUpdate);
     void deleteById(Integer id);
     List<GroupDto> findAll();
     GroupDto findById(Integer id);

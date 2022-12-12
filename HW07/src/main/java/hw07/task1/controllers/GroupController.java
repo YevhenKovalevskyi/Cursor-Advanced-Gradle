@@ -27,8 +27,8 @@ public class GroupController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GroupDto create(@RequestBody GroupEditDto groupDto) {
-        return groupService.create(groupDto);
+    public GroupDto create(@RequestBody GroupEditDto groupToCreate) {
+        return groupService.create(groupToCreate);
     }
     
     /**
@@ -36,8 +36,8 @@ public class GroupController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public GroupDto update(@PathVariable Integer id, @RequestBody GroupEditDto groupDto) {
-        return groupService.update(id, groupDto);
+    public GroupDto update(@PathVariable Integer id, @RequestBody GroupEditDto groupToUpdate) {
+        return groupService.update(id, groupToUpdate);
     }
     
     /**

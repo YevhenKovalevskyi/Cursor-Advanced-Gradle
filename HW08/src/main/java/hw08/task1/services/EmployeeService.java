@@ -1,6 +1,7 @@
 package hw08.task1.services;
 
-import hw08.task1.entities.Employee;
+import hw08.task1.dto.EmployeeDto;
+import hw08.task1.dto.EmployeeEditDto;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ import java.util.List;
  */
 public interface EmployeeService {
     
-    Employee create(Employee employee);
-    Employee update(Integer id, Employee employee);
+    EmployeeDto create(EmployeeEditDto employeeToCreate);
+    EmployeeDto update(Integer id, EmployeeEditDto employeeToUpdate);
     void deleteById(Integer id);
-    List<Employee> findAll();
-    Employee findById(Integer id);
+    List<EmployeeDto> findAll();
+    EmployeeDto findById(Integer id);
 }

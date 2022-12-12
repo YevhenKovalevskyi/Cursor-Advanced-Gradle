@@ -1,6 +1,7 @@
 package hw09.task1.services;
 
-import hw09.task1.entities.Student;
+import hw09.task1.dto.StudentDto;
+import hw09.task1.dto.StudentEditDto;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ import java.util.List;
  */
 public interface StudentService {
     
-    Student create(Student student);
-    Student update(Integer id, Student student);
+    StudentDto create(StudentEditDto studentToCreate);
+    StudentDto update(Integer id, StudentEditDto studentToUpdate);
     void deleteById(Integer id);
-    List<Student> findAll();
-    Student findById(Integer id);
+    List<StudentDto> findAll();
+    StudentDto findById(Integer id);
 }

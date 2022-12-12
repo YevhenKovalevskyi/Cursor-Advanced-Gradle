@@ -1,9 +1,12 @@
 package hw09.task1.services.impl;
 
+import hw09.task1.dto.GroupDto;
+import hw09.task1.dto.GroupEditDto;
+import hw09.task1.dto.StudentDto;
 import hw09.task1.entities.Group;
-import hw09.task1.entities.Student;
 import hw09.task1.exceptions.GroupNotFoundException;
 import hw09.task1.mappers.GroupMapper;
+import hw09.task1.mappers.StudentMapper;
 import hw09.task1.messages.Messages;
 import hw09.task1.services.GroupService;
 import hw09.task1.repositories.GroupRepository;
@@ -24,6 +27,8 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
     
     private GroupRepository groupRepository;
+    private GroupMapper groupMapper;
+    private StudentMapper studentMapper;
     
     public Group findByIdIfExists(Integer id) {
         return groupRepository.findById(id).orElseThrow(() -> {
@@ -34,15 +39,21 @@ public class GroupServiceImpl implements GroupService {
         });
     }
     
-    public Group create(Group newGroup) {
-        return groupRepository.save(Group.build(newGroup));
+    public GroupDto create(GroupEditDto groupToCreate) {
+        Group groupCreated = groupRepository.save(
+                groupMapper.toCreateEntity(groupToCreate)
+        );
+    
+        return groupMapper.toDto(groupCreated);
     }
     
-    public Group update(Integer id, Group newGroup) {
-        Group currGroup = findByIdIfExists(id);
-        newGroup = GroupMapper.getForUpdate(id, currGroup, newGroup);
-        
-        return groupRepository.save(newGroup);
+    public GroupDto update(Integer id, GroupEditDto groupToUpdate) {
+        Group groupCurrent = findByIdIfExists(id);
+        Group groupUpdated = groupRepository.save(
+                groupMapper.toUpdateEntity(groupCurrent, groupToUpdate)
+        );
+    
+        return groupMapper.toDto(groupUpdated);
     }
     
     public void deleteById(Integer id) {
@@ -50,16 +61,22 @@ public class GroupServiceImpl implements GroupService {
         groupRepository.deleteById(id);
     }
     
-    public List<Group> findAll() {
-        return (List<Group>) groupRepository.findAll();
+    public List<GroupDto> findAll() {
+        return ((List<Group>) groupRepository.findAll())
+                .stream()
+                .map(group -> groupMapper.toDto(group))
+                .toList();
     }
     
-    public Group findById(Integer id) {
-        return findByIdIfExists(id);
+    public GroupDto findById(Integer id) {
+        return groupMapper.toDto(findByIdIfExists(id));
     }
     
-    public List<Student> findStudents(Integer id) {
-        return findByIdIfExists(id).getStudents();
+    public List<StudentDto> findStudents(Integer id) {
+        return findByIdIfExists(id).getStudents()
+                .stream()
+                .map(student -> studentMapper.toDto(student))
+                .toList();
     }
     
     public int findStudentsCount(Integer id) {

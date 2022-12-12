@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -21,9 +20,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     private static final String TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     
     @ExceptionHandler(ShopNotFoundException.class)
-    public ResponseEntity<Object> handleShopNotFoundException(
-            ShopNotFoundException ex, HttpServletRequest request
-    ) {
+    public ResponseEntity<Object> handleShopNotFoundException(ShopNotFoundException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", "error");
         body.put("code", HttpStatus.NOT_FOUND.value());
@@ -34,9 +31,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
     
     @ExceptionHandler(EmployeeNotFoundException.class)
-    public ResponseEntity<Object> handleEmployeeNotFoundException(
-            EmployeeNotFoundException ex, HttpServletRequest request
-    ) {
+    public ResponseEntity<Object> handleEmployeeNotFoundException(EmployeeNotFoundException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", "error");
         body.put("code", HttpStatus.NOT_FOUND.value());
@@ -47,9 +42,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
     
     @ExceptionHandler(RequestAlreadyTakenException.class)
-    public ResponseEntity<Object> handleRequestAlreadyTakenException(
-            RequestAlreadyTakenException ex, HttpServletRequest request
-    ) {
+    public ResponseEntity<Object> handleRequestAlreadyTakenException(RequestAlreadyTakenException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", "error");
         body.put("code", HttpStatus.BAD_REQUEST.value());
@@ -60,9 +53,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
     
     @ExceptionHandler(PrintWriterException.class)
-    public ResponseEntity<Object> handlePrintWriterException(
-            PrintWriterException ex, HttpServletRequest request
-    ) {
+    public ResponseEntity<Object> handlePrintWriterException(PrintWriterException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", "error");
         body.put("code", HttpStatus.BAD_REQUEST.value());

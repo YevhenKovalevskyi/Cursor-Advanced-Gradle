@@ -9,7 +9,7 @@ CREATE TABLE `shops` (
      `s_address` varchar(100) NOT NULL,
      `s_has_site` tinyint unsigned NOT NULL DEFAULT '0',
      `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
      PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -31,7 +31,7 @@ CREATE TABLE `employees` (
     `e_gender` varchar(10) NOT NULL,
     `e_age` tinyint unsigned NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`e_id`),
     KEY `employees_ibfk_1` (`f_shop_id`),
     CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`f_shop_id`) REFERENCES `shops` (`s_id`) ON DELETE CASCADE

@@ -2,6 +2,7 @@ package hw02.task2.services;
 
 import hw02.task2.entities.Song;
 import hw02.task2.messages.Messages;
+import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;

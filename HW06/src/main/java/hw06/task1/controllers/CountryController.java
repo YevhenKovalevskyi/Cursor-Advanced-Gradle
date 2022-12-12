@@ -27,8 +27,8 @@ public class CountryController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CountryDto create(@RequestBody CountryEditDto countryDto) {
-        return countryService.create(countryDto);
+    public CountryDto create(@RequestBody CountryEditDto countryToCreate) {
+        return countryService.create(countryToCreate);
     }
     
     /**
@@ -36,8 +36,8 @@ public class CountryController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CountryDto update(@PathVariable Integer id, @RequestBody CountryEditDto countryDto) {
-        return countryService.update(id, countryDto);
+    public CountryDto update(@PathVariable Integer id, @RequestBody CountryEditDto countryToUpdate) {
+        return countryService.update(id, countryToUpdate);
     }
     
     /**

@@ -1,5 +1,7 @@
 package hw08.task1.services.impl;
 
+import hw08.task1.dto.EmployeeDto;
+import hw08.task1.dto.EmployeeEditDto;
 import hw08.task1.entities.Employee;
 import hw08.task1.exceptions.EmployeeNotFoundException;
 import hw08.task1.mappers.EmployeeMapper;
@@ -23,6 +25,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
     
     private EmployeeRepository employeeRepository;
+    private EmployeeMapper employeeMapper;
     
     public Employee findByIdIfExists(Integer id) {
         return employeeRepository.findById(id).orElseThrow(() -> {
@@ -33,18 +36,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         });
     }
     
-    public Employee create(Employee employee) {
-        return employeeRepository.save(
-                Employee.build(employee)
+    public EmployeeDto create(EmployeeEditDto employeeToCreate) {
+        Employee employeeCreated = employeeRepository.save(
+                employeeMapper.toCreateEntity(employeeToCreate)
         );
+        
+        return employeeMapper.toDto(employeeCreated);
     }
     
-    public Employee update(Integer id, Employee newEmployee) {
-        Employee currEmployee = findByIdIfExists(id);
-
-        return employeeRepository.save(
-                EmployeeMapper.getForUpdate(id, currEmployee, newEmployee)
+    public EmployeeDto update(Integer id, EmployeeEditDto employeeToUpdate) {
+        Employee employeeCurrent = findByIdIfExists(id);
+        Employee employeeUpdated = employeeRepository.save(
+                employeeMapper.toUpdateEntity(employeeCurrent, employeeToUpdate)
         );
+        
+        return employeeMapper.toDto(employeeUpdated);
     }
     
     public void deleteById(Integer id) {
@@ -52,11 +58,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(id);
     }
     
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
+    public List<EmployeeDto> findAll() {
+        return employeeRepository.findAll()
+                .stream()
+                .map(employee -> employeeMapper.toDto(employee))
+                .toList();
     }
     
-    public Employee findById(Integer id) {
-        return findByIdIfExists(id);
+    public EmployeeDto findById(Integer id) {
+        return employeeMapper.toDto(findByIdIfExists(id));
     }
 }

@@ -5,7 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -43,7 +44,7 @@ public class Employee {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private String createdAt;
     
-    @Column(name="updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00'")
+    @Column(name="updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private String updatedAt;
     
     @ManyToOne
@@ -58,7 +59,7 @@ public class Employee {
                 .gender(params.getGender())
                 .age(params.getAge())
                 .createdAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
-                .updatedAt("0000-00-00 00:00:00")
+                .updatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                 .shop(params.getShop())
                 .build();
     }

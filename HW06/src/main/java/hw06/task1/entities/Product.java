@@ -3,8 +3,9 @@ package hw06.task1.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 

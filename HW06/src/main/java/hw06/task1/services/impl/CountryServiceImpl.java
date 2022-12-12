@@ -39,21 +39,21 @@ public class CountryServiceImpl implements CountryService {
         });
     }
     
-    public CountryDto create(CountryEditDto countryDto) {
-        Country country = countryRepository.save(
-                countryMapper.toCreateEntity(countryDto)
+    public CountryDto create(CountryEditDto countryToCreate) {
+        Country countryCreated = countryRepository.save(
+                countryMapper.toCreateEntity(countryToCreate)
         );
         
-        return countryMapper.toDto(country);
+        return countryMapper.toDto(countryCreated);
     }
     
-    public CountryDto update(Integer id, CountryEditDto countryDto) {
-        Country currentCountry = findByIdIfExists(id);
-        Country updatedCountry = countryRepository.save(
-                countryMapper.toUpdateEntity(currentCountry, countryDto)
+    public CountryDto update(Integer id, CountryEditDto countryToUpdate) {
+        Country countryCurrent = findByIdIfExists(id);
+        Country countryUpdated = countryRepository.save(
+                countryMapper.toUpdateEntity(countryCurrent, countryToUpdate)
         );
         
-        return countryMapper.toDto(updatedCountry);
+        return countryMapper.toDto(countryUpdated);
     }
     
     public void deleteById(Integer id) {

@@ -13,6 +13,6 @@ import org.mapstruct.Mapper;
 public interface CountryMapper {
 
     CountryDto toDto(Country country);
-    Country toCreateEntity(CountryEditDto countryDto);
-    Country toUpdateEntity(Country currentCountry, CountryEditDto countryDto);
+    Country toCreateEntity(CountryEditDto countryToCreate);
+    Country toUpdateEntity(Country countryCurrent, CountryEditDto countryToUpdate);
 }

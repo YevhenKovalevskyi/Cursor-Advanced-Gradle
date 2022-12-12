@@ -28,8 +28,8 @@ public class TeacherController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TeacherDto create(@RequestBody TeacherEditDto teacherDto) {
-        return teacherService.create(teacherDto);
+    public TeacherDto create(@RequestBody TeacherEditDto teacherToCreate) {
+        return teacherService.create(teacherToCreate);
     }
     
     /**
@@ -37,8 +37,8 @@ public class TeacherController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TeacherDto update(@PathVariable Integer id, @RequestBody TeacherEditDto teacherDto) {
-        return teacherService.update(id, teacherDto);
+    public TeacherDto update(@PathVariable Integer id, @RequestBody TeacherEditDto teacherToUpdate) {
+        return teacherService.update(id, teacherToUpdate);
     }
     
     /**

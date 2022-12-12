@@ -37,21 +37,21 @@ public class ProductServiceImpl implements ProductService {
         });
     }
     
-    public ProductDto create(ProductEditDto productDto) {
-        Product product = productRepository.save(
-                productMapper.toCreateEntity(productDto)
+    public ProductDto create(ProductEditDto productToCreate) {
+        Product productCreated = productRepository.save(
+                productMapper.toCreateEntity(productToCreate)
         );
         
-        return productMapper.toDto(product);
+        return productMapper.toDto(productCreated);
     }
     
-    public ProductDto update(Integer id, ProductEditDto productDto) {
-        Product currentProduct = findByIdIfExists(id);
-        Product updatedProduct = productRepository.save(
-                productMapper.toUpdateEntity(currentProduct, productDto)
+    public ProductDto update(Integer id, ProductEditDto productToUpdate) {
+        Product productCurrent = findByIdIfExists(id);
+        Product productUpdated = productRepository.save(
+                productMapper.toUpdateEntity(productCurrent, productToUpdate)
         );
         
-        return productMapper.toDto(updatedProduct);
+        return productMapper.toDto(productUpdated);
     }
     
     public void deleteById(Integer id) {

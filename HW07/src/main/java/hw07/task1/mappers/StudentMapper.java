@@ -13,6 +13,6 @@ import org.mapstruct.Mapper;
 public interface StudentMapper {
     
     StudentDto toDto(Student student);
-    Student toCreateEntity(StudentEditDto studentDto);
-    Student toUpdateEntity(Student currentStudent, StudentEditDto studentDto);
+    Student toCreateEntity(StudentEditDto studentToCreate);
+    Student toUpdateEntity(Student studentCurrent, StudentEditDto studentToUpdate);
 }
