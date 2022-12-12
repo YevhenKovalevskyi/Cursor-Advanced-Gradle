@@ -27,18 +27,18 @@ public class TeacherMapperImpl implements TeacherMapper {
         return modelMapper.map(teacher, TeacherDto.class);
     }
     
-    public Teacher toCreateEntity(TeacherEditDto teacherDto) {
-        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
+    public Teacher toCreateEntity(TeacherEditDto teacherToCreate) {
+        Teacher teacher = modelMapper.map(teacherToCreate, Teacher.class);
         teacher.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         teacher.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         
         return teacher;
     }
     
-    public Teacher toUpdateEntity(Teacher currentTeacher, TeacherEditDto teacherDto) {
-        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
-        teacher.setId(currentTeacher.getId());
-        teacher.setCreatedAt(currentTeacher.getCreatedAt());
+    public Teacher toUpdateEntity(Teacher teacherCurrent, TeacherEditDto teacherToUpdate) {
+        Teacher teacher = modelMapper.map(teacherToUpdate, Teacher.class);
+        teacher.setId(teacherCurrent.getId());
+        teacher.setCreatedAt(teacherCurrent.getCreatedAt());
         teacher.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         
         return teacher;

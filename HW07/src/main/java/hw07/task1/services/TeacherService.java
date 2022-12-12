@@ -12,8 +12,8 @@ import java.util.List;
  */
 public interface TeacherService {
     
-    TeacherDto create(TeacherEditDto teacherDto);
-    TeacherDto update(Integer id, TeacherEditDto teacherDto);
+    TeacherDto create(TeacherEditDto teacherToCreate);
+    TeacherDto update(Integer id, TeacherEditDto teacherToUpdate);
     void deleteById(Integer id);
     List<TeacherDto> findAll();
     TeacherDto findById(Integer id);

@@ -22,7 +22,6 @@ dependencies {
 
     // spring-boot
     implementation libraries.spring_boot_starter_web
-    implementation libraries.snakeyaml
     testImplementation libraries.spring_boot_starter_test
 
     // testing

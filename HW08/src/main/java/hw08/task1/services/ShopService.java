@@ -1,7 +1,8 @@
 package hw08.task1.services;
 
-import hw08.task1.entities.Employee;
-import hw08.task1.entities.Shop;
+import hw08.task1.dto.EmployeeDto;
+import hw08.task1.dto.ShopDto;
+import hw08.task1.dto.ShopEditDto;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ import java.util.List;
  */
 public interface ShopService {
     
-    Shop create(Shop shop);
-    Shop update(Integer id, Shop shop);
+    ShopDto create(ShopEditDto shopToCreate);
+    ShopDto update(Integer id, ShopEditDto shopToUpdate);
     void deleteById(Integer id);
-    List<Shop> findAll();
-    Shop findById(Integer id);
-    List<Employee> findEmployees(Integer id);
+    List<ShopDto> findAll();
+    ShopDto findById(Integer id);
+    List<EmployeeDto> findEmployees(Integer id);
     int findEmployeesCount(Integer id);
 }

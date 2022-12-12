@@ -13,6 +13,6 @@ import org.mapstruct.Mapper;
 public interface ProductMapper {
     
     ProductDto toDto(Product product);
-    Product toCreateEntity(ProductEditDto productDto);
-    Product toUpdateEntity(Product currentProduct, ProductEditDto productDto);
+    Product toCreateEntity(ProductEditDto productToCreate);
+    Product toUpdateEntity(Product productCurrent, ProductEditDto productToUpdate);
 }

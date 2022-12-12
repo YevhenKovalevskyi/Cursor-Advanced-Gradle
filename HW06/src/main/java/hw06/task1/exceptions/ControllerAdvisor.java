@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -21,9 +20,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     private static final String TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     
     @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<Object> handleProductNotFoundException(
-            ProductNotFoundException ex, HttpServletRequest request
-    ) {
+    public ResponseEntity<Object> handleProductNotFoundException(ProductNotFoundException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", "error");
         body.put("code", HttpStatus.NOT_FOUND.value());
@@ -34,9 +31,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
     
     @ExceptionHandler(CountryNotFoundException.class)
-    public ResponseEntity<Object> handleCountryNotFoundException(
-            CountryNotFoundException ex, HttpServletRequest request
-    ) {
+    public ResponseEntity<Object> handleCountryNotFoundException(CountryNotFoundException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", "error");
         body.put("code", HttpStatus.NOT_FOUND.value());

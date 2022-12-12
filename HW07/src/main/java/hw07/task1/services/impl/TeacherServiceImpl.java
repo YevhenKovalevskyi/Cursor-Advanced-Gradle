@@ -45,21 +45,21 @@ public class TeacherServiceImpl implements TeacherService {
         });
     }
     
-    public TeacherDto create(TeacherEditDto teacherDto) {
-        Teacher teacher = teacherRepository.save(
-                teacherMapper.toCreateEntity(teacherDto)
+    public TeacherDto create(TeacherEditDto teacherToCreate) {
+        Teacher teacherCreated = teacherRepository.save(
+                teacherMapper.toCreateEntity(teacherToCreate)
         );
     
-        return teacherMapper.toDto(teacher);
+        return teacherMapper.toDto(teacherCreated);
     }
     
-    public TeacherDto update(Integer id, TeacherEditDto teacherDto) {
-        Teacher currentTeacher = findByIdIfExists(id);
-        Teacher updatedTeacher = teacherRepository.save(
-                teacherMapper.toUpdateEntity(currentTeacher, teacherDto)
+    public TeacherDto update(Integer id, TeacherEditDto teacherToUpdate) {
+        Teacher teacherCurrent = findByIdIfExists(id);
+        Teacher teacherUpdated = teacherRepository.save(
+                teacherMapper.toUpdateEntity(teacherCurrent, teacherToUpdate)
         );
     
-        return teacherMapper.toDto(updatedTeacher);
+        return teacherMapper.toDto(teacherUpdated);
     }
     
     public void deleteById(Integer id) {
@@ -90,16 +90,16 @@ public class TeacherServiceImpl implements TeacherService {
     }
     
     public List<StudentDto> findStudents(Integer id) {
-        List<Group> groups = findByIdIfExists(id).getGroups();
-        List<Student> students = new ArrayList<>();
+        List<Group> groupsByTeacher = findByIdIfExists(id).getGroups();
+        List<Student> studentsByTeacher = new ArrayList<>();
         
-        if (!groups.isEmpty()) {
-            for (Group group: groups) {
-                students.addAll(group.getStudents());
+        if (!groupsByTeacher.isEmpty()) {
+            for (Group group: groupsByTeacher) {
+                studentsByTeacher.addAll(group.getStudents());
             }
         }
     
-        return students
+        return studentsByTeacher
                 .stream()
                 .map(student -> studentMapper.toDto(student))
                 .toList();

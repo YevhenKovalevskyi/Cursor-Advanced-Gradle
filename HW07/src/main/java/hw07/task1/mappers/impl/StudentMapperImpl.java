@@ -27,18 +27,18 @@ public class StudentMapperImpl implements StudentMapper {
         return modelMapper.map(student, StudentDto.class);
     }
     
-    public Student toCreateEntity(StudentEditDto studentDto) {
-        Student student = modelMapper.map(studentDto, Student.class);
+    public Student toCreateEntity(StudentEditDto studentToCreate) {
+        Student student = modelMapper.map(studentToCreate, Student.class);
         student.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         student.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         
         return student;
     }
     
-    public Student toUpdateEntity(Student currentStudent, StudentEditDto studentDto) {
-        Student student = modelMapper.map(studentDto, Student.class);
-        student.setId(currentStudent.getId());
-        student.setCreatedAt(currentStudent.getCreatedAt());
+    public Student toUpdateEntity(Student studentCurrent, StudentEditDto studentToUpdate) {
+        Student student = modelMapper.map(studentToUpdate, Student.class);
+        student.setId(studentCurrent.getId());
+        student.setCreatedAt(studentCurrent.getCreatedAt());
         student.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         
         return student;

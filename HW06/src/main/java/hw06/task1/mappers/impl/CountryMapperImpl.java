@@ -27,18 +27,18 @@ public class CountryMapperImpl implements CountryMapper {
         return modelMapper.map(country, CountryDto.class);
     }
     
-    public Country toCreateEntity(CountryEditDto countryDto) {
-        Country country = modelMapper.map(countryDto, Country.class);
+    public Country toCreateEntity(CountryEditDto countryToCreate) {
+        Country country = modelMapper.map(countryToCreate, Country.class);
         country.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         country.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         
         return country;
     }
     
-    public Country toUpdateEntity(Country currentCountry, CountryEditDto countryDto) {
-        Country country = modelMapper.map(countryDto, Country.class);
-        country.setId(currentCountry.getId());
-        country.setCreatedAt(currentCountry.getCreatedAt());
+    public Country toUpdateEntity(Country countryCurrent, CountryEditDto countryToUpdate) {
+        Country country = modelMapper.map(countryToUpdate, Country.class);
+        country.setId(countryCurrent.getId());
+        country.setCreatedAt(countryCurrent.getCreatedAt());
         country.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         
         return country;

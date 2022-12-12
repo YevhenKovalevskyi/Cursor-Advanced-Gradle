@@ -9,7 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class ProductController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDto create(@RequestBody ProductEditDto productDto) {
-        return productService.create(productDto);
+    public ProductDto create(@RequestBody ProductEditDto productToCreate) {
+        return productService.create(productToCreate);
     }
     
     /**
@@ -37,8 +38,8 @@ public class ProductController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductDto update(@PathVariable Integer id, @RequestBody ProductEditDto productDto) {
-        return productService.update(id, productDto);
+    public ProductDto update(@PathVariable Integer id, @RequestBody ProductEditDto productToUpdate) {
+        return productService.update(id, productToUpdate);
     }
     
     /**

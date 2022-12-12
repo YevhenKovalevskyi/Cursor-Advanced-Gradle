@@ -3,7 +3,7 @@ package hw07.task1.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * @author YevhenKovalevskyi

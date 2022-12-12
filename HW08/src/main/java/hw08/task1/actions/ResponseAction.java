@@ -5,12 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hw08.task1.exceptions.PrintWriterException;
 import hw08.task1.messages.Messages;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatus;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;

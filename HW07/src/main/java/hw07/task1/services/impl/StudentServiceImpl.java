@@ -36,21 +36,21 @@ public class StudentServiceImpl implements StudentService {
         });
     }
     
-    public StudentDto create(StudentEditDto studentDto) {
-        Student student = studentRepository.save(
-                studentMapper.toCreateEntity(studentDto)
+    public StudentDto create(StudentEditDto studentToCreate) {
+        Student studentCreated = studentRepository.save(
+                studentMapper.toCreateEntity(studentToCreate)
         );
     
-        return studentMapper.toDto(student);
+        return studentMapper.toDto(studentCreated);
     }
     
-    public StudentDto update(Integer id, StudentEditDto studentDto) {
-        Student currentStudent = findByIdIfExists(id);
-        Student updatedStudent = studentRepository.save(
-                studentMapper.toUpdateEntity(currentStudent, studentDto)
+    public StudentDto update(Integer id, StudentEditDto studentToUpdate) {
+        Student studentCurrent = findByIdIfExists(id);
+        Student studentUpdated = studentRepository.save(
+                studentMapper.toUpdateEntity(studentCurrent, studentToUpdate)
         );
     
-        return studentMapper.toDto(updatedStudent);
+        return studentMapper.toDto(studentUpdated);
     }
     
     public void deleteById(Integer id) {

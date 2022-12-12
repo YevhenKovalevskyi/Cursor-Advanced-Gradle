@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface ProductService {
     
-    ProductDto create(ProductEditDto productDto);
-    ProductDto update(Integer id, ProductEditDto productDto);
+    ProductDto create(ProductEditDto productToCreate);
+    ProductDto update(Integer id, ProductEditDto productToUpdate);
     void deleteById(Integer id);
     List<ProductDto> findAll();
     ProductDto findById(Integer id);

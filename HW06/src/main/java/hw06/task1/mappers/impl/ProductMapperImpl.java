@@ -27,18 +27,18 @@ public class ProductMapperImpl implements ProductMapper {
         return modelMapper.map(product, ProductDto.class);
     }
     
-    public Product toCreateEntity(ProductEditDto productDto) {
-        Product product = modelMapper.map(productDto, Product.class);
+    public Product toCreateEntity(ProductEditDto productToCreate) {
+        Product product = modelMapper.map(productToCreate, Product.class);
         product.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         product.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
     
         return product;
     }
     
-    public Product toUpdateEntity(Product currentProduct, ProductEditDto productDto) {
-        Product product = modelMapper.map(productDto, Product.class);
-        product.setId(currentProduct.getId());
-        product.setCreatedAt(currentProduct.getCreatedAt());
+    public Product toUpdateEntity(Product productCurrent, ProductEditDto productToUpdate) {
+        Product product = modelMapper.map(productToUpdate, Product.class);
+        product.setId(productCurrent.getId());
+        product.setCreatedAt(productCurrent.getCreatedAt());
         product.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
     
         return product;

@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -50,7 +50,7 @@ public class User implements Serializable {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private String createdAt;
     
-    @Column(name="updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00'")
+    @Column(name="updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private String updatedAt;
     
     public static User build(Map<String, String> params) {
@@ -62,7 +62,7 @@ public class User implements Serializable {
                 .gender(params.get("gender"))
                 .age(Integer.parseInt(params.get("age")))
                 .createdAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
-                .updatedAt("0000-00-00 00:00:00")
+                .updatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                 .build();
     }
     

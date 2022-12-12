@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * The Main Class represents homework #9 #task1
+ * The Main Class represents homework #7 #task1
  *
  * @author YevhenKovalevskyi
  * @version 1.0

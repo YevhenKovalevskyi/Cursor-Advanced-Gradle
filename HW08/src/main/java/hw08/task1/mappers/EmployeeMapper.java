@@ -1,25 +1,18 @@
 package hw08.task1.mappers;
 
 import hw08.task1.dto.EmployeeDto;
-import hw08.task1.dto.EmployeeLightDto;
+import hw08.task1.dto.EmployeeEditDto;
 import hw08.task1.entities.Employee;
+
+import org.mapstruct.Mapper;
 
 /**
  * @author YevhenKovalevskyi
  */
-public class EmployeeMapper {
+@Mapper(componentModel = "spring")
+public interface EmployeeMapper {
     
-    public static Employee getForUpdate(Integer id, Employee currentEmployee, Employee newEmployee) {
-        newEmployee.setCreatedAt(currentEmployee.getCreatedAt());
-        
-        return Employee.build(id, newEmployee);
-    }
-    
-    public static EmployeeDto getForShow(Employee employee) {
-        return EmployeeDto.build(employee);
-    }
-    
-    public static EmployeeLightDto getForShowLight(Employee employee) {
-        return EmployeeLightDto.build(employee);
-    }
+    EmployeeDto toDto(Employee employee);
+    Employee toCreateEntity(EmployeeEditDto employeeToCreate);
+    Employee toUpdateEntity(Employee employeeCurrent, EmployeeEditDto employeeToUpdate);
 }

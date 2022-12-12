@@ -5,17 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hw08.task1.actions.RequestAction;
 import hw08.task1.actions.ResponseAction;
 import hw08.task1.dto.EmployeeDto;
-import hw08.task1.entities.Employee;
-import hw08.task1.mappers.EmployeeMapper;
+import hw08.task1.dto.EmployeeEditDto;
 import hw08.task1.services.EmployeeService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -34,10 +34,11 @@ public class EmployeeController {
      */
     @PostMapping
     public void create(HttpServletRequest request, HttpServletResponse response) {
-        Employee employee = RequestAction.getRequestBody(request, mapper, Employee.class);
-        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.create(employee));
-    
-        ResponseAction.setResponse(response, mapper, HttpStatus.CREATED, employeeDto);
+        EmployeeEditDto employeeToCreate = RequestAction.getRequestBody(request, mapper, EmployeeEditDto.class);
+        
+        EmployeeDto employeeCreated = employeeService.create(employeeToCreate);
+        
+        ResponseAction.setResponse(response, mapper, HttpStatus.CREATED, employeeCreated);
     }
     
     /**
@@ -46,10 +47,11 @@ public class EmployeeController {
     @PostMapping("/{id}")
     public void update(HttpServletRequest request, HttpServletResponse response) {
         Integer employeeId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
-        Employee employee = RequestAction.getRequestBody(request, mapper, Employee.class);
-        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.update(employeeId, employee));
-    
-        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeeDto);
+        EmployeeEditDto employeeToUpdate = RequestAction.getRequestBody(request, mapper, EmployeeEditDto.class);
+        
+        EmployeeDto employeeUpdated = employeeService.update(employeeId, employeeToUpdate);
+        
+        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeeUpdated);
     }
     
     /**
@@ -60,6 +62,7 @@ public class EmployeeController {
         Integer employeeId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
         
         employeeService.deleteById(employeeId);
+        
         ResponseAction.setResponse(response, mapper, HttpStatus.OK, "Deleted!");
     }
     
@@ -68,10 +71,9 @@ public class EmployeeController {
      */
     @GetMapping
     public void getAll(HttpServletResponse response) {
-        List<EmployeeDto> employeesDto = employeeService.findAll()
-                .stream().map(EmployeeMapper::getForShow).toList();
+        List<EmployeeDto> employeesAll = employeeService.findAll();
     
-        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeesDto);
+        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeesAll);
     }
     
     /**
@@ -80,8 +82,9 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public void getOne(HttpServletRequest request, HttpServletResponse response) {
         Integer employeeId = Integer.valueOf(RequestAction.getRequestParam(request, "id"));
-        EmployeeDto employeeDto = EmployeeMapper.getForShow(employeeService.findById(employeeId));
-    
-        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeeDto);
+        
+        EmployeeDto employeeById = employeeService.findById(employeeId);
+        
+        ResponseAction.setResponse(response, mapper, HttpStatus.OK, employeeById);
     }
 }

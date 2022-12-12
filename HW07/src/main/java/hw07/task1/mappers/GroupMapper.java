@@ -13,6 +13,6 @@ import org.mapstruct.Mapper;
 public interface GroupMapper {
     
     GroupDto toDto(Group group);
-    Group toCreateEntity(GroupEditDto groupDto);
-    Group toUpdateEntity(Group currentGroup, GroupEditDto groupDto);
+    Group toCreateEntity(GroupEditDto groupToCreate);
+    Group toUpdateEntity(Group groupCurrent, GroupEditDto groupToUpdate);
 }

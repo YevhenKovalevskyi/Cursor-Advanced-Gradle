@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface StudentService {
     
-    StudentDto create(StudentEditDto studentDto);
-    StudentDto update(Integer id, StudentEditDto studentDto);
+    StudentDto create(StudentEditDto studentToCreate);
+    StudentDto update(Integer id, StudentEditDto studentToUpdate);
     void deleteById(Integer id);
     List<StudentDto> findAll();
     StudentDto findById(Integer id);

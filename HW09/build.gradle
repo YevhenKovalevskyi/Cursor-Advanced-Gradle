@@ -2,6 +2,10 @@ plugins {
     id "jacoco"
 }
 
+compileJava {
+    options.compilerArgs << "-parameters"
+}
+
 dependencies {
     // lombok
     compileOnly libraries.lombok
@@ -19,23 +23,18 @@ dependencies {
 
     // databases
     implementation libraries.mysql
-    implementation libraries.protobuf
     implementation libraries.pgsql
     implementation libraries.oracle
 
-    // javax
-    implementation libraries.javax_annotation
-    implementation libraries.jaxb_api
-    implementation libraries.validation
-
     // utils
+    implementation libraries.validation
     implementation libraries.modelmapper
     implementation libraries.mapstruct
 
     // spring-boot
-    implementation libraries.snakeyaml
     implementation libraries.spring_boot_starter_web
     implementation libraries.spring_boot_starter_jpa
+    implementation libraries.spring_boot_starter_validation
     testImplementation libraries.spring_boot_starter_test
 }
 
@@ -50,6 +49,7 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
+                    "**/configuration",
                     "**/entities",
                     "**/dto",
                     "**/exceptions",

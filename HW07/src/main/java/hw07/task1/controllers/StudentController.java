@@ -26,8 +26,8 @@ public class StudentController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StudentDto create(@RequestBody StudentEditDto studentDto) {
-        return studentService.create(studentDto);
+    public StudentDto create(@RequestBody StudentEditDto studentToCreate) {
+        return studentService.create(studentToCreate);
     }
     
     /**
@@ -35,8 +35,8 @@ public class StudentController {
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public StudentDto update(@PathVariable Integer id, @RequestBody StudentEditDto studentDto) {
-        return studentService.update(id, studentDto);
+    public StudentDto update(@PathVariable Integer id, @RequestBody StudentEditDto studentToUpdate) {
+        return studentService.update(id, studentToUpdate);
     }
     
     /**

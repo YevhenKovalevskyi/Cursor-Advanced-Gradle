@@ -17,16 +17,10 @@ dependencies {
 
     // databases
     implementation libraries.mysql
-    implementation libraries.protobuf
     implementation libraries.pgsql
     implementation libraries.oracle
 
-    // javax
-    implementation libraries.javax_annotation
-    implementation libraries.jaxb_api
-
     // spring-boot
-    implementation libraries.snakeyaml
     implementation libraries.spring_boot_starter_web
     implementation libraries.spring_boot_starter_jpa
     testImplementation libraries.spring_boot_starter_test

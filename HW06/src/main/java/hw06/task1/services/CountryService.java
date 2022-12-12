@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface CountryService {
     
-    CountryDto create(CountryEditDto countryDto);
-    CountryDto update(Integer id, CountryEditDto countryDto);
+    CountryDto create(CountryEditDto countryToCreate);
+    CountryDto update(Integer id, CountryEditDto countryToUpdate);
     void deleteById(Integer id);
     List<CountryDto> findAll();
     CountryDto findById(Integer id);

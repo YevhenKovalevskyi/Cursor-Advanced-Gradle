@@ -1,5 +1,5 @@
 <configuration>
-    <property file="HW09/src/main/resources/logback.properties" />
+    <property file="HW07/src/main/resources/logback.properties" />
 
     <appender name="TASK1_ACTUAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.filePath}/task1/${log.actual}</file>

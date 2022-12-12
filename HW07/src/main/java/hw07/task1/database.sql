@@ -6,7 +6,7 @@ CREATE TABLE `teachers` (
      `t_id` smallint unsigned NOT NULL AUTO_INCREMENT,
      `t_name` varchar(50) NOT NULL,
      `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
      PRIMARY KEY (`t_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -29,7 +29,7 @@ CREATE TABLE `groupz` (
     `g_name` varchar(20) NOT NULL,
     `f_teacher_id` smallint unsigned NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`g_id`),
     KEY `groupz_ibfk_1` (`f_teacher_id`),
     CONSTRAINT `groupz_ibfk_1` FOREIGN KEY (`f_teacher_id`) REFERENCES `teachers` (`t_id`) ON DELETE CASCADE
@@ -64,7 +64,7 @@ CREATE TABLE `students` (
     `s_name` varchar(50) NOT NULL,
     `f_group_id` smallint unsigned NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`s_id`),
     KEY `students_ibfk_1` (`f_group_id`),
     CONSTRAINT `students_ibfk_1` FOREIGN KEY (`f_group_id`) REFERENCES `groupz` (`g_id`) ON DELETE CASCADE

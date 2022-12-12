@@ -27,18 +27,18 @@ public class GroupMapperImpl implements GroupMapper {
         return modelMapper.map(group, GroupDto.class);
     }
     
-    public Group toCreateEntity(GroupEditDto groupDto) {
-        Group group = modelMapper.map(groupDto, Group.class);
+    public Group toCreateEntity(GroupEditDto groupToCreate) {
+        Group group = modelMapper.map(groupToCreate, Group.class);
         group.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         group.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         
         return group;
     }
     
-    public Group toUpdateEntity(Group currentGroup, GroupEditDto groupDto) {
-        Group group = modelMapper.map(groupDto, Group.class);
-        group.setId(currentGroup.getId());
-        group.setCreatedAt(currentGroup.getCreatedAt());
+    public Group toUpdateEntity(Group groupCurrent, GroupEditDto groupToUpdate) {
+        Group group = modelMapper.map(groupToUpdate, Group.class);
+        group.setId(groupCurrent.getId());
+        group.setCreatedAt(groupCurrent.getCreatedAt());
         group.setUpdatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         
         return group;

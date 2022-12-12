@@ -7,7 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ public class Shop {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private String createdAt;
     
-    @Column(name="updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00'")
+    @Column(name="updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     private String updatedAt;
     
     @OneToMany(mappedBy="shop", cascade=CascadeType.REMOVE)
@@ -57,7 +58,7 @@ public class Shop {
                 .address(params.getAddress())
                 .hasSite(params.getHasSite())
                 .createdAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
-                .updatedAt("0000-00-00 00:00:00")
+                .updatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                 .build();
     }
     

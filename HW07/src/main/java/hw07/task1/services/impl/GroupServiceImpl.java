@@ -39,21 +39,21 @@ public class GroupServiceImpl implements GroupService {
         });
     }
     
-    public GroupDto create(GroupEditDto groupDto) {
-        Group group = groupRepository.save(
-                groupMapper.toCreateEntity(groupDto)
+    public GroupDto create(GroupEditDto groupToCreate) {
+        Group groupCreated = groupRepository.save(
+                groupMapper.toCreateEntity(groupToCreate)
         );
     
-        return groupMapper.toDto(group);
+        return groupMapper.toDto(groupCreated);
     }
     
-    public GroupDto update(Integer id, GroupEditDto groupDto) {
-        Group currentGroup = findByIdIfExists(id);
-        Group updatedGroup = groupRepository.save(
-                groupMapper.toUpdateEntity(currentGroup, groupDto)
+    public GroupDto update(Integer id, GroupEditDto groupToUpdate) {
+        Group groupCurrent = findByIdIfExists(id);
+        Group groupUpdated = groupRepository.save(
+                groupMapper.toUpdateEntity(groupCurrent, groupToUpdate)
         );
     
-        return groupMapper.toDto(updatedGroup);
+        return groupMapper.toDto(groupUpdated);
     }
     
     public void deleteById(Integer id) {
