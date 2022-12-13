@@ -1,9 +1,14 @@
 package hw09.task1.services;
 
 import hw09.task1.WatchmanExtension;
+import hw09.task1.dto.GroupDto;
+import hw09.task1.dto.GroupEditDto;
+import hw09.task1.dto.StudentDto;
 import hw09.task1.entities.Group;
 import hw09.task1.entities.Student;
 import hw09.task1.exceptions.GroupNotFoundException;
+import hw09.task1.mappers.GroupMapper;
+import hw09.task1.mappers.StudentMapper;
 import hw09.task1.repositories.GroupRepository;
 import hw09.task1.services.impl.GroupServiceImpl;
 
@@ -32,10 +37,17 @@ import static org.mockito.Mockito.*;
 public class GroupServiceTest {
     
     private static final Group GROUP = new Group();
+    private static final GroupDto GROUP_DTO = new GroupDto();
+    private static final GroupEditDto GROUP_EDIT_DTO = new GroupEditDto();
     private static final Student STUDENT = new Student();
+    private static final StudentDto STUDENT_DTO = new StudentDto();
     
     @Mock
     private GroupRepository groupRepository;
+    @Mock
+    private GroupMapper groupMapper;
+    @Mock
+    private StudentMapper studentMapper;
     
     @InjectMocks
     private GroupServiceImpl groupService;
@@ -43,33 +55,42 @@ public class GroupServiceTest {
     @Test
     public void findByIdIfExistsReturnValidResponse() {
         when(groupRepository.findById(1)).thenReturn(Optional.of(GROUP));
+        
         assertEquals(GROUP, groupService.findByIdIfExists(1));
     }
     
     @Test
     public void findByIdIfExistsReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupRepository).findById(1);
+        when(groupRepository.findById(1)).thenReturn(Optional.empty());
+        
         assertThatThrownBy(() -> groupService.findByIdIfExists(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }
     
     @Test
     public void createReturnValidResponse() {
-        when(groupRepository.save(Group.build(GROUP))).thenReturn(GROUP);
-        assertEquals(GROUP, groupService.create(GROUP));
+        when(groupMapper.toCreateEntity(GROUP_EDIT_DTO)).thenReturn(GROUP);
+        when(groupMapper.toDto(GROUP)).thenReturn(GROUP_DTO);
+        when(groupRepository.save(GROUP)).thenReturn(GROUP);
+        
+        assertEquals(GROUP_DTO, groupService.create(GROUP_EDIT_DTO));
     }
     
     @Test
     public void updateReturnValidResponse() {
         when(groupRepository.findById(1)).thenReturn(Optional.of(GROUP));
-        when(groupRepository.save(Group.build(1, GROUP))).thenReturn(GROUP);
-        assertEquals(GROUP, groupService.update(1, GROUP));
+        when(groupMapper.toUpdateEntity(GROUP, GROUP_EDIT_DTO)).thenReturn(GROUP);
+        when(groupMapper.toDto(GROUP)).thenReturn(GROUP_DTO);
+        when(groupRepository.save(GROUP)).thenReturn(GROUP);
+        
+        assertEquals(GROUP_DTO, groupService.update(1, GROUP_EDIT_DTO));
     }
     
     @Test
     public void updateReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupRepository).findById(1);
-        assertThatThrownBy(() -> groupService.update(1, GROUP))
+        when(groupRepository.findById(1)).thenReturn(Optional.empty());
+        
+        assertThatThrownBy(() -> groupService.update(1, GROUP_EDIT_DTO))
                 .isInstanceOf(GroupNotFoundException.class);
     }
     
@@ -84,7 +105,8 @@ public class GroupServiceTest {
     
     @Test
     public void deleteReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupRepository).findById(1);
+        when(groupRepository.findById(1)).thenReturn(Optional.empty());
+        
         assertThatThrownBy(() -> groupService.deleteById(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }
@@ -92,18 +114,23 @@ public class GroupServiceTest {
     @Test
     public void findAllReturnValidResponse() {
         when(groupRepository.findAll()).thenReturn(List.of(GROUP));
-        assertEquals(List.of(GROUP), groupService.findAll());
+        when(groupMapper.toDto(GROUP)).thenReturn(GROUP_DTO);
+        
+        assertEquals(List.of(GROUP_DTO), groupService.findAll());
     }
     
     @Test
     public void findByIdReturnValidResponse() {
         when(groupRepository.findById(1)).thenReturn(Optional.of(GROUP));
-        assertEquals(GROUP, groupService.findById(1));
+        when(groupMapper.toDto(GROUP)).thenReturn(GROUP_DTO);
+        
+        assertEquals(GROUP_DTO, groupService.findById(1));
     }
     
     @Test
     public void findByIdReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupRepository).findById(1);
+        when(groupRepository.findById(1)).thenReturn(Optional.empty());
+        
         assertThatThrownBy(() -> groupService.findById(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }
@@ -111,15 +138,17 @@ public class GroupServiceTest {
     @Test
     public void findStudentsReturnValidResponse() {
         when(groupRepository.findById(1)).thenReturn(Optional.of(GROUP));
+        when(studentMapper.toDto(STUDENT)).thenReturn(STUDENT_DTO);
         
         GROUP.setStudents(List.of(STUDENT));
         
-        assertEquals(List.of(STUDENT), groupService.findStudents(1));
+        assertEquals(List.of(STUDENT_DTO), groupService.findStudents(1));
     }
     
     @Test
     public void findStudentsReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupRepository).findById(1);
+        when(groupRepository.findById(1)).thenReturn(Optional.empty());
+        
         assertThatThrownBy(() -> groupService.findStudents(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }
@@ -136,7 +165,8 @@ public class GroupServiceTest {
     
     @Test
     public void findStudentsCountReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupRepository).findById(1);
+        when(groupRepository.findById(1)).thenReturn(Optional.empty());
+        
         assertThatThrownBy(() -> groupService.findStudentsCount(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }

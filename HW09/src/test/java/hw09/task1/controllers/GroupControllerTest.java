@@ -1,13 +1,11 @@
 package hw09.task1.controllers;
 
 import hw09.task1.WatchmanExtension;
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Student;
-import hw09.task1.entities.Teacher;
+import hw09.task1.dto.GroupDto;
+import hw09.task1.dto.GroupEditDto;
+import hw09.task1.dto.StudentDto;
 import hw09.task1.exceptions.GroupNotFoundException;
-import hw09.task1.mappers.GroupMapper;
-import hw09.task1.mappers.StudentMapper;
-import hw09.task1.services.impl.GroupServiceImpl;
+import hw09.task1.services.GroupService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,79 +30,86 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class GroupControllerTest {
     
-    private static final Group GROUP = new Group();
-    private static final Student STUDENT = new Student();
-    
-    {
-        GROUP.setTeacher(new Teacher());
-    }
+    private static final GroupDto GROUP_DTO = new GroupDto();
+    private static final GroupEditDto GROUP_EDIT_DTO = new GroupEditDto();
+    private static final StudentDto STUDENT_DTO = new StudentDto();
     
     @Mock
-    private GroupServiceImpl groupService;
+    private GroupService groupService;
     
     @InjectMocks
     private GroupController groupController;
     
     @Test
     public void createReturnValidResponse() {
-        when(groupService.create(GROUP)).thenReturn(GROUP);
-        assertEquals(GroupMapper.getForShow(GROUP), groupController.create(GROUP));
+        when(groupService.create(GROUP_EDIT_DTO)).thenReturn(GROUP_DTO);
+        
+        assertEquals(GROUP_DTO, groupController.create(GROUP_EDIT_DTO));
     }
     
     @Test
     public void updateReturnValidResponse() {
-        when(groupService.update(1, GROUP)).thenReturn(GROUP);
-        assertEquals(GroupMapper.getForShow(GROUP), groupController.update(1, GROUP));
+        when(groupService.update(1, GROUP_EDIT_DTO)).thenReturn(GROUP_DTO);
+        
+        assertEquals(GROUP_DTO, groupController.update(1, GROUP_EDIT_DTO));
     }
     
     @Test
     public void updateReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupService).update(1, GROUP);
-        assertThatThrownBy(() -> groupController.update(1, GROUP))
+        when(groupService.update(1, GROUP_EDIT_DTO)).thenThrow(GroupNotFoundException.class);
+        
+        assertThatThrownBy(() -> groupController.update(1, GROUP_EDIT_DTO))
                 .isInstanceOf(GroupNotFoundException.class);
     }
     
     @Test
     public void deleteReturnValidResponse() {
         groupController.delete(1);
+        
         verify(groupService).deleteById(1);
     }
     
     @Test
     public void deleteReturnException() {
         doThrow(GroupNotFoundException.class).when(groupService).deleteById(1);
+        
         assertThatThrownBy(() -> groupController.delete(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }
     
     @Test
     public void getAllReturnValidResponse() {
-        when(groupService.findAll()).thenReturn(List.of(GROUP));
-        assertEquals(Stream.of(GROUP).map(GroupMapper::getForShow).toList(), groupController.getAll());
+        when(groupService.findAll()).thenReturn(List.of(GROUP_DTO));
+        
+        assertEquals(List.of(GROUP_DTO), groupController.getAll());
     }
     
     @Test
     public void getOneReturnValidResponse() {
-        when(groupService.findById(1)).thenReturn(GROUP);
-        assertEquals(GroupMapper.getForShow(GROUP), groupController.getOne(1));
+        when(groupService.findById(1)).thenReturn(GROUP_DTO);
+        
+        assertEquals(GROUP_DTO, groupController.getOne(1));
     }
     
     @Test
     public void getOneReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupService).findById(1);
+        when(groupService.findById(1)).thenThrow(GroupNotFoundException.class);
+        
         assertThatThrownBy(() -> groupController.getOne(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }
     
     @Test
     public void getStudentsReturnValidResponse() {
-        when(groupService.findStudents(1)).thenReturn(List.of(STUDENT));
-        assertEquals(Stream.of(STUDENT).map(StudentMapper::getForShowSingle).toList(), groupController.getStudents(1));
+        when(groupService.findStudents(1)).thenReturn(List.of(STUDENT_DTO));
+        
+        assertEquals(List.of(STUDENT_DTO), groupController.getStudents(1));
     }
     
     @Test
     public void getStudentsReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupService).findStudents(1);
+        when(groupService.findStudents(1)).thenThrow(GroupNotFoundException.class);
+        
         assertThatThrownBy(() -> groupController.getStudents(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }
@@ -113,13 +117,16 @@ public class GroupControllerTest {
     @Test
     public void getStudentsCountReturnValidResponse() {
         int count = anyInt();
+        
         when(groupService.findStudentsCount(1)).thenReturn(count);
+        
         assertEquals(count, groupController.getStudentsCount(1));
     }
     
     @Test
     public void getStudentsCountReturnException() {
-        doThrow(GroupNotFoundException.class).when(groupService).findStudentsCount(1);
+        when(groupService.findStudentsCount(1)).thenThrow(GroupNotFoundException.class);
+        
         assertThatThrownBy(() -> groupController.getStudentsCount(1))
                 .isInstanceOf(GroupNotFoundException.class);
     }

@@ -1,11 +1,10 @@
 package hw09.task1.controllers;
 
 import hw09.task1.WatchmanExtension;
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Student;
+import hw09.task1.dto.StudentDto;
+import hw09.task1.dto.StudentEditDto;
 import hw09.task1.exceptions.StudentNotFoundException;
-import hw09.task1.mappers.StudentMapper;
-import hw09.task1.services.impl.StudentServiceImpl;
+import hw09.task1.services.StudentService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,65 +28,70 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class StudentControllerTest {
     
-    private static final Student STUDENT = new Student();
+    private static final StudentDto STUDENT_DTO = new StudentDto();
+    private static final StudentEditDto STUDENT_EDIT_DTO = new StudentEditDto();
     
     @Mock
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
     
     @InjectMocks
     private StudentController studentController;
     
-    {
-        STUDENT.setGroup(new Group());
-    }
-    
     @Test
     public void createReturnValidResponse() {
-        when(studentService.create(STUDENT)).thenReturn(STUDENT);
-        assertEquals(StudentMapper.getForShow(STUDENT), studentController.create(STUDENT));
+        when(studentService.create(STUDENT_EDIT_DTO)).thenReturn(STUDENT_DTO);
+        
+        assertEquals(STUDENT_DTO, studentController.create(STUDENT_EDIT_DTO));
     }
     
     @Test
     public void updateReturnValidResponse() {
-        when(studentService.update(1, STUDENT)).thenReturn(STUDENT);
-        assertEquals(StudentMapper.getForShow(STUDENT), studentController.update(1, STUDENT));
+        when(studentService.update(1, STUDENT_EDIT_DTO)).thenReturn(STUDENT_DTO);
+        
+        assertEquals(STUDENT_DTO, studentController.update(1, STUDENT_EDIT_DTO));
     }
     
     @Test
     public void updateReturnException() {
-        doThrow(StudentNotFoundException.class).when(studentService).update(1, STUDENT);
-        assertThatThrownBy(() -> studentController.update(1, STUDENT))
+        when(studentService.update(1, STUDENT_EDIT_DTO)).thenThrow(StudentNotFoundException.class);
+        
+        assertThatThrownBy(() -> studentController.update(1, STUDENT_EDIT_DTO))
                 .isInstanceOf(StudentNotFoundException.class);
     }
     
     @Test
     public void deleteReturnValidResponse() {
         studentController.delete(1);
+        
         verify(studentService).deleteById(1);
     }
     
     @Test
     public void deleteReturnException() {
         doThrow(StudentNotFoundException.class).when(studentService).deleteById(1);
+        
         assertThatThrownBy(() -> studentController.delete(1))
                 .isInstanceOf(StudentNotFoundException.class);
     }
     
     @Test
     public void getAllReturnValidResponse() {
-        when(studentService.findAll()).thenReturn(List.of(STUDENT));
-        assertEquals(Stream.of(STUDENT).map(StudentMapper::getForShow).toList(), studentController.getAll());
+        when(studentService.findAll()).thenReturn(List.of(STUDENT_DTO));
+        
+        assertEquals(List.of(STUDENT_DTO), studentController.getAll());
     }
     
     @Test
     public void getOneReturnValidResponse() {
-        when(studentService.findById(1)).thenReturn(STUDENT);
-        assertEquals(StudentMapper.getForShow(STUDENT), studentController.getOne(1));
+        when(studentService.findById(1)).thenReturn(STUDENT_DTO);
+        
+        assertEquals(STUDENT_DTO, studentController.getOne(1));
     }
     
     @Test
     public void getOneReturnException() {
-        doThrow(StudentNotFoundException.class).when(studentService).findById(1);
+        when(studentService.findById(1)).thenThrow(StudentNotFoundException.class);
+        
         assertThatThrownBy(() -> studentController.getOne(1))
                 .isInstanceOf(StudentNotFoundException.class);
     }
