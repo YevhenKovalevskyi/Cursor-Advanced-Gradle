@@ -5,8 +5,10 @@ import hw09.task1.dto.TeacherEditDto;
 import hw09.task1.entities.Teacher;
 import hw09.task1.mappers.TeacherMapper;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 import org.springframework.stereotype.Component;
@@ -17,6 +19,7 @@ import java.util.Date;
 /**
  * @author YevhenKovalevskyi
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Component
 public class TeacherMapperImpl implements TeacherMapper {
