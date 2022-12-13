@@ -24,12 +24,15 @@ subprojects {
         assertj: "3.23.1",
         mockito: "4.9.0",
         jacoco: "0.8.8",
+
         mysql: "8.0.31",
         pgsql: "42.5.1",
         mongo: "3.12.11",
         oracle: "19.17.0.0",
+
         spring: "6.0.2",
         spring_boot: "3.0.0",
+
         guava: "31.1-jre",
         validation: "3.0.2",
         annotation: "2.1.1",
@@ -48,10 +51,12 @@ subprojects {
         assertj_core: "org.assertj:assertj-core:${versions.assertj}",
         mockito_core: "org.mockito:mockito-core:${versions.mockito}",
         jacoco: "org.jacoco:org.jacoco.agent:${versions.jacoco}",
+
         mysql: "com.mysql:mysql-connector-j:${versions.mysql}",
         pgsql: "org.postgresql:postgresql:${versions.pgsql}",
         mongo: "org.mongodb:mongo-java-driver:${versions.mongo}",
         oracle: "com.oracle.database.jdbc:ojdbc10:${versions.oracle}",
+
         spring_core: "org.springframework:spring-core:${versions.spring}",
         spring_beans: "org.springframework:spring-beans:${versions.spring}",
         spring_context: "org.springframework:spring-context:${versions.spring}",
@@ -59,6 +64,7 @@ subprojects {
         spring_boot_starter_test: "org.springframework.boot:spring-boot-starter-test:${versions.spring_boot}",
         spring_boot_starter_jpa: "org.springframework.boot:spring-boot-starter-data-jpa:${versions.spring_boot}",
         spring_boot_starter_validation: "org.springframework.boot:spring-boot-starter-validation:${versions.spring_boot}",
+
         guava: "com.google.guava:guava:${versions.guava}",
         validation: "jakarta.validation:jakarta.validation-api:${versions.validation}",
         annotation: "jakarta.annotation:jakarta.annotation-api:${versions.annotation}",
