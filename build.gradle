@@ -18,11 +18,11 @@ subprojects {
 
     ext.versions = [
         lombok: "1.18.24",
-        slf4j: "2.0.5",
+        slf4j: "2.0.6",
         logback: "1.4.5",
         junit5: "5.9.1",
         assertj: "3.23.1",
-        mockito: "4.9.0",
+        mockito: "4.10.0",
         jacoco: "0.8.8",
 
         mysql: "8.0.31",
@@ -30,7 +30,7 @@ subprojects {
         mongo: "3.12.11",
         oracle: "19.17.0.0",
 
-        spring: "6.0.2",
+        spring: "6.0.3",
         spring_boot: "3.0.0",
 
         guava: "31.1-jre",

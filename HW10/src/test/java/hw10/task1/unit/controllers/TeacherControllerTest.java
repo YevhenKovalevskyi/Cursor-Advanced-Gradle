@@ -1,12 +1,13 @@
-package hw09.task1.controllers;
+package hw10.task1.unit.controllers;
 
-import hw09.task1.WatchmanExtension;
-import hw09.task1.dto.GroupDto;
-import hw09.task1.dto.StudentDto;
-import hw09.task1.dto.TeacherDto;
-import hw09.task1.dto.TeacherEditDto;
-import hw09.task1.exceptions.TeacherNotFoundException;
-import hw09.task1.services.TeacherService;
+import hw10.task1.WatchmanExtension;
+import hw10.task1.controllers.TeacherController;
+import hw10.task1.dto.GroupDto;
+import hw10.task1.dto.StudentDto;
+import hw10.task1.dto.TeacherDto;
+import hw10.task1.dto.TeacherEditDto;
+import hw10.task1.exceptions.TeacherNotFoundException;
+import hw10.task1.services.TeacherService;
 
 import lombok.extern.slf4j.Slf4j;
 

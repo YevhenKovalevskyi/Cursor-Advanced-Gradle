@@ -1,13 +1,13 @@
-package hw09.task1.services;
+package hw10.task1.unit.services;
 
-import hw09.task1.WatchmanExtension;
-import hw09.task1.dto.StudentDto;
-import hw09.task1.dto.StudentEditDto;
-import hw09.task1.entities.Student;
-import hw09.task1.exceptions.StudentNotFoundException;
-import hw09.task1.mappers.StudentMapper;
-import hw09.task1.repositories.StudentRepository;
-import hw09.task1.services.impl.StudentServiceImpl;
+import hw10.task1.WatchmanExtension;
+import hw10.task1.dto.StudentDto;
+import hw10.task1.dto.StudentEditDto;
+import hw10.task1.entities.Student;
+import hw10.task1.exceptions.StudentNotFoundException;
+import hw10.task1.mappers.StudentMapper;
+import hw10.task1.repositories.StudentRepository;
+import hw10.task1.services.impl.StudentServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
