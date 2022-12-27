@@ -69,9 +69,9 @@ public class TeacherControllerTest {
         when(teacherService.create(TEACHER_EDIT_DTO)).thenReturn(TEACHER_DTO);
         
         mockMvc.perform(
-                        post("/teachers")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(TEACHER_EDIT_DTO))
+                post("/teachers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(TEACHER_EDIT_DTO))
                 )
                 .andExpectAll(
                         status().isCreated(),
@@ -86,9 +86,9 @@ public class TeacherControllerTest {
         when(teacherService.update(ID, TEACHER_EDIT_DTO)).thenReturn(TEACHER_DTO);
         
         mockMvc.perform(
-                        put("/teachers/{id}", ID)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(TEACHER_EDIT_DTO))
+                put("/teachers/{id}", ID)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(TEACHER_EDIT_DTO))
                 )
                 .andExpectAll(
                         status().isOk(),
@@ -103,9 +103,9 @@ public class TeacherControllerTest {
         when(teacherService.update(ID, TEACHER_EDIT_DTO)).thenThrow(new TeacherNotFoundException(TEACHER_NOT_FOUND));
         
         mockMvc.perform(
-                        put("/teachers/{id}", ID)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(TEACHER_EDIT_DTO))
+                put("/teachers/{id}", ID)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(TEACHER_EDIT_DTO))
                 )
                 .andExpectAll(
                         status().isNotFound(),

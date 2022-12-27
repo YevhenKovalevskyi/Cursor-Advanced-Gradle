@@ -66,9 +66,9 @@ public class GroupControllerTest {
         when(groupService.create(GROUP_EDIT_DTO)).thenReturn(GROUP_DTO);
         
         mockMvc.perform(
-                        post("/groups")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(GROUP_EDIT_DTO))
+                post("/groups")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(GROUP_EDIT_DTO))
                 )
                 .andExpectAll(
                         status().isCreated(),
@@ -83,9 +83,9 @@ public class GroupControllerTest {
         when(groupService.update(ID, GROUP_EDIT_DTO)).thenReturn(GROUP_DTO);
         
         mockMvc.perform(
-                        put("/groups/{id}", ID)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(GROUP_EDIT_DTO))
+                put("/groups/{id}", ID)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(GROUP_EDIT_DTO))
                 )
                 .andExpectAll(
                         status().isOk(),
@@ -100,9 +100,9 @@ public class GroupControllerTest {
         when(groupService.update(ID, GROUP_EDIT_DTO)).thenThrow(new GroupNotFoundException(GROUP_NOT_FOUND));
         
         mockMvc.perform(
-                        put("/groups/{id}", ID)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(GROUP_EDIT_DTO))
+                put("/groups/{id}", ID)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(GROUP_EDIT_DTO))
                 )
                 .andExpectAll(
                         status().isNotFound(),
