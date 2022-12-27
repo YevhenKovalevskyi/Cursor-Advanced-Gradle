@@ -28,7 +28,7 @@ Content-Type: application/json
 ###
 
 # students/{id} | update
-POST http://localhost:8080/students/101
+PUT http://localhost:8080/students/101
 Content-Type: application/json
 
 {

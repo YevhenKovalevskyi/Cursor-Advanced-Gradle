@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @ExtendWith(WatchmanExtension.class)
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(controllers = GroupController.class)
+@WebMvcTest(GroupController.class)
 public class GroupControllerTest {
     
     private static final int ID = 1;
@@ -78,12 +78,12 @@ public class GroupControllerTest {
     }
     
     @Test
-    @DisplayName("API. Group. POST '/groups/{id}'. Valid. Updated group")
+    @DisplayName("API. Group. PUT '/groups/{id}'. Valid. Updated group")
     void updateReturnValidResponse() throws Exception {
         when(groupService.update(ID, GROUP_EDIT_DTO)).thenReturn(GROUP_DTO);
         
         mockMvc.perform(
-                        post("/groups/{id}", ID)
+                        put("/groups/{id}", ID)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(GROUP_EDIT_DTO))
                 )
@@ -95,12 +95,12 @@ public class GroupControllerTest {
     }
     
     @Test
-    @DisplayName("API. Group. POST '/groups/{id}'. Exception. Unknown group by ID")
+    @DisplayName("API. Group. PUT '/groups/{id}'. Exception. Unknown group by ID")
     void updateReturnException() throws Exception {
         when(groupService.update(ID, GROUP_EDIT_DTO)).thenThrow(new GroupNotFoundException(GROUP_NOT_FOUND));
         
         mockMvc.perform(
-                        post("/groups/{id}", ID)
+                        put("/groups/{id}", ID)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(GROUP_EDIT_DTO))
                 )
@@ -116,7 +116,7 @@ public class GroupControllerTest {
     void deleteReturnValidResponse() throws Exception {
         mockMvc.perform(delete("/groups/{id}", ID))
                 .andExpectAll(
-                        status().isOk()
+                        status().isNoContent()
                 );
     }
     

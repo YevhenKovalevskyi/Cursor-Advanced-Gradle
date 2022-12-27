@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @ExtendWith(WatchmanExtension.class)
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(controllers = StudentController.class)
+@WebMvcTest(StudentController.class)
 public class StudentControllerTest {
     
     private static final int ID = 1;
@@ -77,12 +77,12 @@ public class StudentControllerTest {
     }
     
     @Test
-    @DisplayName("API. Student. POST '/students/{id}'. Valid. Updated student")
+    @DisplayName("API. Student. PUT '/students/{id}'. Valid. Updated student")
     void updateReturnValidResponse() throws Exception {
         when(studentService.update(ID, STUDENT_EDIT_DTO)).thenReturn(STUDENT_DTO);
         
         mockMvc.perform(
-                post("/students/{id}", ID)
+                put("/students/{id}", ID)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(STUDENT_EDIT_DTO))
                 )
@@ -94,12 +94,12 @@ public class StudentControllerTest {
     }
     
     @Test
-    @DisplayName("API. Student. POST '/students/{id}'. Exception. Unknown student by ID")
+    @DisplayName("API. Student. PUT '/students/{id}'. Exception. Unknown student by ID")
     void updateReturnException() throws Exception {
         when(studentService.update(ID, STUDENT_EDIT_DTO)).thenThrow(new StudentNotFoundException(STUDENT_NOT_FOUND));
     
         mockMvc.perform(
-                post("/students/{id}", ID)
+                put("/students/{id}", ID)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(STUDENT_EDIT_DTO))
                 )
@@ -115,7 +115,7 @@ public class StudentControllerTest {
     void deleteReturnValidResponse() throws Exception {
         mockMvc.perform(delete("/students/{id}", ID))
                 .andExpectAll(
-                        status().isOk()
+                        status().isNoContent()
                 );
     }
     

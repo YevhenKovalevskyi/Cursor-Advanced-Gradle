@@ -24,6 +24,8 @@ subprojects {
         assertj: "3.23.1",
         mockito: "4.10.0",
         jacoco: "0.8.8",
+        allure_junit: "2.20.1",
+        allure_gradle: "2.11.2",
 
         mysql: "8.0.31",
         pgsql: "42.5.1",
@@ -51,6 +53,8 @@ subprojects {
         assertj_core: "org.assertj:assertj-core:${versions.assertj}",
         mockito_core: "org.mockito:mockito-core:${versions.mockito}",
         jacoco: "org.jacoco:org.jacoco.agent:${versions.jacoco}",
+        allure_junit: "io.qameta.allure:allure-junit5:${versions.allure_junit}",
+        allure_gradle: "io.qameta.allure.gradle.allure:allure-plugin:${versions.allure_gradle}",
 
         mysql: "com.mysql:mysql-connector-j:${versions.mysql}",
         pgsql: "org.postgresql:postgresql:${versions.pgsql}",

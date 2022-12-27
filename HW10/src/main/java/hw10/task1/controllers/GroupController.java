@@ -34,7 +34,7 @@ public class GroupController {
     /**
      * Update Group by ID from FormData
      */
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public GroupDto update(@PathVariable Integer id, @RequestBody GroupEditDto groupToUpdate) {
         return groupService.update(id, groupToUpdate);
@@ -44,7 +44,7 @@ public class GroupController {
      * Delete Group by ID
      */
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {
         groupService.deleteById(id);
     }

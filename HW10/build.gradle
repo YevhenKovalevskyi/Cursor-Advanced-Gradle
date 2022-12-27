@@ -1,5 +1,6 @@
 plugins {
     id "jacoco"
+    id "io.qameta.allure" version "2.11.2"
 }
 
 compileJava {
@@ -20,6 +21,7 @@ dependencies {
     testImplementation libraries.assertj_core
     testImplementation libraries.mockito_core
     testImplementation libraries.jacoco
+    testImplementation libraries.allure_junit
 
     // databases
     implementation libraries.mysql
@@ -58,6 +60,11 @@ jacocoTestReport {
             ])
         }))
     }
+}
+
+allure {
+    autoconfigure = true
+    version = versions.allure_junit
 }
 
 description = "home_work_10"

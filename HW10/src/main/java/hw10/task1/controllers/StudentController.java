@@ -33,7 +33,7 @@ public class StudentController {
     /**
      * Update Student by ID from FormData
      */
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public StudentDto update(@PathVariable Integer id, @RequestBody StudentEditDto studentToUpdate) {
         return studentService.update(id, studentToUpdate);
@@ -43,7 +43,7 @@ public class StudentController {
      * Delete Student by ID
      */
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {
         studentService.deleteById(id);
     }

@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @ExtendWith(WatchmanExtension.class)
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(controllers = TeacherController.class)
+@WebMvcTest(TeacherController.class)
 public class TeacherControllerTest {
     
     private static final int ID = 1;
@@ -81,12 +81,12 @@ public class TeacherControllerTest {
     }
     
     @Test
-    @DisplayName("API. Teacher. POST '/teachers/{id}'. Valid. Updated teacher")
+    @DisplayName("API. Teacher. PUT '/teachers/{id}'. Valid. Updated teacher")
     void updateReturnValidResponse() throws Exception {
         when(teacherService.update(ID, TEACHER_EDIT_DTO)).thenReturn(TEACHER_DTO);
         
         mockMvc.perform(
-                        post("/teachers/{id}", ID)
+                        put("/teachers/{id}", ID)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(TEACHER_EDIT_DTO))
                 )
@@ -98,12 +98,12 @@ public class TeacherControllerTest {
     }
     
     @Test
-    @DisplayName("API. Teacher. POST '/teachers/{id}'. Exception. Unknown teacher by ID")
+    @DisplayName("API. Teacher. PUT '/teachers/{id}'. Exception. Unknown teacher by ID")
     void updateReturnException() throws Exception {
         when(teacherService.update(ID, TEACHER_EDIT_DTO)).thenThrow(new TeacherNotFoundException(TEACHER_NOT_FOUND));
         
         mockMvc.perform(
-                        post("/teachers/{id}", ID)
+                        put("/teachers/{id}", ID)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(TEACHER_EDIT_DTO))
                 )
@@ -119,7 +119,7 @@ public class TeacherControllerTest {
     void deleteReturnValidResponse() throws Exception {
         mockMvc.perform(delete("/teachers/{id}", ID))
                 .andExpectAll(
-                        status().isOk()
+                        status().isNoContent()
                 );
     }
     
