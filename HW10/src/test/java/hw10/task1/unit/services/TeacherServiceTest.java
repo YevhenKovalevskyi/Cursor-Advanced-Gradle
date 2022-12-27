@@ -1,19 +1,19 @@
-package hw09.task1.services;
+package hw10.task1.unit.services;
 
-import hw09.task1.WatchmanExtension;
-import hw09.task1.dto.GroupDto;
-import hw09.task1.dto.StudentDto;
-import hw09.task1.dto.TeacherDto;
-import hw09.task1.dto.TeacherEditDto;
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Student;
-import hw09.task1.entities.Teacher;
-import hw09.task1.exceptions.TeacherNotFoundException;
-import hw09.task1.mappers.GroupMapper;
-import hw09.task1.mappers.StudentMapper;
-import hw09.task1.mappers.TeacherMapper;
-import hw09.task1.repositories.TeacherRepository;
-import hw09.task1.services.impl.TeacherServiceImpl;
+import hw10.task1.WatchmanExtension;
+import hw10.task1.dto.GroupDto;
+import hw10.task1.dto.StudentDto;
+import hw10.task1.dto.TeacherDto;
+import hw10.task1.dto.TeacherEditDto;
+import hw10.task1.entities.Group;
+import hw10.task1.entities.Student;
+import hw10.task1.entities.Teacher;
+import hw10.task1.exceptions.TeacherNotFoundException;
+import hw10.task1.mappers.GroupMapper;
+import hw10.task1.mappers.StudentMapper;
+import hw10.task1.mappers.TeacherMapper;
+import hw10.task1.repositories.TeacherRepository;
+import hw10.task1.services.impl.TeacherServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 

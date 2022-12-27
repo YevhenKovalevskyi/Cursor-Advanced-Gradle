@@ -1,16 +1,16 @@
-package hw09.task1.services;
+package hw10.task1.unit.services;
 
-import hw09.task1.WatchmanExtension;
-import hw09.task1.dto.GroupDto;
-import hw09.task1.dto.GroupEditDto;
-import hw09.task1.dto.StudentDto;
-import hw09.task1.entities.Group;
-import hw09.task1.entities.Student;
-import hw09.task1.exceptions.GroupNotFoundException;
-import hw09.task1.mappers.GroupMapper;
-import hw09.task1.mappers.StudentMapper;
-import hw09.task1.repositories.GroupRepository;
-import hw09.task1.services.impl.GroupServiceImpl;
+import hw10.task1.WatchmanExtension;
+import hw10.task1.dto.GroupDto;
+import hw10.task1.dto.GroupEditDto;
+import hw10.task1.dto.StudentDto;
+import hw10.task1.entities.Group;
+import hw10.task1.entities.Student;
+import hw10.task1.exceptions.GroupNotFoundException;
+import hw10.task1.mappers.GroupMapper;
+import hw10.task1.mappers.StudentMapper;
+import hw10.task1.repositories.GroupRepository;
+import hw10.task1.services.impl.GroupServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 

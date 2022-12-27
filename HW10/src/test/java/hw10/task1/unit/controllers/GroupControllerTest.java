@@ -1,11 +1,12 @@
-package hw09.task1.controllers;
+package hw10.task1.unit.controllers;
 
-import hw09.task1.WatchmanExtension;
-import hw09.task1.dto.GroupDto;
-import hw09.task1.dto.GroupEditDto;
-import hw09.task1.dto.StudentDto;
-import hw09.task1.exceptions.GroupNotFoundException;
-import hw09.task1.services.GroupService;
+import hw10.task1.WatchmanExtension;
+import hw10.task1.controllers.GroupController;
+import hw10.task1.dto.GroupDto;
+import hw10.task1.dto.GroupEditDto;
+import hw10.task1.dto.StudentDto;
+import hw10.task1.exceptions.GroupNotFoundException;
+import hw10.task1.services.GroupService;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,0 +1,59 @@
+# teachers | findAll()
+GET http://localhost:8080/teachers
+
+###
+
+# teachers/{id} | findOne()
+GET http://localhost:8080/teachers/2
+
+###
+
+# teachers/{id} | findOne() - wrong ID
+GET http://localhost:8080/teachers/321
+
+###
+
+# teachers/{id}/groups | getGroups()
+GET http://localhost:8080/teachers/2/groups
+
+###
+
+# teachers/{id}/groups/count | getGroupsCount()
+GET http://localhost:8080/teachers/2/groups/count
+
+###
+
+# teachers/{id}/students | getStudents()
+GET http://localhost:8080/teachers/1/students
+
+###
+
+# teachers/{id}/students/count | getStudentsCount()
+GET http://localhost:8080/teachers/1/students/count
+
+###
+
+# teachers | create
+POST http://localhost:8080/teachers
+Content-Type: application/json
+
+{
+  "name": "Albert Einstein"
+}
+
+###
+
+# teachers/{id} | update
+PUT http://localhost:8080/teachers/11
+Content-Type: application/json
+
+{
+  "name": "George the Great"
+}
+
+###
+
+# teachers/{id} | delete
+DELETE http://localhost:8080/teachers/11
+
+###

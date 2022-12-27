@@ -1,0 +1,47 @@
+# students | findAll()
+GET http://localhost:8080/students
+
+###
+
+# students/{id} | findOne()
+GET http://localhost:8080/students/3
+
+###
+
+# students/{id} | findOne() - wrong ID
+GET http://localhost:8080/students/321
+
+###
+
+# students | create
+POST http://localhost:8080/students
+Content-Type: application/json
+
+{
+  "name": "Marco Polo",
+  "group": {
+    "id": 2,
+    "name": "TO-01"
+  }
+}
+
+###
+
+# students/{id} | update
+PUT http://localhost:8080/students/101
+Content-Type: application/json
+
+{
+  "name": "Marco Polo",
+  "group": {
+    "id": 3,
+    "name": "TB-01"
+  }
+}
+
+###
+
+# students/{id} | delete
+DELETE http://localhost:8080/students/105
+
+###

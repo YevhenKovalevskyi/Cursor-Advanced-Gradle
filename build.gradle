@@ -18,19 +18,21 @@ subprojects {
 
     ext.versions = [
         lombok: "1.18.24",
-        slf4j: "2.0.5",
+        slf4j: "2.0.6",
         logback: "1.4.5",
         junit5: "5.9.1",
         assertj: "3.23.1",
-        mockito: "4.9.0",
+        mockito: "4.10.0",
         jacoco: "0.8.8",
+        allure_junit: "2.20.1",
+        allure_gradle: "2.11.2",
 
         mysql: "8.0.31",
         pgsql: "42.5.1",
         mongo: "3.12.11",
         oracle: "19.17.0.0",
 
-        spring: "6.0.2",
+        spring: "6.0.3",
         spring_boot: "3.0.0",
 
         guava: "31.1-jre",
@@ -51,6 +53,8 @@ subprojects {
         assertj_core: "org.assertj:assertj-core:${versions.assertj}",
         mockito_core: "org.mockito:mockito-core:${versions.mockito}",
         jacoco: "org.jacoco:org.jacoco.agent:${versions.jacoco}",
+        allure_junit: "io.qameta.allure:allure-junit5:${versions.allure_junit}",
+        allure_gradle: "io.qameta.allure.gradle.allure:allure-plugin:${versions.allure_gradle}",
 
         mysql: "com.mysql:mysql-connector-j:${versions.mysql}",
         pgsql: "org.postgresql:postgresql:${versions.pgsql}",

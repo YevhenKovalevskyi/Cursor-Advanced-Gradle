@@ -1,0 +1,57 @@
+# groups | findAll()
+GET http://localhost:8080/groups
+
+###
+
+# groups/{id} | findOne()
+GET http://localhost:8080/groups/3
+
+###
+
+# groups/{id} | findOne() - wrong ID
+GET http://localhost:8080/groups/321
+
+###
+
+# groups/{id}/students | getStudents()
+GET http://localhost:8080/groups/3/students
+
+###
+
+# groups/{id}/students/count | getStudentsCount()
+GET http://localhost:8080/groups/3/students/count
+
+###
+
+# groups | create
+POST http://localhost:8080/groups
+Content-Type: application/json
+
+{
+  "name": "AA-03",
+  "teacher": {
+    "id": 2,
+    "name": "Catherina Kollatsch"
+  }
+}
+
+###
+
+# groups/{id} | update
+PUT http://localhost:8080/groups/21
+Content-Type: application/json
+
+{
+  "name": "AO-03",
+  "teacher": {
+    "id": 2,
+    "name": "Catherina Kollatsch"
+  }
+}
+
+###
+
+# groups/{id} | delete
+DELETE http://localhost:8080/groups/21
+
+###
